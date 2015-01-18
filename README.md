@@ -16,7 +16,8 @@ bower install a1atscript --save
 #### Angular Type Annotations
 
 ```javascript
-import {Controller, Service} from 'bower_components/dist/a1atscript'; // or appropriate path for your project
+import {Controller, Service} from 'bower_components/dist/a1atscript'; 
+// or appropriate path for your project
 
 @Controller('ExampleController', ['$scope', 'SomeService'])
 export function ExampleController($scope, SomeService) {
@@ -93,7 +94,7 @@ class RootMainInnerState {
 }
 ```
 
-Well the good news is you could potentially do that. Just define an Annoation and an Injector
+Well the good news is you could potentially do that. Just define an Annotation and an Injector
 
 ```javascript
 import {registerInjector} from 'bower_components/dist/a1atscript'
@@ -111,7 +112,7 @@ class StateInjector {
   }
   
   instantiate(module, dependencyList) {
-    angular.config(function($stateProvider) {
+    module.config(function($stateProvider) {
 	    dependencyList.forEach((dependencyObject) => {
 	      var metadata = dependencyObject.metadata;
 	      var StateClass = dependencyObject.dependency;
@@ -125,7 +126,7 @@ class StateInjector {
 }
 ```
 
-That's just a first pass -- I don't know if it would work but the possibilitys for custom Injectors are somewhat endless.
+That's just a first pass -- I don't know if it would work but the possibilities for custom Injectors are somewhat endless.
 
 #### Why isn't everything packaged into one file?
 
