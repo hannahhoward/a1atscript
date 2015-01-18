@@ -21,7 +21,14 @@ require.config({
   baseUrl: '/base',
 
   paths: {
-    assert: './node_modules/rtts-assert/dist/amd/assert'
+    assert: './node_modules/rtts-assert/dist/amd/assert',
+    angular: './bower_components/angular/angular',
+    angularMocks: './bower_components/angular-mocks/angular-mocks'
+  },
+
+  shim: {
+    'angular': {'exports': 'angular'},
+    'angularMocks': {deps: ['angular'], 'exports': 'angular.mock'},
   },
 
   // Dynamically load all test files.

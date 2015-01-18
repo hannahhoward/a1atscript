@@ -34,7 +34,9 @@ module.exports = function(config) {
       {pattern: 'test/main.js', included: true},
 
       // The runtime assertion library.
-      {pattern: 'node_modules/rtts-assert/dist/amd/assert.js', included: false}
+      {pattern: 'node_modules/rtts-assert/dist/amd/assert.js', included: false},
+      {pattern: 'bower_components/angular/angular.js', included: false },
+      {pattern: 'bower_components/angular-mocks/angular-mocks.js', included: false}
     ].concat(files),
 
     preprocessors: {
