@@ -1,0 +1,83 @@
+import angular from 'angular';
+import mock from 'angularMocks';
+
+import {
+  Module,
+  Controller,
+  Service
+} from '../src/annotations';
+
+import {
+  Injector
+} from '../src/Injector';
+
+@Controller('ExampleController', ['$scope', 'ExampleService'])
+function ExampleController($scope, ExampleService) {
+  $scope.value = ExampleService.value
+}
+
+@Service('ExampleService', [])
+class ExampleService {
+  constructor() {
+    this.value = 'Test Value';
+  }
+}
+
+@Module('ServiceModule', [ ExampleService ])
+function ServiceModule() {}
+
+angular.module('NonAtScriptModule', []).value('NonAtScriptValue', 'Another Test Value');
+
+@Module('AppModule', [ServiceModule, 'NonAtScriptModule', ExampleController])
+function AppModule() {}
+
+describe("Injector", function() {
+  var exampleService,
+  nonAtScriptValue,
+  exampleController,
+  scope;
+
+  beforeEach(function() {
+    var injector = new Injector();
+    injector.instantiate(AppModule);
+    mock.module('AppModule')
+  });
+
+  describe("other modules", function() {
+
+    beforeEach(mock.inject(function(_ExampleService_) {
+      exampleService = _ExampleService_;
+    }));
+
+    it("should setup components", function() {
+      expect(exampleService instanceof ExampleService).toBeTruthy();
+    });
+
+  });
+
+  describe("standard (non atScript) angular modules", function() {
+    beforeEach(mock.inject(function(_NonAtScriptValue_) {
+      nonAtScriptValue = _NonAtScriptValue_;
+    }));
+
+    it("should setup components", function() {
+      expect(nonAtScriptValue).toEqual('Another Test Value');
+    });
+
+  });
+
+  describe("components of the module", function() {
+    beforeEach(mock.inject(function($controller, $rootScope) {
+      scope = $rootScope.$new();
+      exampleController = $controller('ExampleController', { $scope: scope });
+      scope.$digest();
+    }));
+
+
+    it("should all components to depend on other components", function() {
+      expect(scope.value).toEqual("Test Value");
+    });
+
+  });
+
+});
