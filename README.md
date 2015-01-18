@@ -1,68 +1,134 @@
-## AtScript Playground
+## A-1 AtScript
 
-This is an empty repo to make it easy to experiment with [AtScript].
+This is a package that uses AtScript to provide syntactic sugar around Angular 1.x's Dependency Injection mechanism. It is designed to be a "bridge" to Angular 2.0  -- so you can get a flavor of the way we'll be writing Angular 2.0 code tomorrow, today. 
 
 
 ### Initial setup
 
+> You must be building your Angular 1.x with ES6 and Traceur to use this code. How to setup a JS build system that incorporates ES6 is beyond the scope of this document. Check for tutorials on the internet
+
+#### Install the module
+
 ```bash
-# Clone the repo...
-git clone https://github.com/vojtajina/atscript-playground.git
-cd atscript-playground
-
-# Then, you need to install all the dependencies...
-npm install
-
-# If you want to be able to use global commands `karma` and `gulp`...
-npm install -g karma-cli gulp
+bower install a1atscript --save
 ```
 
-### The minimal example
+#### Angular Type Annotations
 
-Our example consists of two files:
+```javascript
+import {Controller, Service} from 'bower_components/dist/a1atscript'; // or appropriate path for your project
 
-* `atscript-playground/src/something.ats` defines a simple class that returns the sum of two input values
-* `atscript-playground/src/main.ats` imports that class and prints a message to the console
+@Controller('ExampleController', ['$scope', 'SomeService'])
+export function ExampleController($scope, SomeService) {
+}
+
+@Service('ExampleService', ['SomeService'])
+export class ExampleService {
+	constructor(SomeService) {
+	}
+}
+```
+
+#### Module Annotations
+
+
+```javascript
+import {Module} from 'bower_components/dist/a1atscript';
+import {
+  ExampleController,
+  ExampleService
+} from './theCodeBlockRightAbove';
+import { AnotherModule } from './anotherA1AtScriptModule';
  
-### Running the example in the browser
-To run in the browser, you need to first build the project. This creates a `build/` directory that contains the transpiled `*.js` files that are created from your AtScript project.
-
-```bash
-# Do initial build, start a webserver and re-build on every file change...
-gulp build serve watch
+@Module('MyModule', [
+	AnotherModule,
+	ExampleController,
+	ExampleService,
+	'aRegularAngularModule'
+])
+export function MyModule() {}
 ```
-Open a browser and look in the console log to see the result.
 
-### Running the tests
-The tests are in `atscript-playground/test/something_spec.ats`. Run them using Karma, like so:
-```bash
-karma start
+Note you can mix other modules, controllers, and services all together in the list -- A1AtScript will figure out how to sort out the module definition.
+
+You can include regular angular modules by just referencing them as strings.
+
+#### Compile your main app module
+
+```javascript
+import {Injector, Module} from 'bower_components/dist/a1atscript';
+import { MyModule } from './myModule'
+
+@Module('AppModule', [
+  MyModule
+])
+function AppModule() {}
+
+var injector = new Injector();
+injector.instantiate(AppModule);
 ```
-Karma opens a browser window for running tests. To see the actual test output (and errors), look for the log in the terminal window where you issued the `karma start` command.
 
-### What are all the pieces involved?
+### Spice It Up: Write Your Own Injectors
 
-#### [Traceur]
-Transpiles AtScript code into regular ES5 (today's JavaScript) so that it can be run in a current browser.
+One of the things that has always annoyed me about ui-router is you write your states into a config block. Wouldn't it be nice if you could do something like this:
 
-#### [RequireJS]
-Traceur is configured to transpile AtScript modules into AMD syntax and we use RequireJS to load the code in the browser. This is just temporary until we improve the ES Module Loader polyfill ([more details](https://github.com/angular/atscript-playground/issues/3)).
+```javascript
+@State('root.main.inner')
+class RootMainInnerState {
+  constructor() {
+    this.template = 'awesome/awesome.html'
+    this.controller = 'AwesomeController'
+  }
+  
+  get resolve() {
+  	return {
+  		@Resolve('Backend')
+  		model: function(Backend) {
+  		}
+  		@Resolve('AuthService')
+  		user: function(AuthService) {
+  		}
+  	}
+  }
+}
+```
 
-#### [Assert] library
-When `typeAssertions: true` option is used, Traceur generates run-time type assertions such as `assert.type(x, Object)`. The assert library does the actual run-time check. Of course, you can use your own assert library.
+Well the good news is you could potentially do that. Just define an Annoation and an Injector
 
-The idea with type assertions is that you only use them during the development/testing and when deploying, you use `typeAssertions: false`.
+```javascript
+import {registerInjector} from 'bower_components/dist/a1atscript'
 
-#### [Karma]
-Test runner that runs the tests in specified browsers, every time that you change a file.
+class State {
+   constructor(stateName) {
+     this.stateName = stateName;
+   }
+}
 
-#### [Gulp]
-Task runner to make defining and running the tasks simpler.
+// An Injector must define an annotationClass getter and an instantiate method
+class StateInjector {
+  get annotationClass() {
+    return State;
+  }
+  
+  instantiate(module, dependencyList) {
+    angular.config(function($stateProvider) {
+	    dependencyList.forEach((dependencyObject) => {
+	      var metadata = dependencyObject.metadata;
+	      var StateClass = dependencyObject.dependency;
+	      $stateProvider.state(
+	        metadata.stateName,
+	        new StateClass()
+	      );
+	    });
+    })
+  }
+}
+```
 
+That's just a first pass -- I don't know if it would work but the possibilitys for custom Injectors are somewhat endless.
 
-[AtScript]: http://atscript.org
-[Traceur]: https://github.com/google/traceur-compiler
-[RequireJS]: http://requirejs.org
-[Assert]: https://github.com/angular/assert
-[Karma]: http://karma-runner.github.io/
-[Gulp]: http://gulpjs.com
+#### Why isn't everything packaged into one file?
+
+Google 'es6 module packaging'. I didn't want to transpile this down right away, because I don't know what you're compiling your ES6 code down to (System.js, AMD, CommonJS), so I just left the distributed code in native ES6 format. Unfortunately, there isn't a lot of clear information on the best way to concatenate a bunch of ES6 files down to a single file, so I'm leaving it as is for now.
+
+# That's It. Enjoy
