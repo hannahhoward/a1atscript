@@ -5,6 +5,7 @@ var rename_ = require('gulp-rename');
 
 var TRACEUR_OPTIONS = require('./config').traceur;
 var PATH = {
+  DIST: './dist/',
   BUILD: './build/',
   SRC: './src/**/*.ats',
   TEST: './test/**/*.ats'
@@ -36,6 +37,13 @@ gulp.task('build/test', function() {
       // Rename before Traceur, so that Traceur has the knowledge of both input and output paths.
       .pipe(rename({extname: '.js', dirnamePrefix: PATH.BUILD}))
       .pipe(traceur(TRACEUR_OPTIONS))
+      .pipe(gulp.dest('.'));
+});
+
+gulp.task('dist', function() {
+  gulp.src(PATH.SRC, {base: './src'})
+      // Rename before Traceur, so that Traceur has the knowledge of both input and output paths.
+      .pipe(rename({extname: '.js', dirnamePrefix: PATH.DIST}))
       .pipe(gulp.dest('.'));
 });
 
