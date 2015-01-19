@@ -59,10 +59,9 @@ You can include regular angular modules by just referencing them as strings.
 import {Injector, Module} from 'bower_components/dist/a1atscript';
 import { MyModule } from './myModule'
 
-@Module('AppModule', [
+var AppModule = Module('AppModule', [
   MyModule
-])
-function AppModule() {}
+]);
 
 var injector = new Injector();
 injector.instantiate(AppModule);
