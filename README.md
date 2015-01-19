@@ -1,6 +1,6 @@
 ## A-1 AtScript
 
-This is a package that uses AtScript to provide syntactic sugar around Angular 1.x's Dependency Injection mechanism. It is designed to be a "bridge" to Angular 2.0  -- so you can get a flavor of the way we'll be writing Angular 2.0 code tomorrow, today. 
+This is a package that uses AtScript to provide syntactic sugar around Angular 1.x's Dependency Injection mechanism. It is designed to be a "bridge" to Angular 2.0  -- so you can get a flavor of the way we'll be writing Angular 2.0 code tomorrow, today.
 
 
 ### Initial setup
@@ -16,7 +16,7 @@ bower install a1atscript --save
 #### Angular Type Annotations
 
 ```javascript
-import {Controller, Service} from 'bower_components/dist/a1atscript'; 
+import {Controller, Service} from 'bower_components/dist/a1atscript';
 // or appropriate path for your project
 
 @Controller('ExampleController', ['$scope', 'SomeService'])
@@ -40,14 +40,13 @@ import {
   ExampleService
 } from './theCodeBlockRightAbove';
 import { AnotherModule } from './anotherA1AtScriptModule';
- 
-@Module('MyModule', [
+
+export var MyModule = new Module('MyModule', [
 	AnotherModule,
 	ExampleController,
 	ExampleService,
 	'aRegularAngularModule'
-])
-export function MyModule() {}
+]);
 ```
 
 Note you can mix other modules, controllers, and services all together in the list -- A1AtScript will figure out how to sort out the module definition.
@@ -80,7 +79,7 @@ class RootMainInnerState {
     this.template = 'awesome/awesome.html'
     this.controller = 'AwesomeController'
   }
-  
+
   get resolve() {
   	return {
   		@Resolve('Backend')
@@ -110,7 +109,7 @@ class StateInjector {
   get annotationClass() {
     return State;
   }
-  
+
   instantiate(module, dependencyList) {
     module.config(function($stateProvider) {
 	    dependencyList.forEach((dependencyObject) => {
