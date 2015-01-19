@@ -30,7 +30,7 @@ export class ExampleService {
 }
 ```
 
-#### Module Annotations
+#### Setting up modules
 
 
 ```javascript
