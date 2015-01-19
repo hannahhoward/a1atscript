@@ -23,13 +23,11 @@ class ExampleService {
   }
 }
 
-@Module('ServiceModule', [ ExampleService ])
-function ServiceModule() {}
+var ServiceModule = new Module('ServiceModule', [ ExampleService ]);
 
 angular.module('NonAtScriptModule', []).value('NonAtScriptValue', 'Another Test Value');
 
-@Module('AppModule', [ServiceModule, 'NonAtScriptModule', ExampleController])
-function AppModule() {}
+var AppModule = new Module('AppModule', [ServiceModule, 'NonAtScriptModule', ExampleController])
 
 describe("Injector", function() {
   var exampleService,

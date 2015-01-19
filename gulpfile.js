@@ -22,6 +22,12 @@ function rename(obj) {
   });
 }
 
+gulp.task('dist', function() {
+  gulp.src(PATH.SRC, {base: '.'})
+      // Rename before Traceur, so that Traceur has the knowledge of both input and output paths.
+      .pipe(rename({extname: '.js', dirnamePrefix: PATH.DIST}))
+      .pipe(gulp.dest('.'));
+});
 
 // TRANSPILE AT SCRIPT
 gulp.task('build/src', function() {

@@ -42,10 +42,9 @@ export class Injector {
   }
 
   instantiate(moduleClass) {
-    var metadata = this._moduleMetadata(moduleClass);
-    var sortedDependencies = this._sortModuleDependencies(metadata)
+    var sortedDependencies = this._sortModuleDependencies(moduleClass)
     var moduleDependencies = this._instantiateModuleDependencies(sortedDependencies.module)
-    var moduleName = metadata.token;
+    var moduleName = moduleClass.token;
     var instantiatedModule = angular.module(moduleName, moduleDependencies);
     delete sortedDependencies.module;
     this._instantiateOtherDependencies(sortedDependencies, instantiatedModule);
@@ -84,7 +83,7 @@ export class Injector {
   _sortDependency(dependency) {
     var sorted = {};
 
-    if (typeof dependency === "string") {
+    if (typeof dependency === "string" || dependency instanceof Module) {
       sorted.module = [dependency];
     } else if (dependency.annotations) {
       var dependencyType = this._getDependencyType(dependency);
@@ -104,9 +103,9 @@ export class Injector {
     return sorted;
   }
 
-  _sortModuleDependencies(metadata) {
+  _sortModuleDependencies(moduleClass) {
     var sorted = {};
-    metadata.dependencies.forEach((dependency) => {
+    moduleClass.dependencies.forEach((dependency) => {
       var newSortedDependencies = this._sortDependency(dependency);
       sorted = this._mergeSortedDependencies(sorted, newSortedDependencies);
     });
@@ -120,15 +119,13 @@ export class Injector {
 
   _instantiateModuleDependencies(moduleDependencies) {
     var returnedDependencies = [];
-    var returnedDependency;
 
     if (moduleDependencies) {
       moduleDependencies.forEach((moduleDependency) => {
         if (typeof moduleDependency === "string") {
           returnedDependencies.push(moduleDependency);
         } else {
-          returnedDependency = this.instantiate(moduleDependency.dependency);
-          returnedDependencies.push(returnedDependency);
+          returnedDependencies.push(this.instantiate(moduleDependency));
         }
       });
 
