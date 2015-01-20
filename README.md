@@ -123,6 +123,8 @@ class StateInjector {
     })
   }
 }
+
+registerInjector('state', StateInjector);
 ```
 
 That's just a first pass -- I don't know if it would work but the possibilities for custom Injectors are somewhat endless.
