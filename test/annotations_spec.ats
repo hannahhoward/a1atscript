@@ -17,7 +17,7 @@ describe("annotations", function() {
 
   describe("config", function() {
 
-    @Config(['dep1', 'dep2'])
+    @Config('dep1', 'dep2')
     class ExampleConfig {
       constructor(dep1, dep2) {
 
@@ -26,14 +26,15 @@ describe("annotations", function() {
 
     it("should annotate the config", function() {
       expect(ExampleConfig.annotations[0]).toEqual(
-        new Config(['dep1', 'dep2']));
+        new Config('dep1', 'dep2'));
+      expect(ExampleConfig.annotations[0].dependencies).toEqual(['dep1', 'dep2'])
     });
 
   });
 
   describe("run", function() {
 
-    @Run(['dep1', 'dep2'])
+    @Run('dep1', 'dep2')
     class ExampleRun {
       constructor(dep1, dep2) {
 
@@ -42,7 +43,8 @@ describe("annotations", function() {
 
     it("should annotate the run", function() {
       expect(ExampleRun.annotations[0]).toEqual(
-        new Run(['dep1', 'dep2']));
+        new Run('dep1', 'dep2'));
+      expect(ExampleRun.annotations[0].dependencies).toEqual(['dep1', 'dep2'])
     });
 
   });
