@@ -1,11 +1,11 @@
 class NgAnnotation {
-  constructor(dependencies) {
+  constructor(dependencies = []) {
     this.dependencies = dependencies;
   }
 }
 
 class NgNamedAnnotation extends NgAnnotation {
-  constructor(token, dependencies) {
+  constructor(token, dependencies = []) {
     super(dependencies);
     this.token = token;
   }

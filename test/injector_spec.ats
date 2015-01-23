@@ -16,66 +16,87 @@ function ExampleController($scope, ExampleService) {
   $scope.value = ExampleService.value
 }
 
-@Service('ExampleService', [])
+@Module('ServiceModule')
+@Service('ExampleService')
 class ExampleService {
   constructor() {
     this.value = 'Test Value';
   }
 }
 
-var ServiceModule = new Module('ServiceModule', [ ExampleService ]);
-
 angular.module('NonAtScriptModule', []).value('NonAtScriptValue', 'Another Test Value');
 
-var AppModule = new Module('AppModule', [ServiceModule, 'NonAtScriptModule', ExampleController])
+var AppModule = new Module('AppModule', [ExampleService, 'NonAtScriptModule', ExampleController])
 
 describe("Injector", function() {
   var exampleService,
   nonAtScriptValue,
   exampleController,
-  scope;
+  scope,
+  injector;
 
   beforeEach(function() {
-    var injector = new Injector();
-    injector.instantiate(AppModule);
-    mock.module('AppModule')
+    injector = new Injector();
   });
 
-  describe("other modules", function() {
+  describe("module shorthand", function() {
+    beforeEach(function() {
+      injector.instantiate(ExampleService);
+      mock.module('ServiceModule');
+      mock.inject(function(_ExampleService_) {
+        exampleService = _ExampleService_;
+      });
+    });
 
-    beforeEach(mock.inject(function(_ExampleService_) {
-      exampleService = _ExampleService_;
-    }));
-
-    it("should setup components", function() {
+    it("should setup a single component as a module", function() {
       expect(exampleService instanceof ExampleService).toBeTruthy();
     });
-
   });
 
-  describe("standard (non atScript) angular modules", function() {
-    beforeEach(mock.inject(function(_NonAtScriptValue_) {
-      nonAtScriptValue = _NonAtScriptValue_;
-    }));
+  describe("Top Level Module", function() {
+    beforeEach(function() {
+      injector.instantiate(AppModule);
+      mock.module('AppModule');
+    });
 
-    it("should setup components", function() {
-      expect(nonAtScriptValue).toEqual('Another Test Value');
+    describe("other modules", function() {
+
+      beforeEach(mock.inject(function(_ExampleService_) {
+        exampleService = _ExampleService_;
+      }));
+
+      it("should setup components", function() {
+        expect(exampleService instanceof ExampleService).toBeTruthy();
+      });
+
+    });
+
+    describe("standard (non atScript) angular modules", function() {
+      beforeEach(mock.inject(function(_NonAtScriptValue_) {
+        nonAtScriptValue = _NonAtScriptValue_;
+      }));
+
+      it("should setup components", function() {
+        expect(nonAtScriptValue).toEqual('Another Test Value');
+      });
+
+    });
+
+    describe("components of the module", function() {
+      beforeEach(mock.inject(function($controller, $rootScope) {
+        scope = $rootScope.$new();
+        exampleController = $controller('ExampleController', { $scope: scope });
+        scope.$digest();
+      }));
+
+
+      it("should all components to depend on other components", function() {
+        expect(scope.value).toEqual("Test Value");
+      });
+
     });
 
   });
 
-  describe("components of the module", function() {
-    beforeEach(mock.inject(function($controller, $rootScope) {
-      scope = $rootScope.$new();
-      exampleController = $controller('ExampleController', { $scope: scope });
-      scope.$digest();
-    }));
-
-
-    it("should all components to depend on other components", function() {
-      expect(scope.value).toEqual("Test Value");
-    });
-
-  });
 
 });
