@@ -54,6 +54,20 @@ Note you can mix other modules, controllers, and services all together in the li
 
 You can include regular angular modules by just referencing them as strings.
 
+#### Shortform notation
+
+If you want to quickly define a module with only one component... just use two annotations
+
+```javascript
+@Module('ServiceModule')
+@Service('ExampleService')
+class ExampleService {
+  constructor() {
+    this.value = 'Test Value';
+  }
+}
+```
+
 #### Compile your main app module
 
 ```javascript

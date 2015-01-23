@@ -34,7 +34,6 @@ registerInjector('filter', FilterInjector);
 
 export class Injector {
   constructor() {
-    registeredInjectors['module'] = this;
   }
 
   get annotationClass() {
@@ -42,13 +41,37 @@ export class Injector {
   }
 
   instantiate(moduleClass) {
-    var sortedDependencies = this._sortModuleDependencies(moduleClass)
+    var metadata = this._getAnnotatedClass(moduleClass);
+    if (!metadata) {
+      return undefined;
+    }
+    var sortedDependencies = this._sortModuleDependencies(metadata)
+    sortedDependencies = this._sortSelf(metadata, moduleClass, sortedDependencies)
     var moduleDependencies = this._instantiateModuleDependencies(sortedDependencies.module)
-    var moduleName = moduleClass.token;
+    var moduleName = metadata.token;
     var instantiatedModule = angular.module(moduleName, moduleDependencies);
     delete sortedDependencies.module;
     this._instantiateOtherDependencies(sortedDependencies, instantiatedModule);
     return moduleName;
+  }
+
+  _sortSelf(metadata, moduleClass, sortedDependencies) {
+    if (metadata == moduleClass) {
+      return sortedDependencies;
+    } else {
+      var selfDependency = this._sortDependency(moduleClass, false);
+      return this._mergeSortedDependencies(sortedDependencies, selfDependency);
+    }
+  }
+
+  _getAnnotatedClass(moduleClass) {
+    if (moduleClass instanceof Module) {
+      moduleClass.injectable = false;
+      return moduleClass;
+    } else {
+      var metadata = this._getModuleAnnotation(moduleClass);
+      return metadata;
+    }
   }
 
   _getDependencyType(dependency) {
@@ -67,6 +90,10 @@ export class Injector {
     return null;
   }
 
+  _getModuleAnnotation(dependency) {
+    return dependency.annotations.find((annotation) => annotation instanceof Module);
+  }
+
   _mergeSortedDependencies(sorted1, sorted2) {
     var newSorted = {}
     Object.assign(newSorted, sorted1)
@@ -80,18 +107,22 @@ export class Injector {
     return newSorted;
   }
 
-  _sortDependency(dependency) {
+  _sortDependency(dependency, checkModule = true) {
     var sorted = {};
 
     if (typeof dependency === "string" || dependency instanceof Module) {
       sorted.module = [dependency];
     } else if (dependency.annotations) {
-      var dependencyType = this._getDependencyType(dependency);
-      if (dependencyType) {
-        sorted[dependencyType.key] = [{
-          dependency: dependency,
-          metadata: dependencyType.metadata
-        }];
+      if (checkModule && this._getModuleAnnotation(dependency)) {
+        sorted.module = [dependency];
+      } else {
+        var dependencyType = this._getDependencyType(dependency);
+        if (dependencyType) {
+          sorted[dependencyType.key] = [{
+            dependency: dependency,
+            metadata: dependencyType.metadata
+          }];
+        }
       }
     } else {
       Object.keys(dependency).forEach((key) => {
