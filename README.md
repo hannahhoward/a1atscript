@@ -78,7 +78,10 @@ var AppModule = Module('AppModule', [
   MyModule
 ]);
 
-var injector = new Injector();
+// The string passed in is prefixed to then names 
+// of all of the modules when they are instantiated with
+// Angular
+var injector = new Injector("myAppPrefix");
 injector.instantiate(AppModule);
 ```
 

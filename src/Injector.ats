@@ -33,7 +33,9 @@ registerInjector('animation', AnimationInjector);
 registerInjector('filter', FilterInjector);
 
 export class Injector {
-  constructor() {
+  constructor(appNamePrefix = "") {
+    this.appNamePrefix = appNamePrefix;
+    this.injectedModules = {};
   }
 
   get annotationClass() {
@@ -45,13 +47,20 @@ export class Injector {
     if (!metadata) {
       return undefined;
     }
-    var sortedDependencies = this._sortModuleDependencies(metadata)
-    sortedDependencies = this._sortSelf(metadata, moduleClass, sortedDependencies)
-    var moduleDependencies = this._instantiateModuleDependencies(sortedDependencies.module)
+    if (this.injectedModules[metadata.token]) {
+      return this.injectedModules[metadata.token];
+    }
+    var sortedDependencies = this._sortModuleDependencies(metadata);
+    sortedDependencies = this._sortSelf(metadata, moduleClass, sortedDependencies);
+    var moduleDependencies = this._instantiateModuleDependencies(sortedDependencies.module);
     var moduleName = metadata.token;
+    if (this.appNamePrefix) {
+      moduleName = `${this.appNamePrefix}.${moduleName}`;
+    }
     var instantiatedModule = angular.module(moduleName, moduleDependencies);
     delete sortedDependencies.module;
     this._instantiateOtherDependencies(sortedDependencies, instantiatedModule);
+    this.injectedModules[metadata.token] = moduleName;
     return moduleName;
   }
 

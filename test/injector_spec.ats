@@ -36,13 +36,13 @@ describe("Injector", function() {
   injector;
 
   beforeEach(function() {
-    injector = new Injector();
+    injector = new Injector("myAppNamePrefix");
   });
 
   describe("module shorthand", function() {
     beforeEach(function() {
       injector.instantiate(ExampleService);
-      mock.module('ServiceModule');
+      mock.module('myAppNamePrefix.ServiceModule');
       mock.inject(function(_ExampleService_) {
         exampleService = _ExampleService_;
       });
@@ -56,7 +56,7 @@ describe("Injector", function() {
   describe("Top Level Module", function() {
     beforeEach(function() {
       injector.instantiate(AppModule);
-      mock.module('AppModule');
+      mock.module('myAppNamePrefix.AppModule');
     });
 
     describe("other modules", function() {
