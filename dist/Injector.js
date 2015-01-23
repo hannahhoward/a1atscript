@@ -54,7 +54,7 @@ export class Injector {
     sortedDependencies = this._sortSelf(metadata, moduleClass, sortedDependencies);
     var moduleDependencies = this._instantiateModuleDependencies(sortedDependencies.module);
     var moduleName = metadata.token;
-    if (this.appNamePrefix) {
+    if (this.appNamePrefix && moduleName != this.appNamePrefix) {
       moduleName = `${this.appNamePrefix}.${moduleName}`;
     }
     var instantiatedModule = angular.module(moduleName, moduleDependencies);
