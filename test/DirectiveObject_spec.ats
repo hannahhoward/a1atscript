@@ -1,0 +1,70 @@
+import angular from 'angular';
+import mock from 'angularMocks';
+
+import {DirectiveObject} from '../src/DirectiveObject'
+
+import {
+  Module,
+  Service
+} from '../src/annotations';
+
+import {
+  Injector
+} from '../src/Injector';
+
+@Service('ExampleService')
+class ExampleService {
+  constructor() {
+    this.value = 'Set within link';
+    this.value2 = "Set within callback";
+  }
+}
+
+@DirectiveObject('exampleDirective', ['ExampleService'])
+class ExampleDirective {
+  constructor(exampleService) {
+    this.exampleService = exampleService;
+    this.restrict = "E";
+    this.template = "<p>Hello</p>";
+  }
+
+  link(scope, element, attrs) {
+    scope.value = this.exampleService.value;
+    scope.setFromService = () => {
+      scope.value2 = this.exampleService.value2;
+    }
+  }
+}
+
+var AppModule = new Module('AppModule', [ExampleService, ExampleDirective])
+
+describe("DirectiveObject", function() {
+  var scope, element, injector, $compile;
+
+  beforeEach(function() {
+    injector = new Injector("AppModule");
+    injector.instantiate(AppModule);
+    mock.module('AppModule');
+    mock.inject(function($rootScope, _$compile_) {
+      scope = $rootScope.$new();
+      $compile = _$compile_;
+      element = '<example-directive></example-directive>';
+      element = $compile(element)(scope);
+    });
+  });
+
+  it("should function as a directive definition object", function() {
+    expect(element.find('p').length).toEqual(1);
+  });
+
+  describe("linking and this", function() {
+    beforeEach(function() {
+      scope.setFromService();
+    });
+    it("should be able to access this from within the link function", function() {
+      expect(scope.value).toEqual("Set within link");
+      expect(scope.value2).toEqual("Set within callback");
+    })
+  });
+
+});
