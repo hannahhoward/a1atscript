@@ -20,7 +20,10 @@ class DirectiveObjectInjector extends ListInjector {
     // The factoryArray uses Angular's array notation whereby each element of the array is the name of a
     // dependency, and the final item is the factory function itself.
     factoryArray.push((...args) => {
-      return new ConstructorFn(...args);
+      var directive = new ConstructorFn(...args);
+      directive.link = directive.link;
+      directive.compile = directive.compile;
+      return directive;
     });
 
     return factoryArray;

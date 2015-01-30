@@ -25,7 +25,7 @@ class ExampleDirective {
   constructor(exampleService) {
     this.exampleService = exampleService;
     this.restrict = "E";
-    this.template = "<p>Hello</p>";
+    this.templateUrl = "template.tpl.html";
   }
 
   link(scope, element, attrs) {
@@ -36,7 +36,12 @@ class ExampleDirective {
   }
 }
 
-var AppModule = new Module('AppModule', [ExampleService, ExampleDirective])
+angular.module("simpleTemplate", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template.tpl.html",
+    "<p>Hello</p>");
+}]);
+
+var AppModule = new Module('AppModule', ['simpleTemplate', ExampleService, ExampleDirective])
 
 describe("DirectiveObject", function() {
   var scope, element, injector, $compile;
@@ -50,6 +55,7 @@ describe("DirectiveObject", function() {
       $compile = _$compile_;
       element = '<example-directive></example-directive>';
       element = $compile(element)(scope);
+      scope.$digest();
     });
   });
 
