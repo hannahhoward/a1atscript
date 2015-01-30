@@ -107,7 +107,7 @@ class ExampleDirective {
 }
 ```
 
-Note that this is preserved inside a compile or link function. The code to make this work was provided by Michael Bromley in [this article](http://www.michaelbromley.co.uk/blog/350/exploring-es6-classes-in-angularjs-1-x).
+Note that this is preserved inside a compile or link function. Many thanks toMichael Bromley who provided the code to make this work in [this article](http://www.michaelbromley.co.uk/blog/350/exploring-es6-classes-in-angularjs-1-x).
 
 ### Spice It Up: Write Your Own Injectors
 
