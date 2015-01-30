@@ -1,6 +1,6 @@
 {
   "name": "a1atscript",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "homepage": "https://github.com/hannahhoward/a1atscript",
   "authors": [
     "Hannah Howard <hannah@hannahhoward.net>"
@@ -10,7 +10,8 @@
     "dist/a1atscript.js",
     "dist/annotations.js",
     "dist/Injector.js",
-    "dist/injectorTypes.js"
+    "dist/injectorTypes.js",
+    "dist/DirectiveObject.js"
   ],
   "keywords": [
     "angular",
