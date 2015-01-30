@@ -55,10 +55,16 @@ class DirectiveObjectInjector extends ListInjector {
     // returns `this.link` from within the compile function.
     this._override(directiveObject.prototype, 'compile', function () {
       return function () {
-        originalCompileFn.apply(this, arguments);
+        var extendedObject = Object.create(directiveObject.prototype);
+        Object.getOwnPropertyNames(this).forEach((propName) => {
+          Object.defineProperty(extendedObject, propName,
+          Object.getOwnPropertyDescriptor(this, propName));
+        });
+
+        originalCompileFn.apply(extendedObject, arguments);
 
         if (directiveObject.prototype.link) {
-          return directiveObject.prototype.link.bind(this);
+          return directiveObject.prototype.link.bind(extendedObject);
         }
       };
     });

@@ -28,8 +28,12 @@ class ExampleDirective {
     this.templateUrl = "template.tpl.html";
   }
 
-  link(scope, element, attrs) {
+  setValue(scope) {
     scope.value = this.exampleService.value;
+  }
+
+  link(scope, element, attrs) {
+    this.setValue(scope);
     scope.setFromService = () => {
       scope.value2 = this.exampleService.value2;
     }
