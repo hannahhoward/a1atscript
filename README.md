@@ -78,12 +78,36 @@ var AppModule = Module('AppModule', [
   MyModule
 ]);
 
-// The string passed in is prefixed to then names 
+// The string passed in is prefixed to then names
 // of all of the modules when they are instantiated with
 // Angular
 var injector = new Injector("myAppPrefix");
 injector.instantiate(AppModule);
 ```
+
+### Directive Objects
+
+Angular 1.x's interface for defining directives is notoriously one of its most difficult aspects. Typically, you create a factory function that returns a directive definition object, whose attributes specify the behavior of the directive. Since we now have the freedom to create our own injection methods, I decided to include a helper that allows you to define DirectiveObject classes, which in turn are converted properly to an Angular Directive when they are instantiated. Here's the format:
+
+```javascript
+@DirectiveObject('exampleDirective', ['ExampleService'])
+class ExampleDirective {
+  constructor(exampleService) {
+    this.exampleService = exampleService;
+    this.restrict = "E";
+    this.template = "<p>Hello</p>";
+  }
+
+  link(scope, element, attrs) {
+    scope.value = this.exampleService.value;
+    scope.setFromService = () => {
+      scope.value2 = this.exampleService.value2;
+    }
+  }
+}
+```
+
+Note that this is preserved inside a compile or link function. The code to make this work was provided by Michael Bromley in [this article](http://www.michaelbromley.co.uk/blog/350/exploring-es6-classes-in-angularjs-1-x).
 
 ### Spice It Up: Write Your Own Injectors
 
@@ -100,7 +124,7 @@ class RootMainInnerState {
   @Resolve('Backend')
   model: function(Backend) {
   }
-  
+
   @Resolve('AuthService')
   user: function(AuthService) {
   }
