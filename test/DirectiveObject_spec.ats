@@ -18,18 +18,16 @@ class ExampleService {
     this.value = 'Set within link';
     this.value2 = "Set within callback";
   }
-}
-
-@DirectiveObject('exampleDirective', ['ExampleService'])
-class ExampleDirective {
-  constructor(exampleService) {
-    this.exampleService = exampleService;
-    this.restrict = "E";
-    this.templateUrl = "template.tpl.html";
-  }
 
   setValue(scope) {
     scope.value = this.exampleService.value;
+  }
+
+}
+
+class ExampleBase {
+  constructor() {
+    this.restrict = "E";
   }
 
   link(scope, element, attrs) {
@@ -37,6 +35,23 @@ class ExampleDirective {
     scope.setFromService = () => {
       scope.value2 = this.exampleService.value2;
     }
+  }
+
+  setValue(scope) {
+    scope.value = this.exampleService.value;
+  }
+}
+
+@DirectiveObject('exampleDirective', ['ExampleService'])
+class ExampleDirective extends ExampleBase {
+  constructor(exampleService) {
+    super();
+    this.exampleService = exampleService;
+    this.templateUrl = "template.tpl.html";
+  }
+  setValue(scope) {
+    super.setValue(scope);
+    scope.subValue = this.exampleService.value;
   }
 }
 
@@ -73,6 +88,7 @@ describe("DirectiveObject", function() {
     });
     it("should be able to access this from within the link function", function() {
       expect(scope.value).toEqual("Set within link");
+      expect(scope.subValue).toEqual("Set within link");
       expect(scope.value2).toEqual("Set within callback");
     })
   });
