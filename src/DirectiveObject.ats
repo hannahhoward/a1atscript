@@ -8,6 +8,13 @@ export class DirectiveObject {
   }
 }
 
+function assign(target, source) {
+  Object.getOwnPropertyNames(source).forEach((propName) => {
+    Object.defineProperty(target, propName,
+      Object.getOwnPropertyDescriptor(source, propName));
+  });
+}
+
 class DirectiveObjectInjector extends ListInjector {
   get annotationClass() {
     return DirectiveObject;
@@ -21,8 +28,7 @@ class DirectiveObjectInjector extends ListInjector {
     // dependency, and the final item is the factory function itself.
     factoryArray.push((...args) => {
       var directive = new ConstructorFn(...args);
-      directive.link = directive.link;
-      directive.compile = directive.compile;
+      assign(directive, ConstructorFn.prototype);
       return directive;
     });
 
@@ -56,10 +62,7 @@ class DirectiveObjectInjector extends ListInjector {
     this._override(directiveObject.prototype, 'compile', function () {
       return function () {
         var extendedObject = Object.create(directiveObject.prototype);
-        Object.getOwnPropertyNames(this).forEach((propName) => {
-          Object.defineProperty(extendedObject, propName,
-          Object.getOwnPropertyDescriptor(this, propName));
-        });
+        assign(extendedObject, this);
 
         originalCompileFn.apply(extendedObject, arguments);
 
