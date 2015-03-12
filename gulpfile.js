@@ -74,7 +74,7 @@ gulp.task('serve', function() {
 // Basic usage:
 // Will patch the version
 gulp.task('bump:patch', function(){
-  gulp.src('./bower.json', './package.json')
+  gulp.src(['./bower.json', './package.json'])
   .pipe(bump())
   .pipe(gulp.dest('./'));
 });
@@ -82,7 +82,7 @@ gulp.task('bump:patch', function(){
 // Defined method of updating:
 // Semantic
 gulp.task('bump:minor', function(){
-  gulp.src('./bower.json', './package.json')
+  gulp.src(['./bower.json', './package.json'])
   .pipe(bump({type:'minor'}))
   .pipe(gulp.dest('./'));
 });
@@ -90,7 +90,7 @@ gulp.task('bump:minor', function(){
 // Defined method of updating:
 // Semantic major
 gulp.task('bump:major', function(){
-  gulp.src('./bower.json', './package.json')
+  gulp.src(['./bower.json', './package.json'])
   .pipe(bump({type:'major'}))
   .pipe(gulp.dest('./'));
 });
