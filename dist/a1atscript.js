@@ -1,3 +1,3 @@
-export * from './Injector';
-export * from './annotations';
-export * from './DirectiveObject';
+export * from './Injector.js';
+export * from './annotations.js';
+export * from './DirectiveObject.js';

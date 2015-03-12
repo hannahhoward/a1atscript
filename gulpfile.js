@@ -7,8 +7,8 @@ var TRACEUR_OPTIONS = require('./config').traceur;
 var PATH = {
   DIST: './dist/',
   BUILD: './build/',
-  SRC: './src/**/*.ats',
-  TEST: './test/**/*.ats'
+  SRC: './src/**/*.js',
+  TEST: './test/**/*.js'
 };
 
 // A wrapper around gulp-rename to support `dirnamePrefix`.
