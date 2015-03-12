@@ -1,5 +1,5 @@
-export * from './Injector';
-export * from './annotations';
-export * from './DirectiveObject';
-import './ComponentInjector';
-export * from "./Component";
+export * from './Injector.ats';
+export * from './annotations.ats';
+export * from './DirectiveObject.ats';
+import './ComponentInjector.ats';
+export * from "./Component.ats";

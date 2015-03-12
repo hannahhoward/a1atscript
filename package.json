@@ -29,7 +29,7 @@
   },
   "scripts": {
     "test": "karma start --single-run",
-    "compile": "traceur --out dist/a1atscript.es5.js src/a1a1script.ats"
+    "compile": "traceur --out dist/a1atscript.es5.js src/a1atscript.ats"
   },
   "author": "Vojta Jína <vojta.jina@gmail.com>",
   "license": "Apache-2.0"
