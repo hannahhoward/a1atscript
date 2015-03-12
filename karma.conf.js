@@ -21,8 +21,9 @@ module.exports = function(config) {
     // Running outside WebStorm (eg. from commandline).
     // Karma transpiles the *.ats sources with karma-traceur-preprocessor.
     files = [
-      {pattern: 'src/**/*.ats', included: false},
-      {pattern: 'test/**/*.ats', included: false}
+      {pattern: 'src/**/*.js', included: false},
+      {pattern: 'test/**/*.js', included: false}
+
     ];
   }
 
@@ -31,7 +32,7 @@ module.exports = function(config) {
 
     files: [
       // The entry point that dynamically imports all the specs.
-      {pattern: 'test/main.js', included: true},
+      {pattern: 'test-help/main.js', included: true},
 
       // The runtime assertion library.
       {pattern: 'node_modules/rtts-assert/dist/amd/assert.js', included: false},
@@ -40,7 +41,8 @@ module.exports = function(config) {
     ].concat(files),
 
     preprocessors: {
-      '**/*.ats': ['traceur']
+      'src/**/*.js': ['traceur'],
+      'test/**/*.js': ['traceur']
     },
 
     browsers: ['Chrome'],
@@ -50,8 +52,7 @@ module.exports = function(config) {
       transformPath: function(path) {
         // Traceur preprocessor is only used when running Karma outside of WebStorm.
         // We change the path to `build/**` so that the paths are the same as with WebStorm.
-        return path.replace(config.basePath, config.basePath + '/build')
-                   .replace(/\.ats$/, '.js');
+        return path.replace(config.basePath, config.basePath + '/build');
       }
     }
   });
