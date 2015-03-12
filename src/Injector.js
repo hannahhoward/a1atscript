@@ -1,4 +1,4 @@
-import { Module } from './annotations';
+import { Module } from './annotations.js';
 
 import {
   ConfigInjector,
@@ -12,7 +12,7 @@ import {
   ConstantInjector,
   AnimationInjector,
   FilterInjector
-} from './injectorTypes';
+} from './injectorTypes.js';
 
 var registeredInjectors = {}
 

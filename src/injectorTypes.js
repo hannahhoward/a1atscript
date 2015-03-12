@@ -10,7 +10,7 @@ import {
   Constant,
   Animation,
   Filter
-} from './annotations';
+} from './annotations.js';
 
 export class ListInjector {
   instantiate(module, dependencyList) {

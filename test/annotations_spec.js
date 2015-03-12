@@ -11,7 +11,7 @@ import {
   Animation,
   Filter,
   Module
-} from '../src/annotations';
+} from '../src/annotations.js';
 
 describe("annotations", function() {
 

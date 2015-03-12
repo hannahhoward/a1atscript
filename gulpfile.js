@@ -2,13 +2,14 @@ var gulp = require('gulp');
 var traceur = require('gulp-traceur');
 var connect = require('gulp-connect');
 var rename_ = require('gulp-rename');
+var bump = require('gulp-bump');
 
 var TRACEUR_OPTIONS = require('./config').traceur;
 var PATH = {
   DIST: './dist/',
   BUILD: './build/',
-  SRC: './src/**/*.ats',
-  TEST: './test/**/*.ats'
+  SRC: './src/**/*.js',
+  TEST: './test/**/*.js'
 };
 
 // A wrapper around gulp-rename to support `dirnamePrefix`.
@@ -70,5 +71,28 @@ gulp.task('serve', function() {
   });
 });
 
+// Basic usage:
+// Will patch the version
+gulp.task('bump:patch', function(){
+  gulp.src('./bower.json', './package.json')
+  .pipe(bump())
+  .pipe(gulp.dest('./'));
+});
+
+// Defined method of updating:
+// Semantic
+gulp.task('bump:minor', function(){
+  gulp.src('./bower.json', './package.json')
+  .pipe(bump({type:'minor'}))
+  .pipe(gulp.dest('./'));
+});
+
+// Defined method of updating:
+// Semantic major
+gulp.task('bump:major', function(){
+  gulp.src('./bower.json', './package.json')
+  .pipe(bump({type:'major'}))
+  .pipe(gulp.dest('./'));
+});
 
 gulp.task('default', ['serve', 'watch']);

@@ -1,5 +1,5 @@
-import angular from 'angular';
-import mock from 'angularMocks';
+import angular from 'angular.js';
+import mock from 'angularMocks.js';
 
 import {DirectiveObject} from '../src/DirectiveObject'
 

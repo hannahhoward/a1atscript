@@ -12,9 +12,8 @@
     "url": "https://github.com/vojtajina/atscript-playground/issues"
   },
   "dependencies": {
-    "gulp-bump": "^0.2.2",
-    "requirejs": "^2.1.15",
-    "traceur": "^0.0.86"
+    "traceur": "^0.0.86",
+    "requirejs": "^2.1.15"
   },
   "devDependencies": {
     "assert": "angular/assert#dist",
@@ -30,7 +29,11 @@
   },
   "scripts": {
     "test": "karma start --single-run",
-    "compile": "traceur --out dist/a1atscript.es5.js src/a1atscript.js"
+<<<<<<< HEAD
+    "compile": "traceur --out dist/a1atscript.es5.js src/a1atscript.ats"
+=======
+    "compile": "traceur --out build/a1atscript.es5.js src/a1atscript.js"
+>>>>>>> master
   },
   "author": "Vojta Jína <vojta.jina@gmail.com>",
   "license": "Apache-2.0"

@@ -1,5 +1,7 @@
 // The entry point for unit tests.
 
+console.log("loaded");
+
 var TEST_REGEXP = /_spec\.js$/;
 
 function pathToModule(path) {

@@ -1,5 +1,5 @@
-import {ListInjector} from './injectorTypes';
-import {registerInjector} from './Injector';
+import {ListInjector} from './injectorTypes.js';
+import {registerInjector} from './Injector.js';
 
 export class DirectiveObject {
   constructor(token, dependencies = []) {
