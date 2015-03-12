@@ -1,3 +1,5 @@
 export * from './Injector';
 export * from './annotations';
 export * from './DirectiveObject';
+import './ComponentInjector';
+export * from "./Component";

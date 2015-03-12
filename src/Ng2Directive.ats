@@ -1,0 +1,120 @@
+export class Ng2Directive {
+  constructor(descriptor) {
+    this.selector = descriptor.selector;
+    this.bind = descriptor.bind;
+    this.controllerAs = descriptor.controllerAs;
+    this.require = descriptor.require;
+  }
+}
+
+export class SelectorMatcher {
+  constructor(selector: string) {
+    this._selector = selector;
+  }
+
+  _split() {
+    if (this._selector[0] == ".") {
+      this._restrict = "C";
+      this._name = this._selector.substring(1);
+    } else if (this._selector[0] == "[" &&
+      this._selector[this._selector.length-1] == "]") {
+      this._restrict = "A";
+      this._name = this._selector.substring(1, this._selector.length-1);
+    } else {
+      this._restrict = "E";
+      this._name = this._selector;
+    }
+  }
+
+  get name() {
+    if (!this._name) {
+      this._split();
+    }
+    return this._name;
+  }
+
+  get restrict() {
+    if (!this._restrict) {
+      this._split();
+    }
+    return this._restrict;
+  }
+
+}
+
+export class Ng2DirectiveDefinitionObject {
+
+  constructor(controller, annotation) {
+    this._annotation = annotation;
+    this._controller = controller;
+  }
+
+  get selectorMatcher() {
+    this._selectorMatcher = this._selectorMatcher ||
+      new SelectorMatcher(this._annotation.selector);
+    return this._selectorMatcher;
+  }
+
+  get restrict() {
+    return this.selectorMatcher.restrict;
+  }
+
+  get controllerAs() {
+    return this._annotation.controllerAs || this.name;
+  }
+
+  get bindToController() {
+    return this._annotation.bind;
+  }
+
+  get scope() {
+    return {};
+  }
+
+  get template() {
+    return undefined;
+  }
+
+  get templateUrl() {
+    return undefined;
+  }
+
+  get tranclude() {
+    return undefined;
+  }
+
+  get require() {
+    return this._annotation.require;
+  }
+
+  get controller() {
+    return this._controller;
+  }
+
+  get name() {
+    return this.selectorMatcher.name;
+  }
+
+}
+
+export class Ng2DDOFactory {
+  constructor(ddo: Ng2DirectiveDefinitionObject) {
+    this._ddo = ddo;
+  }
+
+  get factoryFn() {
+    return () => {
+      return {
+        scope: this._ddo.scope,
+        restrict: this._ddo.restrict,
+        template: this._ddo.template,
+        require: this._ddo.require,
+        transclude: this._ddo.transclude,
+        templateUrl: this._ddo.templateUrl,
+        controller: this._ddo.controller,
+        bindToController: this._ddo.bindToController,
+        controllerAs: this._ddo.controllerAs
+      };
+    };
+  }
+}
