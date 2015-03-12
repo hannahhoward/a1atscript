@@ -1,4 +1,4 @@
-*WARNING: AtScript is very new technology. Be ready to encounter lots of challenges if you incorporate this in a production project.*
+*NOTE: Please see the changelog for important breaking changes*
 
 ## A-1 AtScript
 
@@ -195,5 +195,9 @@ That code works -- I've used it in my own projects for making ui-router easy to 
 #### Why isn't everything packaged into one file?
 
 Google 'es6 module packaging'. I didn't want to transpile this down right away, because I don't know what you're compiling your ES6 code down to (System.js, AMD, CommonJS), so I just left the distributed code in native ES6 format. Unfortunately, there isn't a lot of clear information on the best way to concatenate a bunch of ES6 files down to a single file, so I'm leaving it as is for now.
+
+#### Wait a second, I thought AtScript was called TypeScript now
+
+It is. I've thought about renaming this T1000TypeScript... but I don't know who's using this.
 
 # That's It. Enjoy
