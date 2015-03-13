@@ -127,7 +127,7 @@ angular.directive('awesome', function() {
   	  apple: "@apple"
   	  // a setter is created automatically on your 
   	  // controller so that your controller can access this.apple
-  	  ___bindable__apple: "=?bindApple"
+  	  ___bindable___apple: "=?bindApple"
   	},
   	controller, ['ExampleService', AwesomeComponent]
   	controllerAs: 'awesome',
