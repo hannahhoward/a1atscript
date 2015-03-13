@@ -17,7 +17,7 @@ bower install a1atscript --save
 #### Angular Type Annotations
 
 ```javascript
-import {Controller, Service} from 'bower_components/dist/a1atscript';
+import {Controller, Service} from 'bower_components/dist/a1atscript.js';
 // or appropriate path for your project
 
 @Controller('ExampleController', ['$scope', 'SomeService'])
@@ -35,7 +35,7 @@ export class ExampleService {
 
 
 ```javascript
-import {Module} from 'bower_components/dist/a1atscript';
+import {Module} from 'bower_components/dist/a1atscript.js';
 import {
   ExampleController,
   ExampleService
@@ -71,7 +71,7 @@ class ExampleService {
 #### Compile your main app module
 
 ```javascript
-import {bootstrap, Module} from 'bower_components/dist/a1atscript';
+import {bootstrap, Module} from 'bower_components/dist/a1atscript.js';
 import { MyModule } from './myModule'
 
 var AppModule = Module('AppModule', [
@@ -86,7 +86,7 @@ bootstrap(AppModule, "myAppPrefix");
 
 *Those of you who want to manually use the Injector class still can -- the bootstrap function is meant to mirror Angular 2's*
 
-### Get ready for Angular 2!
+## Get ready for Angular 2!
 
 Angular 2 introduces an entirely new syntax for working with directives. The most common type of directive is a Component. The good news is with A1AtScript you can write components right now, using a syntax remarkably similar to Angular 2.
 
@@ -237,7 +237,8 @@ That code works -- I've used it in my own projects for making ui-router easy to 
 
 #### What's included?
 
-The /dist folder contains and pure es6 version and an es5 version that sets up AMD modules.
+The /dist folder contains the es6 source files so that you can package up A1AtScript using whatever packaging system is most comfortable for you. However, if you are using a workflow that uses AMD modules, you can also use a1atscript.es5.js -- which all of the code transpiled to ES5 as an AMD module.
+
 #### Wait a second, I thought AtScript was called TypeScript now
 
 It is. I've thought about renaming this T1000TypeScript... but I don't know who's using this.
