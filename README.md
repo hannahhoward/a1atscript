@@ -143,7 +143,8 @@ Other features:
 1. Selector is a very, very basic css selector. If you pass '[awesome]', your directive will be called awesome and it'll be set restrict: 'A', and if you pass '.awesome' it'll be set restrict: 'C'
 2. Services is optional for injecting dependencies into your component class
 3. Class inheritance does work with components, but you'll need to define annotations on the child class
-4. Template annotation supports simply "url" for templateUrls and 'inline' for inline templates
+4. Component supports somes Angular1 customizations. You can specify a require or transclude property. You can also specify a custom controllerAs value. 
+5. Template annotation supports simply "url" for templateUrls and 'inline' for inline templates
 
 TemplateDirective and DecoratorDirective will be supported in a future release. I'm still examining the best way to port these to Angular 1.x and maintain a similar feature set and syntax to 2.0.
 

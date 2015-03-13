@@ -594,6 +594,7 @@ define('a1atscript/ng2Directives/Ng2Directive',[], function() {
     this.bind = descriptor.bind;
     this.controllerAs = descriptor.controllerAs;
     this.require = descriptor.require;
+    this.transclude = descriptor.transclude;
   };
   ($traceurRuntime.createClass)(Ng2Directive, {}, {});
   var $__default = Ng2Directive;
@@ -745,8 +746,8 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
     get templateUrl() {
       return this._templateProperties.templateUrl;
     },
-    get tranclude() {
-      return this._annotation.tranclude;
+    get transclude() {
+      return this._annotation.transclude;
     },
     get require() {
       return this._annotation.require;

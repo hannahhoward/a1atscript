@@ -68,7 +68,8 @@ describe("DirectiveDefinitionObject", function() {
           'something': '='
         },
         controllerAs: "awesome",
-        require: "power"
+        require: "power",
+        transclude: true
       });
       angular.version.major = 1;
       angular.version.minor = 4;
@@ -87,7 +88,7 @@ describe("DirectiveDefinitionObject", function() {
       expect(ng2DirectiveDefinitionObject.template).toBe(undefined);
       expect(ng2DirectiveDefinitionObject.templateUrl).toBe(undefined);
       expect(ng2DirectiveDefinitionObject.require).toBe("power");
-      expect(ng2DirectiveDefinitionObject.transclude).toBe(undefined);
+      expect(ng2DirectiveDefinitionObject.transclude).toBe(true);
 
     });
 
@@ -105,7 +106,7 @@ describe("DirectiveDefinitionObject", function() {
             'something': "="
           },
           require: "power",
-          transclude: undefined,
+          transclude: true,
           controller: Hello,
           template: undefined,
           templateUrl: undefined

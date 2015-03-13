@@ -4,5 +4,6 @@ export default class Ng2Directive {
     this.bind = descriptor.bind;
     this.controllerAs = descriptor.controllerAs;
     this.require = descriptor.require;
+    this.transclude = descriptor.transclude;
   }
 }

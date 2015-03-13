@@ -49,8 +49,8 @@ export default class Ng2DirectiveDefinitionObject {
     return this._templateProperties.templateUrl;
   }
 
-  get tranclude() {
-    return this._annotation.tranclude;
+  get transclude() {
+    return this._annotation.transclude;
   }
 
   get require() {
