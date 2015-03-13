@@ -1,11 +1,11 @@
 import SelectorMatcher from "./SelectorMatcher.js";
 
-export class Ng2DirectiveDefinitionObject {
+export default class Ng2DirectiveDefinitionObject {
 
   constructor(controller, annotation, templateProperties = {}) {
     this._annotation = annotation;
     this._controller = controller;
-    this._templateProperties = _templateProperties;
+    this._templateProperties = templateProperties;
   }
 
   get selectorMatcher() {
@@ -23,11 +23,22 @@ export class Ng2DirectiveDefinitionObject {
   }
 
   get bindToController() {
-    return this._annotation.bind;
+    // bindToController as object syntax only supported on 1.4
+    if (angular.version.major == 1 && angular.version.minor >= 4) {
+      return this._annotation.bind;
+    } else {
+      return true;
+    }
+
   }
 
   get scope() {
-    return {};
+    // bindToController as object syntax only supported on 1.4
+    if (angular.version.major == 1 && angular.version.minor >= 4) {
+      return {};
+    } else {
+      return this._annotation.bind;
+    }
   }
 
   get template() {

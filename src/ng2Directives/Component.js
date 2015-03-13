@@ -1,4 +1,4 @@
-import {Ng2Directive} from './Ng2Directive';
+import Ng2Directive from './Ng2Directive.js';
 
 export class Component extends Ng2Directive {
   constructor(descriptor) {

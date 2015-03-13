@@ -21,8 +21,12 @@ class DirectiveObjectInjector extends ListInjector {
     // dependency, and the final item is the factory function itself.
     factoryArray.push((...args) => {
       var directive = new ConstructorFn(...args);
-      for (var key in directive) {
-        directive[key] = directive[key];
+      if (angular.version.major == 1
+        && angular.version.minor <= 3
+        && angular.version.dot < 12) {
+        for (var key in directive) {
+          directive[key] = directive[key];
+        }
       }
       return directive;
     });

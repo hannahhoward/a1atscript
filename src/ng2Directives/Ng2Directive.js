@@ -1,4 +1,4 @@
-export class Ng2Directive {
+export default class Ng2Directive {
   constructor(descriptor) {
     this.selector = descriptor.selector;
     this.bind = descriptor.bind;

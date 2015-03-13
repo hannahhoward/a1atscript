@@ -1,4 +1,4 @@
-export class SelectorMatcher {
+export default class SelectorMatcher {
   constructor(selector: string) {
     this._selector = selector;
   }

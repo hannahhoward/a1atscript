@@ -2,7 +2,7 @@ import {Template} from "./Component";
 
 export default class TemplateProperties {
   constructor(template: Template) {
-    this._template = Template;
+    this._template = template;
   }
 
   get template() {
