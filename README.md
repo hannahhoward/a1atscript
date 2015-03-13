@@ -2,7 +2,7 @@
 
 ## A-1 AtScript
 
-This is a package that uses AtScript annotations to provide syntactic sugar around Angular 1.x's Dependency Injection mechanism. It is designed to be a "bridge" to Angular 2.0  -- so you can get a flavor of the way we'll be writing Angular 2.0 code tomorrow, today.
+This is a package that uses annotations to provide syntactic sugar around Angular 1.x's Dependency Injection mechanism. It is designed to be a "bridge" to Angular 2.0  -- to get you as close as possible to writing Angular 2.0 like code in Angular 1.x (and make the transition super easy). More features will be added as Angular 2.0's feature set becomes more clear.
 
 ### Initial setup
 
@@ -71,7 +71,7 @@ class ExampleService {
 #### Compile your main app module
 
 ```javascript
-import {Injector, Module} from 'bower_components/dist/a1atscript';
+import {bootstrap, Module} from 'bower_components/dist/a1atscript';
 import { MyModule } from './myModule'
 
 var AppModule = Module('AppModule', [
@@ -81,33 +81,77 @@ var AppModule = Module('AppModule', [
 // The string passed in is prefixed to then names
 // of all of the modules when they are instantiated with
 // Angular
-var injector = new Injector("myAppPrefix");
-injector.instantiate(AppModule);
+bootstrap(AppModule, "myAppPrefix");
 ```
 
-### Directive Objects
+*Those of you who want to manually use the Injector class still can -- the bootstrap function is meant to mirror Angular 2's*
 
-Angular 1.x's interface for defining directives is notoriously one of its most difficult aspects. Typically, you create a factory function that returns a directive definition object, whose attributes specify the behavior of the directive. Since we now have the freedom to create our own injection methods, I decided to include a helper that allows you to define DirectiveObject classes, which in turn are converted properly to an Angular Directive when they are instantiated. Here's the format:
+### Get ready for Angular 2!
+
+Angular 2 introduces an entirely new syntax for working with directives. The most common type of directive is a Component. The good news is with A1AtScript you can write components right now, using a syntax remarkably similar to Angular 2.
 
 ```javascript
-@DirectiveObject('exampleDirective', ['ExampleService'])
-class ExampleDirective {
+@Component({
+  selector: "awesome",
+  bind: {
+    apple: "="
+  },
+  services: ["ExampleService"]
+})
+
+@Template({
+  url: "awesome.tpl.html"
+})
+
+class AwesomeComponent {
   constructor(exampleService) {
     this.exampleService = exampleService;
-    this.restrict = "E";
-    this.template = "<p>Hello</p>";
+    this.test = "test";
   }
-
-  link(scope, element, attrs) {
-    scope.value = this.exampleService.value;
-    scope.setFromService = () => {
-      scope.value2 = this.exampleService.value2;
-    }
+  setValue() {
+    this.value = this.exampleService.value;
   }
 }
 ```
 
-Note that this is preserved inside a compile or link function. Many thanks to Michael Bromley who provided the code to make this work in [this article](http://www.michaelbromley.co.uk/blog/350/exploring-es6-classes-in-angularjs-1-x).
+functionally this is equivalent to:
+
+```javascript
+angular.directive('awesome', function() {
+  return {
+  	restrict: 'E',
+  	bindToController: {
+  	  apple: "="
+  	},
+  	controller, ['ExampleService', AwesomeComponent]
+  	controllerAs: 'awesome',
+  	scope: {},
+  	templateUrl: "awesome.tpl.html",
+  }
+  function AwesomeComponent(exampleService) {
+    this.exampleService = exampleService;
+  	this.test = "test";
+  }
+  AwesomeComponent.prototype.setValue = function() {
+    this.value = this.exampleService.value
+  }
+});
+```
+
+The syntax is supported in a Angular 1.3+ (in 1.3 it will set bind properties on scope and bindToController to true, because bindToController object syntax is 1.4 only). If angular 1.x adopts a built-in component feature (see [https://github.com/angular/angular.js/issues/10007](https://github.com/angular/angular.js/issues/10007)) then this module will be updated to use that feature when it is available.
+
+Other features:
+
+1. Selector is a very, very basic css selector. The only things it does is if you do '[awesome]', your directive will be called awesome and it'll be set restrict: 'A', and if you do '.awesome' it'll be set restrict: 'C'
+2. Services is optional for injecting dependencies into your component class
+3. Class inheritance does work with components, but you'll need to define annotations on the child class
+4. Template annotation supports simply "url" for templateUrls and 'inline' for inline templates
+
+*But what about TemplateDirective and DecoratorDirective?*
+
+These wil be supported in a future release. Still examining the best way to port these to Angular 1.x and maintain a similar feature set and syntax to 2.0.
+
+*This new syntax replaces the old DirectiveObject, which is deprecated, and may be removed in a future release*
 
 ### Spice It Up: Write Your Own Injectors
 
@@ -192,9 +236,11 @@ registerInjector('state', StateInjector);
 
 That code works -- I've used it in my own projects for making ui-router easy to use. The best part is then you can create base states with common resolves and the extend them for your individual states.
 
-#### Why isn't everything packaged into one file?
 
-Google 'es6 module packaging'. I didn't want to transpile this down right away, because I don't know what you're compiling your ES6 code down to (System.js, AMD, CommonJS), so I just left the distributed code in native ES6 format. Unfortunately, there isn't a lot of clear information on the best way to concatenate a bunch of ES6 files down to a single file, so I'm leaving it as is for now.
+#### What's included?
+
+The /dist folder contains to sub folders: /es5 and /es6
+/es6 is essentially the source ES6 files, so that you can transpile/include them 
 
 #### Wait a second, I thought AtScript was called TypeScript now
 

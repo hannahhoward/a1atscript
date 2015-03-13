@@ -1,6 +1,6 @@
 {
   "name": "a1atscript",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "homepage": "https://github.com/hannahhoward/a1atscript",
   "authors": [
     "Hannah Howard <hannah@hannahhoward.net>"
@@ -8,10 +8,7 @@
   "description": "Use AtScript To Simplify Angular 1.x",
   "main": [
     "dist/a1atscript.js",
-    "dist/annotations.js",
-    "dist/Injector.js",
-    "dist/injectorTypes.js",
-    "dist/DirectiveObject.js"
+    "dist/a1atscript"
   ],
   "keywords": [
     "angular",

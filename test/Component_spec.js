@@ -1,17 +1,17 @@
 import angular from 'angular.js';
 import mock from 'angularMocks.js';
 
-import {Component, Template} from '../src/ng2Directives/Component'
-import "../src/ng2Directives/ComponentInjector";
+import {Component, Template} from '../src/a1atscript/ng2Directives/Component'
+import "../src/a1atscript/ng2Directives/ComponentInjector";
 
 import {
   Module,
   Service
-} from '../src/annotations';
+} from '../src/a1atscript/annotations';
 
 import {
-  Injector
-} from '../src/Injector';
+  bootstrap
+} from '../src/a1atscript/Injector';
 
 @Service('ExampleService')
 class ExampleService {
@@ -62,8 +62,7 @@ describe("Component", function() {
   var scope, isolateScope, element, injector, $compile;
 
   beforeEach(function() {
-    injector = new Injector("AppModule");
-    injector.instantiate(AppModule);
+    bootstrap(AppModule, "AppModule");
     mock.module('AppModule');
     mock.inject(function($rootScope, _$compile_) {
       scope = $rootScope.$new();

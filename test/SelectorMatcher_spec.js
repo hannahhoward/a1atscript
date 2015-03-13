@@ -1,4 +1,4 @@
-import SelectorMatcher from "../src/ng2Directives/SelectorMatcher.js"
+import SelectorMatcher from "../src/a1atscript/ng2Directives/SelectorMatcher.js"
 
 describe("SelectorMatcher", function() {
   var selectorMatcher;

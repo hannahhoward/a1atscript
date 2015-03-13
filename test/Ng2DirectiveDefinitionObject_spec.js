@@ -1,5 +1,5 @@
-import Ng2Directive from '../src/ng2Directives/Ng2Directive.js';
-import Ng2DirectiveDefinitionObject from '../src/ng2Directives/Ng2DirectiveDefinitionObject.js';
+import Ng2Directive from '../src/a1atscript/ng2Directives/Ng2Directive.js';
+import Ng2DirectiveDefinitionObject from '../src/a1atscript/ng2Directives/Ng2DirectiveDefinitionObject.js';
 
 class Hello {
   constructor() {

@@ -1,7 +1,7 @@
-import {Template} from "./Component";
+import {Template} from "./Component.js";
 
 export default class TemplateProperties {
-  constructor(template: Template) {
+  constructor(template:Template) {
     this._template = template;
   }
 
