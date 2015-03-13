@@ -17,7 +17,8 @@
     "dist/a1atscript/ng2Directives/Ng2Directive.js",
     "dist/a1atscript/ng2Directives/Ng2DirectiveDefinitionObject.js",
     "dist/a1atscript/ng2Directives/SelectorMatcher.js",
-    "dist/a1atscript/ng2Directives/TemplateProperties.js"
+    "dist/a1atscript/ng2Directives/TemplateProperties.js",
+    "dist/a1atscript/ng2Directives/BindBuilder.js"
   ],
   "keywords": [
     "angular",
