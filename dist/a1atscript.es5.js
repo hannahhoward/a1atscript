@@ -711,9 +711,11 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
   var SelectorMatcher = $__0.default;
   var Ng2DirectiveDefinitionObject = function Ng2DirectiveDefinitionObject(controller, annotation) {
     var templateProperties = arguments[2] !== (void 0) ? arguments[2] : {};
+    var bind = arguments[3] !== (void 0) ? arguments[3] : null;
     this._annotation = annotation;
     this._controller = controller;
     this._templateProperties = templateProperties;
+    this._bind = bind;
   };
   ($traceurRuntime.createClass)(Ng2DirectiveDefinitionObject, {
     get selectorMatcher() {
@@ -728,7 +730,7 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
     },
     get bindToController() {
       if (angular.version.major == 1 && angular.version.minor >= 4) {
-        return this._annotation.bind;
+        return this._bind || this._annotation.bind;
       } else {
         return true;
       }
@@ -737,7 +739,7 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
       if (angular.version.major == 1 && angular.version.minor >= 4) {
         return {};
       } else {
-        return this._annotation.bind;
+        return this._bind || this._annotation.bind;
       }
     },
     get template() {
@@ -784,7 +786,44 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
   };
 });
 
-define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component", "./TemplateProperties", "../injectorTypes", "./Ng2DirectiveDefinitionObject"], function($__0,$__2,$__4,$__6,$__8) {
+define('a1atscript/ng2Directives/BindBuilder',[], function() {
+  
+  var prefix = "___bindable___";
+  var BindBuilder = function BindBuilder(bindObj, component) {
+    this._bindObj = bindObj;
+    this._component = component;
+  };
+  ($traceurRuntime.createClass)(BindBuilder, {
+    setupProperty: function(key) {
+      Object.defineProperty(this._component.prototype, prefix + key, {
+        enumerable: true,
+        configurable: true,
+        set: function(value) {
+          this[key] = value;
+        }
+      });
+    },
+    build: function() {
+      var $__0 = this;
+      var bind = {};
+      Object.keys(this._bindObj).forEach((function(key) {
+        bind[key] = "@" + $__0._bindObj[key];
+        bind[prefix + key] = "=?bind" + $__0._bindObj[key][0].toUpperCase() + $__0._bindObj[key].slice(1);
+        $__0.setupProperty(key);
+      }));
+      return bind;
+    }
+  }, {});
+  var $__default = BindBuilder;
+  return {
+    get default() {
+      return $__default;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component", "./TemplateProperties", "../injectorTypes", "./Ng2DirectiveDefinitionObject", "./BindBuilder"], function($__0,$__2,$__4,$__6,$__8,$__10) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
@@ -796,6 +835,8 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
     $__6 = {default: $__6};
   if (!$__8 || !$__8.__esModule)
     $__8 = {default: $__8};
+  if (!$__10 || !$__10.__esModule)
+    $__10 = {default: $__10};
   var registerInjector = $__0.registerInjector;
   var $__3 = $__2,
       Component = $__3.Component,
@@ -803,6 +844,7 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
   var TemplateProperties = $__4.default;
   var ListInjector = $__6.ListInjector;
   var Ng2DirectiveDefinitionObject = $__8.default;
+  var BindBuilder = $__10.default;
   var ComponentInjector = function ComponentInjector() {
     $traceurRuntime.superConstructor($ComponentInjector).apply(this, arguments);
   };
@@ -830,7 +872,11 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
       } else {
         templateProperties = {};
       }
-      var ddo = new Ng2DirectiveDefinitionObject(controller, annotation, templateProperties);
+      var bind = null;
+      if (annotation.bind) {
+        bind = (new BindBuilder(annotation.bind, component)).build();
+      }
+      var ddo = new Ng2DirectiveDefinitionObject(controller, annotation, templateProperties, bind);
       module.directive(ddo.name, ddo.factoryFn);
     }
   }, {}, ListInjector);
