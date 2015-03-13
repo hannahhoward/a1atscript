@@ -793,22 +793,27 @@ define('a1atscript/ng2Directives/BindBuilder',[], function() {
     this._bindObj = bindObj;
     this._component = component;
   };
-  ($traceurRuntime.createClass)(BindBuilder, {build: function() {
+  ($traceurRuntime.createClass)(BindBuilder, {
+    setupProperty: function(key) {
+      Object.defineProperty(this._component.prototype, prefix + key, {
+        enumerable: true,
+        configurable: true,
+        set: function(value) {
+          this[key] = value;
+        }
+      });
+    },
+    build: function() {
       var $__0 = this;
       var bind = {};
       Object.keys(this._bindObj).forEach((function(key) {
         bind[key] = "@" + $__0._bindObj[key];
         bind[prefix + key] = "=?bind" + $__0._bindObj[key][0].toUpperCase() + $__0._bindObj[key].slice(1);
-        Object.defineProperty($__0._component.prototype, prefix + key, {
-          enumerable: true,
-          configurable: true,
-          set: function(value) {
-            this[key] = value;
-          }
-        });
+        $__0.setupProperty(key);
       }));
       return bind;
-    }}, {});
+    }
+  }, {});
   var $__default = BindBuilder;
   return {
     get default() {
