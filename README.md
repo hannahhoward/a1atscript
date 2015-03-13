@@ -140,14 +140,12 @@ The syntax is supported in a Angular 1.3+ (in 1.3 it will set bindToController t
 
 Other features:
 
-1. Selector is a very, very basic css selector. The only things it does is if you do '[awesome]', your directive will be called awesome and it'll be set restrict: 'A', and if you do '.awesome' it'll be set restrict: 'C'
+1. Selector is a very, very basic css selector. If you pass '[awesome]', your directive will be called awesome and it'll be set restrict: 'A', and if you pass '.awesome' it'll be set restrict: 'C'
 2. Services is optional for injecting dependencies into your component class
 3. Class inheritance does work with components, but you'll need to define annotations on the child class
 4. Template annotation supports simply "url" for templateUrls and 'inline' for inline templates
 
-*But what about TemplateDirective and DecoratorDirective?*
-
-These wil be supported in a future release. Still examining the best way to port these to Angular 1.x and maintain a similar feature set and syntax to 2.0.
+TemplateDirective and DecoratorDirective will be supported in a future release. I'm still examining the best way to port these to Angular 1.x and maintain a similar feature set and syntax to 2.0.
 
 *This new syntax replaces the old DirectiveObject, which is deprecated, and may be removed in a future release*
 
@@ -234,13 +232,12 @@ registerInjector('state', StateInjector);
 
 That code works -- I've used it in my own projects for making ui-router easy to use. The best part is then you can create base states with common resolves and the extend them for your individual states.
 
-
 #### What's included?
 
-The /dist folder contains the es6 source files so that you can package up A1AtScript using whatever packaging system is most comfortable for you. However, if you are using a workflow that uses AMD modules, you can also use a1atscript.es5.js -- which all of the code transpiled to ES5 as an AMD module.
+The /dist folder contains the es6 source files so that you can package up A1AtScript using whatever packaging system is most comfortable for you. However, if you are using a workflow that uses AMD modules, you can also use a1atscript.es5.js -- which has all of the code transpiled to ES5 as an AMD module.
 
 #### Wait a second, I thought AtScript was called TypeScript now
 
-It is. I've thought about renaming this T1000TypeScript... but I don't know who's using this.
+It is. T1000TypeScript anyone?
 
 # That's It. Enjoy
