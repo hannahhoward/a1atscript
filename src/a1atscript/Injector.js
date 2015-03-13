@@ -183,3 +183,8 @@ export class Injector {
     });
   }
 }
+
+export function bootstrap(appModule, appPrefix = "") {
+  var injector = new Injector(appPrefix);
+  injector.instantiate(appModule);
+}

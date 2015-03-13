@@ -5,11 +5,11 @@ import {
   Module,
   Controller,
   Service
-} from '../src/annotations';
+} from '../src/a1atscript/annotations';
 
 import {
   Injector
-} from '../src/Injector';
+} from '../src/a1atscript/Injector';
 
 @Controller('ExampleController', ['$scope', 'ExampleService'])
 function ExampleController($scope, ExampleService) {

@@ -1,7 +1,7 @@
 {
   "name": "a1atscript",
   "private": true,
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "A repo to play with AtScript.",
   "homepage": "https://github.com/vojtajina/atscript-playground",
   "repository": {
@@ -12,8 +12,9 @@
     "url": "https://github.com/vojtajina/atscript-playground/issues"
   },
   "dependencies": {
-    "traceur": "^0.0.86",
-    "requirejs": "^2.1.15"
+    "gulp-bump": "^0.2.2",
+    "requirejs": "^2.1.15",
+    "traceur": "^0.0.86"
   },
   "devDependencies": {
     "assert": "angular/assert#dist",
@@ -29,7 +30,10 @@
   },
   "scripts": {
     "test": "karma start --single-run",
-    "compile": "traceur --out build/a1atscript.es5.js src/a1atscript.js"
+    "traceur-amd": "traceur --annotations --types --modules='amd' --dir src build/amd",
+    "rjs": "./node_modules/.bin/r.js -o out=./dist/a1atscript.es5.js baseUrl=./build/amd name=a1atscript optimize=none",
+    "amd": "npm run-script traceur-amd; npm run-script rjs",
+    "dist": "gulp dist; npm run-script amd"
   },
   "author": "Vojta Jína <vojta.jina@gmail.com>",
   "license": "Apache-2.0"

@@ -1,16 +1,16 @@
 import angular from 'angular.js';
 import mock from 'angularMocks.js';
 
-import {DirectiveObject} from '../src/DirectiveObject'
+import {DirectiveObject} from '../src/a1atscript/DirectiveObject'
 
 import {
   Module,
   Service
-} from '../src/annotations';
+} from '../src/a1atscript/annotations';
 
 import {
-  Injector
-} from '../src/Injector';
+  bootstrap
+} from '../src/a1atscript/Injector';
 
 @Service('ExampleService')
 class ExampleService {
@@ -66,8 +66,7 @@ describe("DirectiveObject", function() {
   var scope, element, injector, $compile;
 
   beforeEach(function() {
-    injector = new Injector("AppModule");
-    injector.instantiate(AppModule);
+    bootstrap(AppModule, "AppModule");
     mock.module('AppModule');
     mock.inject(function($rootScope, _$compile_) {
       scope = $rootScope.$new();
