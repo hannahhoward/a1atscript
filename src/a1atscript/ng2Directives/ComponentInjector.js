@@ -3,6 +3,7 @@ import {Component, Template} from './Component.js';
 import TemplateProperties from './TemplateProperties.js';
 import {ListInjector} from "../injectorTypes.js";
 import Ng2DirectiveDefinitionObject from "./Ng2DirectiveDefinitionObject.js";
+import BindBuilder from "./BindBuilder.js";
 
 class ComponentInjector extends ListInjector {
   get annotationClass() {
@@ -27,7 +28,11 @@ class ComponentInjector extends ListInjector {
     } else {
       templateProperties = {};
     }
-    var ddo = new Ng2DirectiveDefinitionObject(controller, annotation, templateProperties);
+    var bind = null;
+    if (annotation.bind) {
+      bind = (new BindBuilder(annotation.bind, component)).build();
+    }
+    var ddo = new Ng2DirectiveDefinitionObject(controller, annotation, templateProperties, bind);
     module.directive(ddo.name, ddo.factoryFn);
   }
 }

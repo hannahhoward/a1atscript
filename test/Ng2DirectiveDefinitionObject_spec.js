@@ -7,14 +7,14 @@ class Hello {
 }
 
 describe("DirectiveDefinitionObject", function() {
-  var ng2DirectiveDefinitionObject, ng2Directive, ddoFactoryFn, templateProperties;
+  var ng2DirectiveDefinitionObject, ng2Directive, ddoFactoryFn, templateProperties, bind;
 
   describe("regular behavior", function() {
     beforeEach(function() {
       ng2Directive = new Ng2Directive({
         selector: "[attr]",
         bind: {
-          'something': '='
+          'something': "something"
         }
       });
       angular.version.major = 1;
@@ -27,7 +27,7 @@ describe("DirectiveDefinitionObject", function() {
       expect(ng2DirectiveDefinitionObject.name).toEqual("attr");
       expect(ng2DirectiveDefinitionObject.controllerAs).toEqual("attr");
       expect(ng2DirectiveDefinitionObject.bindToController).toEqual({
-        'something': '='
+        'something': "something"
       });
       expect(ng2DirectiveDefinitionObject.controller).toEqual(Hello);
       expect(ng2DirectiveDefinitionObject.scope).toEqual({});
@@ -48,7 +48,7 @@ describe("DirectiveDefinitionObject", function() {
           restrict: "A",
           controllerAs: "attr",
           bindToController: {
-            'something': "="
+            'something': "something"
           },
           require: undefined,
           transclude: undefined,
@@ -65,11 +65,10 @@ describe("DirectiveDefinitionObject", function() {
       ng2Directive = new Ng2Directive({
         selector: "[attr]",
         bind: {
-          'something': '='
+          'something': "something"
         },
         controllerAs: "awesome",
-        require: "power",
-        transclude: true
+        require: "power"
       });
       angular.version.major = 1;
       angular.version.minor = 4;
@@ -81,14 +80,14 @@ describe("DirectiveDefinitionObject", function() {
       expect(ng2DirectiveDefinitionObject.name).toEqual("attr");
       expect(ng2DirectiveDefinitionObject.controllerAs).toEqual("awesome");
       expect(ng2DirectiveDefinitionObject.bindToController).toEqual({
-        'something': '='
+        'something': "something"
       });
       expect(ng2DirectiveDefinitionObject.controller).toEqual(Hello);
       expect(ng2DirectiveDefinitionObject.scope).toEqual({});
       expect(ng2DirectiveDefinitionObject.template).toBe(undefined);
       expect(ng2DirectiveDefinitionObject.templateUrl).toBe(undefined);
       expect(ng2DirectiveDefinitionObject.require).toBe("power");
-      expect(ng2DirectiveDefinitionObject.transclude).toBe(true);
+      expect(ng2DirectiveDefinitionObject.transclude).toBe(undefined);
 
     });
 
@@ -103,10 +102,10 @@ describe("DirectiveDefinitionObject", function() {
           restrict: "A",
           controllerAs: "awesome",
           bindToController: {
-            'something': "="
+            'something': "something"
           },
           require: "power",
-          transclude: true,
+          transclude: undefined,
           controller: Hello,
           template: undefined,
           templateUrl: undefined
@@ -120,7 +119,7 @@ describe("DirectiveDefinitionObject", function() {
       ng2Directive = new Ng2Directive({
         selector: "[attr]",
         bind: {
-          'something': '='
+          'something': 'something'
         }
       });
       templateProperties = {
@@ -136,7 +135,7 @@ describe("DirectiveDefinitionObject", function() {
       expect(ng2DirectiveDefinitionObject.name).toEqual("attr");
       expect(ng2DirectiveDefinitionObject.controllerAs).toEqual("attr");
       expect(ng2DirectiveDefinitionObject.bindToController).toEqual({
-        'something': '='
+        'something': "something"
       });
       expect(ng2DirectiveDefinitionObject.controller).toEqual(Hello);
       expect(ng2DirectiveDefinitionObject.scope).toEqual({});
@@ -157,7 +156,7 @@ describe("DirectiveDefinitionObject", function() {
           restrict: "A",
           controllerAs: "attr",
           bindToController: {
-            'something': "="
+            'something': "something"
           },
           require: undefined,
           transclude: undefined,
@@ -169,12 +168,66 @@ describe("DirectiveDefinitionObject", function() {
     });
   });
 
+  describe("with bind", function() {
+    beforeEach(function() {
+      ng2Directive = new Ng2Directive({
+        selector: "[attr]",
+        bind: {
+          'something': "something"
+        }
+      });
+      bind = {
+        other: "awesome"
+      }
+      angular.version.major = 1;
+      angular.version.minor = 4;
+      ng2DirectiveDefinitionObject = new Ng2DirectiveDefinitionObject(Hello, ng2Directive, {}, bind);
+    });
+
+    it("should have the right properties", function() {
+      expect(ng2DirectiveDefinitionObject.restrict).toEqual("A");
+      expect(ng2DirectiveDefinitionObject.name).toEqual("attr");
+      expect(ng2DirectiveDefinitionObject.controllerAs).toEqual("attr");
+      expect(ng2DirectiveDefinitionObject.bindToController).toEqual({
+        other: "awesome"
+      });
+      expect(ng2DirectiveDefinitionObject.controller).toEqual(Hello);
+      expect(ng2DirectiveDefinitionObject.scope).toEqual({});
+      expect(ng2DirectiveDefinitionObject.template).toBe(undefined);
+      expect(ng2DirectiveDefinitionObject.templateUrl).toBe(undefined);
+      expect(ng2DirectiveDefinitionObject.require).toBe(undefined);
+      expect(ng2DirectiveDefinitionObject.transclude).toBe(undefined);
+    });
+
+    describe("factoryFn", function() {
+      beforeEach(function() {
+        ddoFactoryFn = ng2DirectiveDefinitionObject.factoryFn;
+      });
+
+      it("should build a factory function that returns the right DDO", function() {
+        expect(ddoFactoryFn()).toEqual({
+          scope: {},
+          restrict: "A",
+          controllerAs: "attr",
+          bindToController: {
+            other: "awesome"
+          },
+          require: undefined,
+          transclude: undefined,
+          controller: Hello,
+          template: undefined,
+          templateUrl: undefined
+        });
+      });
+    });
+  });
+
   describe("angular < 1.4", function() {
     beforeEach(function() {
       ng2Directive = new Ng2Directive({
         selector: "[attr]",
         bind: {
-          'something': '='
+          'something': "something"
         }
       });
       angular.version.major = 1;
@@ -189,7 +242,7 @@ describe("DirectiveDefinitionObject", function() {
       expect(ng2DirectiveDefinitionObject.bindToController).toEqual(true);
       expect(ng2DirectiveDefinitionObject.controller).toEqual(Hello);
       expect(ng2DirectiveDefinitionObject.scope).toEqual({
-        'something': '='
+        'something': "something"
       });
       expect(ng2DirectiveDefinitionObject.template).toBe(undefined);
       expect(ng2DirectiveDefinitionObject.templateUrl).toBe(undefined);
@@ -205,7 +258,7 @@ describe("DirectiveDefinitionObject", function() {
       it("should build a factory function that returns the right DDO", function() {
         expect(ddoFactoryFn()).toEqual({
           scope: {
-            'something': "="
+            'something': "something"
           },
           restrict: "A",
           controllerAs: "attr",

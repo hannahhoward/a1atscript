@@ -33,7 +33,7 @@ class AwesomeBase {
 @Component({
   selector: "awesome",
   bind: {
-    apple: "@"
+    apple: "apple"
   },
   services: ["ExampleService"]
 })
@@ -66,8 +66,9 @@ describe("Component", function() {
     mock.module('AppModule');
     mock.inject(function($rootScope, _$compile_) {
       scope = $rootScope.$new();
+      scope.apple = "cheese";
       $compile = _$compile_;
-      element = '<awesome apple="apple"></awesome>';
+      element = '<awesome bind-apple="apple"></awesome>';
       element = $compile(element)(scope);
       scope.$digest();
       isolateScope = element.isolateScope();
@@ -76,7 +77,7 @@ describe("Component", function() {
 
   it("should function as a directive definition object", function() {
     expect(element.find('p').length).toEqual(1);
-    expect(element.find('p')[0].innerHTML).toEqual("test apple")
+    expect(element.find('p')[0].innerHTML).toEqual("test cheese")
   });
 
   describe("this", function() {
