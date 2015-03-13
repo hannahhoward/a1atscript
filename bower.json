@@ -8,7 +8,16 @@
   "description": "Use AtScript To Simplify Angular 1.x",
   "main": [
     "dist/a1atscript.js",
-    "dist/a1atscript"
+    "dist/a1atscript/annotations.js",
+    "dist/a1atscript/DirectiveObject.js",
+    "dist/a1atscript/Injector.js",
+    "dist/a1atscript/injectorTypes.js",
+    "dist/a1atscript/ng2Directives/Component.js",
+    "dist/a1atscript/ng2Directives/ComponentInjector.js",
+    "dist/a1atscript/ng2Directives/Ng2Directive.js",
+    "dist/a1atscript/ng2Directives/Ng2DirectiveDefinitionObject.js",
+    "dist/a1atscript/ng2Directives/SelectorMatcher.js",
+    "dist/a1atscript/ng2Directives/TemplateProperties.js"
   ],
   "keywords": [
     "angular",

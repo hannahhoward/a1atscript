@@ -2,7 +2,7 @@
 
 ## A-1 AtScript
 
-This is a package that uses annotations to provide syntactic sugar around Angular 1.x's Dependency Injection mechanism. It is designed to be a "bridge" to Angular 2.0  -- to get you as close as possible to writing Angular 2.0 like code in Angular 1.x (and make the transition super easy). More features will be added as Angular 2.0's feature set becomes more clear.
+This is a package that uses annotations to provide syntactic sugar around Angular 1.x's Dependency Injection mechanism. It is designed to be a "bridge" to Angular 2.0  -- to get you as close as possible to writing Angular 2.0 like code in Angular 1.x. More features will be added as Angular 2.0's feature set becomes more clear.
 
 ### Initial setup
 
@@ -98,11 +98,9 @@ Angular 2 introduces an entirely new syntax for working with directives. The mos
   },
   services: ["ExampleService"]
 })
-
 @Template({
   url: "awesome.tpl.html"
 })
-
 class AwesomeComponent {
   constructor(exampleService) {
     this.exampleService = exampleService;
@@ -138,7 +136,7 @@ angular.directive('awesome', function() {
 });
 ```
 
-The syntax is supported in a Angular 1.3+ (in 1.3 it will set bind properties on scope and bindToController to true, because bindToController object syntax is 1.4 only). If angular 1.x adopts a built-in component feature (see [https://github.com/angular/angular.js/issues/10007](https://github.com/angular/angular.js/issues/10007)) then this module will be updated to use that feature when it is available.
+The syntax is supported in a Angular 1.3+ (in 1.3 it will set bindToController to true, and set properties on scope, because bindToController object syntax is 1.4 only). If angular 1.x adopts a built-in component feature (see [https://github.com/angular/angular.js/issues/10007](https://github.com/angular/angular.js/issues/10007)) then this module will be updated to use that feature when it is available.
 
 Other features:
 
@@ -239,9 +237,7 @@ That code works -- I've used it in my own projects for making ui-router easy to 
 
 #### What's included?
 
-The /dist folder contains to sub folders: /es5 and /es6
-/es6 is essentially the source ES6 files, so that you can transpile/include them 
-
+The /dist folder contains and pure es6 version and an es5 version that sets up AMD modules.
 #### Wait a second, I thought AtScript was called TypeScript now
 
 It is. I've thought about renaming this T1000TypeScript... but I don't know who's using this.
