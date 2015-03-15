@@ -245,7 +245,29 @@ That code works -- I've used it in my own projects for making ui-router easy to 
 
 The /dist folder contains the es6 source files so that you can package up A1AtScript using whatever packaging system is most comfortable for you. However, if you are using a workflow that uses AMD modules, you can also use a1atscript.es5.js -- which has all of the code transpiled to ES5 as an AMD module.
 
-#### Wait a second, I thought AtScript was called TypeScript now
+#### Developing A1AtScript
+
+1. Fork/clone the repo
+2. Setup tasks
+
+```
+npm install
+bower install
+```
+
+3. Run tests (karma/jasmine)
+
+```
+npm test
+```
+
+4. Bundle for distribution after making changes to src:
+
+```
+npm run-script dist
+```
+
+### Wait a second, I thought AtScript was called TypeScript now
 
 It is. T1000TypeScript anyone?
 
