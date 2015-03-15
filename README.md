@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/hannahhoward/a1atscript/badges/gpa.svg)](https://codeclimate.com/github/hannahhoward/a1atscript)
+[![Code Climate](https://codeclimate.com/github/hannahhoward/a1atscript/badges/gpa.svg)](https://codeclimate.com/github/hannahhoward/a1atscript) [![Build Status](https://travis-ci.org/hannahhoward/a1atscript.svg?branch=master)](https://travis-ci.org/hannahhoward/a1atscript)
 
 *NOTE: Please see the changelog for important breaking changes*
 
