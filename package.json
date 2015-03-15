@@ -30,7 +30,7 @@
     "karma-traceur-preprocessor": "^0.4.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run",
+    "test": "./node_modules/.bin/karma start --browsers Firefox --single-run",
     "traceur-amd": "./node_modules/.bin/traceur --annotations --types --modules='amd' --dir src build/amd",
     "rjs": "./node_modules/.bin/r.js -o out=./dist/a1atscript.es5.js baseUrl=./build/amd name=a1atscript optimize=none",
     "amd": "npm run-script traceur-amd; npm run-script rjs",

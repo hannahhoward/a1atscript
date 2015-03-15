@@ -260,7 +260,7 @@ bower install
 3. Run tests (karma/jasmine)
 
 ```
-npm test
+karma start
 ```
 
 4. Bundle for distribution after making changes to src:
