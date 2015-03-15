@@ -25,6 +25,7 @@
     "gulp-traceur": "vojtajina/gulp-traceur#fix-sourcemaps",
     "karma": "^0.12.24",
     "karma-chrome-launcher": "^0.1.5",
+    "karma-firefox-launcher": "^0.1.4",
     "karma-jasmine": "^0.2.2",
     "karma-requirejs": "^0.2.2",
     "karma-traceur-preprocessor": "^0.4.0"
