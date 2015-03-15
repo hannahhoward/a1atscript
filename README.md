@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/hannahhoward/a1atscript/badges/gpa.svg)](https://codeclimate.com/github/hannahhoward/a1atscript)
+
 *NOTE: Please see the changelog for important breaking changes*
 
 ## A-1 AtScript
