@@ -23,7 +23,7 @@ export class ListInjector {
 export class ConfigInjector extends ListInjector {
 
   get annotationClass() {
-    return Config;
+    return Config.originalClass || Config;
   }
 
   instantiateOne(module, config, metadata) {
@@ -35,7 +35,7 @@ export class ConfigInjector extends ListInjector {
 export class RunInjector extends ListInjector {
 
   get annotationClass() {
-    return Run;
+    return Run.originalClass || Run;
   }
 
   instantiateOne(module, run, metadata) {
@@ -47,7 +47,7 @@ export class RunInjector extends ListInjector {
 export class ControllerInjector extends ListInjector {
 
   get annotationClass() {
-    return Controller;
+    return Controller.originalClass || Controller;
   }
 
   instantiateOne(module, controller, metadata) {
@@ -60,7 +60,7 @@ export class ControllerInjector extends ListInjector {
 export class DirectiveInjector extends ListInjector {
 
   get annotationClass() {
-    return Directive;
+    return Directive.originalClass || Directive;
   }
 
   instantiateOne(module, directive, metadata) {
@@ -73,7 +73,7 @@ export class DirectiveInjector extends ListInjector {
 export class ServiceInjector extends ListInjector {
 
   get annotationClass() {
-    return Service;
+    return Service.originalClass || Service;
   }
 
   instantiateOne(module, service, metadata) {
@@ -86,7 +86,7 @@ export class ServiceInjector extends ListInjector {
 export class FactoryInjector extends ListInjector {
 
   get annotationClass() {
-    return Factory;
+    return Factory.originalClass || Factory;
   }
 
   instantiateOne(module, factory, metadata) {
@@ -99,7 +99,7 @@ export class FactoryInjector extends ListInjector {
 export class ProviderInjector extends ListInjector {
 
   get annotationClass() {
-    return Provider;
+    return Provider.originalClass || Provider;
   }
 
   instantiateOne(module, provider, metadata) {
@@ -112,7 +112,7 @@ export class ProviderInjector extends ListInjector {
 export class ValueInjector extends ListInjector {
 
   get annotationClass() {
-    return Value;
+    return Value.originalClass || Value;
   }
 
   instantiateOne(module, value, metadata) {
@@ -125,7 +125,7 @@ export class ValueInjector extends ListInjector {
 export class ConstantInjector extends ListInjector {
 
   get annotationClass() {
-    return Constant;
+    return Constant.originalClass || Constant;
   }
 
   instantiateOne(module, constant, metadata) {
@@ -138,7 +138,7 @@ export class ConstantInjector extends ListInjector {
 export class AnimationInjector extends ListInjector {
 
   get annotationClass() {
-    return Animation;
+    return Animation.originalClass || Animation;
   }
 
   instantiateOne(module, animation, metadata) {
@@ -151,7 +151,7 @@ export class AnimationInjector extends ListInjector {
 export class FilterInjector extends ListInjector {
 
   get annotationClass() {
-    return Filter;
+    return Filter.originalClass || Filter;
   }
 
   instantiateOne(module, filter, metadata) {

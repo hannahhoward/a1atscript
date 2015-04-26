@@ -7,11 +7,12 @@ import BindBuilder from "./BindBuilder.js";
 
 class ComponentInjector extends ListInjector {
   get annotationClass() {
-    return Component;
+    return Component.originalClass || Component;
   }
 
   _template(component) {
-    return component.annotations.find((annotation) => annotation instanceof Template);
+    var TemplateClass = Template.originalClass || Template;
+    return component.annotations.find((annotation) => annotation instanceof TemplateClass);
   }
 
   instantiateOne(module, component, annotation) {

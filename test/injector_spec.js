@@ -1,8 +1,9 @@
-import angular from 'angular.js';
-import mock from 'angularMocks.js';
+import angular from 'angular';
+import 'angular-mocks';
 
 import {
   Module,
+  AsModule,
   Controller,
   Service
 } from '../src/a1atscript/annotations';
@@ -11,12 +12,16 @@ import {
   Injector
 } from '../src/a1atscript/Injector';
 
+var mock = angular.mock;
+
 @Controller('ExampleController', ['$scope', 'ExampleService'])
-function ExampleController($scope, ExampleService) {
-  $scope.value = ExampleService.value
+class ExampleController {
+  constructor($scope, ExampleService) {
+    $scope.value = ExampleService.value
+  }
 }
 
-@Module('ServiceModule')
+@AsModule('ServiceModule')
 @Service('ExampleService')
 class ExampleService {
   constructor() {

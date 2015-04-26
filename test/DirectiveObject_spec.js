@@ -1,5 +1,5 @@
-import angular from 'angular.js';
-import mock from 'angularMocks.js';
+import angular from 'angular';
+import 'angular-mocks';
 
 import {DirectiveObject} from '../src/a1atscript/DirectiveObject'
 
@@ -11,6 +11,8 @@ import {
 import {
   bootstrap
 } from '../src/a1atscript/Injector';
+
+var mock = angular.mock;
 
 @Service('ExampleService')
 class ExampleService {

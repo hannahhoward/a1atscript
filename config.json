@@ -7,5 +7,9 @@
     "typeAssertionModule": "assert",
     "annotations": true,
     "sourceMaps": "file"
+  },
+  "babel": {
+    "sourceMaps": "inline",
+    "stage": 0
   }
 }

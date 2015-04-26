@@ -1,6 +1,8 @@
 import {ListInjector} from './injectorTypes.js';
 import {registerInjector} from './Injector.js';
+import ToAnnotation from './ToAnnotation.js';
 
+@ToAnnotation
 export class DirectiveObject {
   constructor(token, dependencies = []) {
     this.dependencies = dependencies;
@@ -10,7 +12,7 @@ export class DirectiveObject {
 
 class DirectiveObjectInjector extends ListInjector {
   get annotationClass() {
-    return DirectiveObject;
+    return DirectiveObject.originalClass || DirectiveObject;
   }
 
   _createFactoryArray(ConstructorFn) {
