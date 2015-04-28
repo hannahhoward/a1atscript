@@ -7,7 +7,7 @@ import BindBuilder from "./BindBuilder.js";
 
 class ComponentInjector extends ListInjector {
   get annotationClass() {
-    return Component.originalClass || Component;
+    return Component;
   }
 
   _template(component) {

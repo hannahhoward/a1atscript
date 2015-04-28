@@ -12,7 +12,7 @@ export class DirectiveObject {
 
 class DirectiveObjectInjector extends ListInjector {
   get annotationClass() {
-    return DirectiveObject.originalClass || DirectiveObject;
+    return DirectiveObject;
   }
 
   _createFactoryArray(ConstructorFn) {

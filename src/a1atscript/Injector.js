@@ -88,7 +88,11 @@ export class Injector {
     for (var i=0; i < annotations.length; i++) {
       var annotation = annotations[i];
       var foundInjector = Object.keys(registeredInjectors).find(
-        (key) => annotation instanceof registeredInjectors[key].annotationClass);
+        (key) => {
+          var annotationClass = registeredInjectors[key].annotationClass;
+          annotationClass = annotationClass.originalClass || annotationClass;
+          return annotation instanceof annotationClass;
+        });
       if (foundInjector) {
         return {
           key: foundInjector,
