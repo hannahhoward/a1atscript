@@ -8,7 +8,7 @@ This is a package that uses annotations to provide syntactic sugar around Angula
 
 ### Initial setup
 
-> You must be building your Angular 1.x with ES6 and Traceur to use this code. How to setup a JS build system that incorporates ES6 is beyond the scope of this document. Check for tutorials on the internet
+> You must be building your Angular 1.x with an ES Next transpiler. The system has been tested with both Babel.js and Traceur. See "Using a transpiler other than Traceur" for important caveats if you are not using Traceur. How to setup a JS build system that incorporates ES6 is beyond the scope of this document. Check for tutorials on the internet
 
 #### Install the module
 
@@ -23,7 +23,9 @@ import {Controller, Service} from 'bower_components/dist/a1atscript.js';
 // or appropriate path for your project
 
 @Controller('ExampleController', ['$scope', 'SomeService'])
-export function ExampleController($scope, SomeService) {
+export class ExampleController {
+  constructor($scope, SomeService) {
+  }
 }
 
 @Service('ExampleService', ['SomeService'])
@@ -61,7 +63,7 @@ You can include regular angular modules by just referencing them as strings.
 If you want to quickly define a module with only one component... just use two annotations
 
 ```javascript
-@Module('ServiceModule')
+@AsModule('ServiceModule')
 @Service('ExampleService')
 class ExampleService {
   constructor() {
@@ -247,7 +249,54 @@ That code works -- I've used it in my own projects for making ui-router easy to 
 
 The /dist folder contains the es6 source files so that you can package up A1AtScript using whatever packaging system is most comfortable for you. However, if you are using a workflow that uses AMD modules, you can also use a1atscript.es5.js -- which has all of the code transpiled to ES5 as an AMD module.
 
-#### Developing A1AtScript
+#### Using A Transpiler Other Than Traceur
+
+A1AtScripts supports any transpiler that supports the experimental ES7 Decorator spec. Decorators operate differently than Traceur's annotations (and presumably traceur will eventually convert to decorators). A1AtScript largely obscures this difference, with two major exceptions:
+
+1. Traceur supports annotations on functions, but decorators only work on classes. So the following code will work using Traceur but not a transpiler that supports decorators:
+
+```javascript
+@Controller('ExampleController', ['$scope', 'SomeService'])
+function ExampleController($scope, SomeService) {
+}
+```
+
+2. Because Decorators work differently, Module cannot simulteneously be a class you can "new" and also an annotation. So where before you could do either:
+
+```javascript
+@Module('ServiceModule')
+@Service('ExampleService')
+class ExampleService {
+  constructor() {
+    this.value = 'Test Value';
+  }
+}
+```
+
+or:
+
+```javascript
+export var MyModule = new Module('MyModule', [
+	AnotherModule,
+	ExampleController,
+	ExampleService,
+	'aRegularAngularModule'
+]);
+```
+
+Now the the abbrievated syntax is changed to:
+
+```javascript
+@AsModule('ServiceModule')
+@Service('ExampleService')
+class ExampleService {
+  constructor() {
+    this.value = 'Test Value';
+  }
+}
+```
+
+### Developing A1AtScript
 
 1. Fork/clone the repo
 2. Setup tasks

@@ -1,4 +1,4 @@
-import { Module } from './annotations.js';
+import { AsModule, Module } from './annotations.js';
 
 import {
   ConfigInjector,
@@ -88,7 +88,11 @@ export class Injector {
     for (var i=0; i < annotations.length; i++) {
       var annotation = annotations[i];
       var foundInjector = Object.keys(registeredInjectors).find(
-        (key) => annotation instanceof registeredInjectors[key].annotationClass);
+        (key) => {
+          var annotationClass = registeredInjectors[key].annotationClass;
+          annotationClass = annotationClass.originalClass || annotationClass;
+          return annotation instanceof annotationClass;
+        });
       if (foundInjector) {
         return {
           key: foundInjector,
@@ -100,7 +104,7 @@ export class Injector {
   }
 
   _getModuleAnnotation(dependency) {
-    return dependency.annotations.find((annotation) => annotation instanceof Module);
+    return dependency.annotations.find((annotation) => annotation instanceof Module || annotation instanceof AsModule);
   }
 
   _mergeSortedDependencies(sorted1, sorted2) {
@@ -154,7 +158,7 @@ export class Injector {
   }
 
   _moduleMetadata(moduleClass) {
-    return moduleClass.annotations.find((value) => value instanceof Module);
+    return moduleClass.annotations.find((value) => value instanceof Module || value instanceof AsModule);
   }
 
   _instantiateModuleDependencies(moduleDependencies) {

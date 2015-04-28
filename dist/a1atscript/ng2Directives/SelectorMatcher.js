@@ -1,6 +1,15 @@
+var SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g;
+var MOZ_HACK_REGEXP = /^moz([A-Z])/;
+
 export default class SelectorMatcher {
   constructor(selector: string) {
     this._selector = selector;
+  }
+
+  _camelizeName() {
+    this._name = this._name.replace(SPECIAL_CHARS_REGEXP,
+      (_, separator, letter, offset) => offset ? letter.toUpperCase() : letter ).
+    replace(MOZ_HACK_REGEXP, 'Moz$1');
   }
 
   _split() {
@@ -21,6 +30,7 @@ export default class SelectorMatcher {
     if (!this._name) {
       this._split();
     }
+    this._camelizeName();
     return this._name;
   }
 

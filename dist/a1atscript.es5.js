@@ -1,9 +1,53 @@
-define('a1atscript/annotations',[], function() {
+define('a1atscript/ToAnnotation',[], function() {
   
+  function ToAnnotation(AnnotationClass) {
+    var decorator = function() {
+      for (var callParams = [],
+          $__0 = 0; $__0 < arguments.length; $__0++)
+        callParams[$__0] = arguments[$__0];
+      callParams.unshift(null);
+      return function(targetClass) {
+        var oldAnnotation = Object.getOwnPropertyDescriptor(targetClass, 'annotations');
+        if (oldAnnotation) {
+          var oldGetter = oldAnnotation.get;
+          Object.defineProperty(targetClass, 'annotations', {
+            configurable: true,
+            get: function() {
+              return oldGetter().concat([new (Function.prototype.bind.apply(AnnotationClass, callParams))]);
+            }
+          });
+        } else {
+          Object.defineProperty(targetClass, 'annotations', {
+            configurable: true,
+            get: function() {
+              return [new (Function.prototype.bind.apply(AnnotationClass, callParams))];
+            }
+          });
+        }
+        return targetClass;
+      };
+    };
+    decorator.originalClass = AnnotationClass;
+    return decorator;
+  }
+  var $__default = ToAnnotation;
+  return {
+    get default() {
+      return $__default;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/annotations',["./ToAnnotation"], function($__0) {
+  
+  if (!$__0 || !$__0.__esModule)
+    $__0 = {default: $__0};
+  var ToAnnotation = $__0.default;
   var NgAnnotation = function NgAnnotation() {
     for (var dependencies = [],
-        $__1 = 0; $__1 < arguments.length; $__1++)
-      dependencies[$__1] = arguments[$__1];
+        $__3 = 0; $__3 < arguments.length; $__3++)
+      dependencies[$__3] = arguments[$__3];
     this.dependencies = dependencies;
   };
   ($traceurRuntime.createClass)(NgAnnotation, {}, {});
@@ -18,61 +62,102 @@ define('a1atscript/annotations',[], function() {
   };
   var $Config = Config;
   ($traceurRuntime.createClass)(Config, {}, {}, NgAnnotation);
+  Object.defineProperty(Config, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Run = function Run() {
     $traceurRuntime.superConstructor($Run).apply(this, arguments);
   };
   var $Run = Run;
   ($traceurRuntime.createClass)(Run, {}, {}, NgAnnotation);
+  Object.defineProperty(Run, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Controller = function Controller() {
     $traceurRuntime.superConstructor($Controller).apply(this, arguments);
   };
   var $Controller = Controller;
   ($traceurRuntime.createClass)(Controller, {}, {}, NgNamedAnnotation);
+  Object.defineProperty(Controller, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Directive = function Directive() {
     $traceurRuntime.superConstructor($Directive).apply(this, arguments);
   };
   var $Directive = Directive;
   ($traceurRuntime.createClass)(Directive, {}, {}, NgNamedAnnotation);
+  Object.defineProperty(Directive, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Service = function Service() {
     $traceurRuntime.superConstructor($Service).apply(this, arguments);
   };
   var $Service = Service;
   ($traceurRuntime.createClass)(Service, {}, {}, NgNamedAnnotation);
+  Object.defineProperty(Service, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Factory = function Factory() {
     $traceurRuntime.superConstructor($Factory).apply(this, arguments);
   };
   var $Factory = Factory;
   ($traceurRuntime.createClass)(Factory, {}, {}, NgNamedAnnotation);
+  Object.defineProperty(Factory, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Provider = function Provider() {
     $traceurRuntime.superConstructor($Provider).apply(this, arguments);
   };
   var $Provider = Provider;
   ($traceurRuntime.createClass)(Provider, {}, {}, NgNamedAnnotation);
+  Object.defineProperty(Provider, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Value = function Value() {
     $traceurRuntime.superConstructor($Value).apply(this, arguments);
   };
   var $Value = Value;
   ($traceurRuntime.createClass)(Value, {}, {}, NgNamedAnnotation);
+  Object.defineProperty(Value, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Constant = function Constant() {
     $traceurRuntime.superConstructor($Constant).apply(this, arguments);
   };
   var $Constant = Constant;
   ($traceurRuntime.createClass)(Constant, {}, {}, NgNamedAnnotation);
+  Object.defineProperty(Constant, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Filter = function Filter() {
     $traceurRuntime.superConstructor($Filter).apply(this, arguments);
   };
   var $Filter = Filter;
   ($traceurRuntime.createClass)(Filter, {}, {}, NgNamedAnnotation);
+  Object.defineProperty(Filter, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Animation = function Animation() {
     $traceurRuntime.superConstructor($Animation).apply(this, arguments);
   };
   var $Animation = Animation;
   ($traceurRuntime.createClass)(Animation, {}, {}, NgNamedAnnotation);
+  Object.defineProperty(Animation, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var Module = function Module() {
     $traceurRuntime.superConstructor($Module).apply(this, arguments);
   };
   var $Module = Module;
   ($traceurRuntime.createClass)(Module, {}, {}, NgNamedAnnotation);
+  var AsModule = function AsModule() {
+    $traceurRuntime.superConstructor($AsModule).apply(this, arguments);
+  };
+  var $AsModule = AsModule;
+  ($traceurRuntime.createClass)(AsModule, {}, {}, Module);
+  Object.defineProperty(AsModule, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   return {
     get Config() {
       return Config;
@@ -109,6 +194,9 @@ define('a1atscript/annotations',[], function() {
     },
     get Module() {
       return Module;
+    },
+    get AsModule() {
+      return AsModule;
     },
     __esModule: true
   };
@@ -327,7 +415,9 @@ define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0
     $__0 = {default: $__0};
   if (!$__2 || !$__2.__esModule)
     $__2 = {default: $__2};
-  var Module = $__0.Module;
+  var $__1 = $__0,
+      AsModule = $__1.AsModule,
+      Module = $__1.Module;
   var $__3 = $__2,
       ConfigInjector = $__3.ConfigInjector,
       RunInjector = $__3.RunInjector,
@@ -407,7 +497,9 @@ define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0
       for (var i = 0; i < annotations.length; i++) {
         var annotation = annotations[i];
         var foundInjector = Object.keys(registeredInjectors).find((function(key) {
-          return annotation instanceof registeredInjectors[key].annotationClass;
+          var annotationClass = registeredInjectors[key].annotationClass;
+          annotationClass = annotationClass.originalClass || annotationClass;
+          return annotation instanceof annotationClass;
         }));
         if (foundInjector) {
           return {
@@ -420,7 +512,7 @@ define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0
     },
     _getModuleAnnotation: function(dependency) {
       return dependency.annotations.find((function(annotation) {
-        return annotation instanceof Module;
+        return annotation instanceof Module || annotation instanceof AsModule;
       }));
     },
     _mergeSortedDependencies: function(sorted1, sorted2) {
@@ -473,7 +565,7 @@ define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0
     },
     _moduleMetadata: function(moduleClass) {
       return moduleClass.annotations.find((function(value) {
-        return value instanceof Module;
+        return value instanceof Module || value instanceof AsModule;
       }));
     },
     _instantiateModuleDependencies: function(moduleDependencies) {
@@ -515,20 +607,26 @@ define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0
   };
 });
 
-define('a1atscript/DirectiveObject',["./injectorTypes", "./Injector"], function($__0,$__2) {
+define('a1atscript/DirectiveObject',["./injectorTypes", "./Injector", "./ToAnnotation"], function($__0,$__2,$__4) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
   if (!$__2 || !$__2.__esModule)
     $__2 = {default: $__2};
+  if (!$__4 || !$__4.__esModule)
+    $__4 = {default: $__4};
   var ListInjector = $__0.ListInjector;
   var registerInjector = $__2.registerInjector;
+  var ToAnnotation = $__4.default;
   var DirectiveObject = function DirectiveObject(token) {
     var dependencies = arguments[1] !== (void 0) ? arguments[1] : [];
     this.dependencies = dependencies;
     this.token = token;
   };
   ($traceurRuntime.createClass)(DirectiveObject, {}, {});
+  Object.defineProperty(DirectiveObject, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   var DirectiveObjectInjector = function DirectiveObjectInjector() {
     $traceurRuntime.superConstructor($DirectiveObjectInjector).apply(this, arguments);
   };
@@ -542,8 +640,8 @@ define('a1atscript/DirectiveObject',["./injectorTypes", "./Injector"], function(
       var factoryArray = args.slice();
       factoryArray.push((function() {
         for (var args = [],
-            $__5 = 0; $__5 < arguments.length; $__5++)
-          args[$__5] = arguments[$__5];
+            $__7 = 0; $__7 < arguments.length; $__7++)
+          args[$__7] = arguments[$__7];
         var directive = new (Function.prototype.bind.apply(ConstructorFn, $traceurRuntime.spread([null], args)))();
         for (var key in directive) {
           directive[key] = directive[key];
@@ -591,7 +689,7 @@ define('a1atscript/ng2Directives/Ng2Directive',[], function() {
   
   var Ng2Directive = function Ng2Directive(descriptor) {
     this.selector = descriptor.selector;
-    this.bind = descriptor.bind;
+    this.properties = descriptor.properties || descriptor.bind;
     this.controllerAs = descriptor.controllerAs;
     this.require = descriptor.require;
     this.transclude = descriptor.transclude;
@@ -606,56 +704,56 @@ define('a1atscript/ng2Directives/Ng2Directive',[], function() {
   };
 });
 
-define('a1atscript/ng2Directives/Component',["./Ng2Directive"], function($__0) {
+define('a1atscript/ng2Directives/Component',["./Ng2Directive", "../ToAnnotation"], function($__0,$__2) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
+  if (!$__2 || !$__2.__esModule)
+    $__2 = {default: $__2};
   var Ng2Directive = $__0.default;
+  var ToAnnotation = $__2.default;
   var Component = function Component(descriptor) {
     $traceurRuntime.superConstructor($Component).call(this, descriptor);
-    this.services = descriptor.services;
+    this.injectables = descriptor.injectables || descriptor.services;
   };
   var $Component = Component;
   ($traceurRuntime.createClass)(Component, {}, {}, Ng2Directive);
-  var Template = function Template(descriptor) {
-    this.url = descriptor.url;
-    this.inline = descriptor.inline;
+  Object.defineProperty(Component, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
+  var ViewBase = function ViewBase(descriptor) {
+    this.templateUrl = descriptor.templateUrl || descriptor.url;
+    this.template = descriptor.template || descriptor.inline;
   };
-  ($traceurRuntime.createClass)(Template, {}, {});
+  ($traceurRuntime.createClass)(ViewBase, {}, {});
+  var Template = function Template() {
+    $traceurRuntime.superConstructor($Template).apply(this, arguments);
+  };
+  var $Template = Template;
+  ($traceurRuntime.createClass)(Template, {}, {}, ViewBase);
+  Object.defineProperty(Template, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
+  var View = function View() {
+    $traceurRuntime.superConstructor($View).apply(this, arguments);
+  };
+  var $View = View;
+  ($traceurRuntime.createClass)(View, {}, {}, ViewBase);
+  Object.defineProperty(View, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
   return {
     get Component() {
       return Component;
     },
+    get ViewBase() {
+      return ViewBase;
+    },
     get Template() {
       return Template;
     },
-    __esModule: true
-  };
-});
-
-define('a1atscript/ng2Directives/TemplateProperties',["./Component"], function($__0) {
-  
-  if (!$__0 || !$__0.__esModule)
-    $__0 = {default: $__0};
-  var Template = $__0.Template;
-  var TemplateProperties = function TemplateProperties(template) {
-    this._template = template;
-  };
-  ($traceurRuntime.createClass)(TemplateProperties, {
-    get template() {
-      return this._template.inline;
-    },
-    get templateUrl() {
-      return this._template.url;
-    }
-  }, {});
-  var $__default = TemplateProperties;
-  Object.defineProperty(TemplateProperties, "parameters", {get: function() {
-      return [[Template]];
-    }});
-  return {
-    get default() {
-      return $__default;
+    get View() {
+      return View;
     },
     __esModule: true
   };
@@ -663,10 +761,17 @@ define('a1atscript/ng2Directives/TemplateProperties',["./Component"], function($
 
 define('a1atscript/ng2Directives/SelectorMatcher',[], function() {
   
+  var SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g;
+  var MOZ_HACK_REGEXP = /^moz([A-Z])/;
   var SelectorMatcher = function SelectorMatcher(selector) {
     this._selector = selector;
   };
   ($traceurRuntime.createClass)(SelectorMatcher, {
+    _camelizeName: function() {
+      this._name = this._name.replace(SPECIAL_CHARS_REGEXP, (function(_, separator, letter, offset) {
+        return offset ? letter.toUpperCase() : letter;
+      })).replace(MOZ_HACK_REGEXP, 'Moz$1');
+    },
     _split: function() {
       if (this._selector[0] == ".") {
         this._restrict = "C";
@@ -683,6 +788,7 @@ define('a1atscript/ng2Directives/SelectorMatcher',[], function() {
       if (!this._name) {
         this._split();
       }
+      this._camelizeName();
       return this._name;
     },
     get restrict() {
@@ -710,12 +816,12 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
     $__0 = {default: $__0};
   var SelectorMatcher = $__0.default;
   var Ng2DirectiveDefinitionObject = function Ng2DirectiveDefinitionObject(controller, annotation) {
-    var templateProperties = arguments[2] !== (void 0) ? arguments[2] : {};
-    var bind = arguments[3] !== (void 0) ? arguments[3] : null;
+    var template = arguments[2] !== (void 0) ? arguments[2] : {};
+    var properties = arguments[3] !== (void 0) ? arguments[3] : null;
     this._annotation = annotation;
     this._controller = controller;
-    this._templateProperties = templateProperties;
-    this._bind = bind;
+    this._template = template;
+    this._properties = properties;
   };
   ($traceurRuntime.createClass)(Ng2DirectiveDefinitionObject, {
     get selectorMatcher() {
@@ -730,7 +836,7 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
     },
     get bindToController() {
       if (angular.version.major == 1 && angular.version.minor >= 4) {
-        return this._bind || this._annotation.bind;
+        return this._properties || this._annotation.properties;
       } else {
         return true;
       }
@@ -739,14 +845,14 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
       if (angular.version.major == 1 && angular.version.minor >= 4) {
         return {};
       } else {
-        return this._bind || this._annotation.bind;
+        return this._properties || this._annotation.properties;
       }
     },
     get template() {
-      return this._templateProperties.template;
+      return this._template.template;
     },
     get templateUrl() {
-      return this._templateProperties.templateUrl;
+      return this._template.templateUrl;
     },
     get transclude() {
       return this._annotation.transclude;
@@ -786,14 +892,14 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
   };
 });
 
-define('a1atscript/ng2Directives/BindBuilder',[], function() {
+define('a1atscript/ng2Directives/PropertiesBuilder',[], function() {
   
   var prefix = "___bindable___";
-  var BindBuilder = function BindBuilder(bindObj, component) {
-    this._bindObj = bindObj;
+  var PropertiesBuilder = function PropertiesBuilder(propertiesObj, component) {
+    this._propertiesObj = propertiesObj;
     this._component = component;
   };
-  ($traceurRuntime.createClass)(BindBuilder, {
+  ($traceurRuntime.createClass)(PropertiesBuilder, {
     setupProperty: function(key) {
       Object.defineProperty(this._component.prototype, prefix + key, {
         enumerable: true,
@@ -805,16 +911,16 @@ define('a1atscript/ng2Directives/BindBuilder',[], function() {
     },
     build: function() {
       var $__0 = this;
-      var bind = {};
-      Object.keys(this._bindObj).forEach((function(key) {
-        bind[key] = "@" + $__0._bindObj[key];
-        bind[prefix + key] = "=?bind" + $__0._bindObj[key][0].toUpperCase() + $__0._bindObj[key].slice(1);
+      var properties = {};
+      Object.keys(this._propertiesObj).forEach((function(key) {
+        properties[key] = "@" + $__0._propertiesObj[key];
+        properties[prefix + key] = "=?bind" + $__0._propertiesObj[key][0].toUpperCase() + $__0._propertiesObj[key].slice(1);
         $__0.setupProperty(key);
       }));
-      return bind;
+      return properties;
     }
   }, {});
-  var $__default = BindBuilder;
+  var $__default = PropertiesBuilder;
   return {
     get default() {
       return $__default;
@@ -823,7 +929,7 @@ define('a1atscript/ng2Directives/BindBuilder',[], function() {
   };
 });
 
-define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component", "./TemplateProperties", "../injectorTypes", "./Ng2DirectiveDefinitionObject", "./BindBuilder"], function($__0,$__2,$__4,$__6,$__8,$__10) {
+define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component", "../injectorTypes", "./Ng2DirectiveDefinitionObject", "./PropertiesBuilder"], function($__0,$__2,$__4,$__6,$__8) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
@@ -835,16 +941,13 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
     $__6 = {default: $__6};
   if (!$__8 || !$__8.__esModule)
     $__8 = {default: $__8};
-  if (!$__10 || !$__10.__esModule)
-    $__10 = {default: $__10};
   var registerInjector = $__0.registerInjector;
   var $__3 = $__2,
       Component = $__3.Component,
-      Template = $__3.Template;
-  var TemplateProperties = $__4.default;
-  var ListInjector = $__6.ListInjector;
-  var Ng2DirectiveDefinitionObject = $__8.default;
-  var BindBuilder = $__10.default;
+      ViewBase = $__3.ViewBase;
+  var ListInjector = $__4.ListInjector;
+  var Ng2DirectiveDefinitionObject = $__6.default;
+  var PropertiesBuilder = $__8.default;
   var ComponentInjector = function ComponentInjector() {
     $traceurRuntime.superConstructor($ComponentInjector).apply(this, arguments);
   };
@@ -855,28 +958,22 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
     },
     _template: function(component) {
       return component.annotations.find((function(annotation) {
-        return annotation instanceof Template;
-      }));
+        return annotation instanceof ViewBase;
+      })) || {};
     },
     instantiateOne: function(module, component, annotation) {
       var controller;
-      if (annotation.services) {
-        controller = annotation.services.concat([component]);
+      if (annotation.injectables) {
+        controller = annotation.injectables.concat([component]);
       } else {
         controller = component;
       }
       var template = this._template(component);
-      var templateProperties;
-      if (template) {
-        templateProperties = new TemplateProperties(template);
-      } else {
-        templateProperties = {};
+      var properties = null;
+      if (annotation.properties) {
+        properties = (new PropertiesBuilder(annotation.properties, component)).build();
       }
-      var bind = null;
-      if (annotation.bind) {
-        bind = (new BindBuilder(annotation.bind, component)).build();
-      }
-      var ddo = new Ng2DirectiveDefinitionObject(controller, annotation, templateProperties, bind);
+      var ddo = new Ng2DirectiveDefinitionObject(controller, annotation, template, properties);
       module.directive(ddo.name, ddo.factoryFn);
     }
   }, {}, ListInjector);
@@ -884,7 +981,7 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
   return {};
 });
 
-define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1atscript/DirectiveObject", "./a1atscript/ng2Directives/ComponentInjector", "./a1atscript/ng2Directives/Component"], function($__0,$__1,$__2,$__3,$__4) {
+define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1atscript/DirectiveObject", "./a1atscript/ng2Directives/ComponentInjector", "./a1atscript/ng2Directives/Component", "./a1atscript/ToAnnotation"], function($__0,$__1,$__2,$__3,$__4,$__5) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
@@ -896,11 +993,14 @@ define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1a
     $__3 = {default: $__3};
   if (!$__4 || !$__4.__esModule)
     $__4 = {default: $__4};
+  if (!$__5 || !$__5.__esModule)
+    $__5 = {default: $__5};
   var $__a1atscript_47_Injector_46_js__ = $__0;
   var $__a1atscript_47_annotations_46_js__ = $__1;
   var $__a1atscript_47_DirectiveObject_46_js__ = $__2;
   $__3;
   var $__a1atscript_47_ng2Directives_47_Component_46_js__ = $__4;
-  return $traceurRuntime.exportStar({__esModule: true}, $__a1atscript_47_Injector_46_js__, $__a1atscript_47_annotations_46_js__, $__a1atscript_47_DirectiveObject_46_js__, $__a1atscript_47_ng2Directives_47_Component_46_js__);
+  var $__a1atscript_47_ToAnnotation_46_js__ = $__5;
+  return $traceurRuntime.exportStar({__esModule: true}, $__a1atscript_47_Injector_46_js__, $__a1atscript_47_annotations_46_js__, $__a1atscript_47_DirectiveObject_46_js__, $__a1atscript_47_ng2Directives_47_Component_46_js__, $__a1atscript_47_ToAnnotation_46_js__);
 });
 

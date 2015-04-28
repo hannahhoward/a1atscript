@@ -1,3 +1,10 @@
+0.2.1 / 2015-04-28
+==================
+
+* Feature: Works with Babel.js and ESNext compilers that support ES7 decorator spec
+* Updated syntax for Components to latest Angular 2 names
+* directive selectors can now be written dasherized like an HTML selector
+
 0.2.0 / 2015-02-17
 ==================
   * FEATURE: Components. Define Angular Components using an Angular 2 like syntax

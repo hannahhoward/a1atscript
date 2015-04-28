@@ -1,6 +1,8 @@
 import {ListInjector} from './injectorTypes.js';
 import {registerInjector} from './Injector.js';
+import ToAnnotation from './ToAnnotation.js';
 
+@ToAnnotation
 export class DirectiveObject {
   constructor(token, dependencies = []) {
     this.dependencies = dependencies;
