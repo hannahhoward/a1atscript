@@ -1,7 +1,7 @@
 import angular from 'angular';
 import 'angular-mocks';
 
-import {Component, Template} from '../src/a1atscript/ng2Directives/Component'
+import {Component, View} from '../src/a1atscript/ng2Directives/Component'
 import "../src/a1atscript/ng2Directives/ComponentInjector";
 
 import {
@@ -34,13 +34,13 @@ class AwesomeBase {
 
 @Component({
   selector: "awesome",
-  bind: {
+  properties: {
     apple: "apple"
   },
-  services: ["ExampleService"]
+  injectables: ["ExampleService"]
 })
-@Template({
-  url: "awesome.tpl.html"
+@View({
+  templateUrl: "awesome.tpl.html"
 })
 class AwesomeComponent extends AwesomeBase {
   constructor(exampleService) {

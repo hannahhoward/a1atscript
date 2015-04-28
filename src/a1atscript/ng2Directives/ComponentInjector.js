@@ -1,9 +1,8 @@
 import {registerInjector} from '../Injector.js';
-import {Component, Template} from './Component.js';
-import TemplateProperties from './TemplateProperties.js';
+import {Component, ViewBase} from './Component.js';
 import {ListInjector} from "../injectorTypes.js";
 import Ng2DirectiveDefinitionObject from "./Ng2DirectiveDefinitionObject.js";
-import BindBuilder from "./BindBuilder.js";
+import PropertiesBuilder from "./PropertiesBuilder.js";
 
 class ComponentInjector extends ListInjector {
   get annotationClass() {
@@ -11,29 +10,22 @@ class ComponentInjector extends ListInjector {
   }
 
   _template(component) {
-    var TemplateClass = Template.originalClass || Template;
-    return component.annotations.find((annotation) => annotation instanceof TemplateClass);
+    return component.annotations.find((annotation) => annotation instanceof ViewBase) || {};
   }
 
   instantiateOne(module, component, annotation) {
     var controller;
-    if (annotation.services) {
-      controller = annotation.services.concat([component]);
+    if (annotation.injectables) {
+      controller = annotation.injectables.concat([component]);
     } else {
       controller = component;
     }
     var template = this._template(component);
-    var templateProperties;
-    if (template) {
-      templateProperties = new TemplateProperties(template)
-    } else {
-      templateProperties = {};
+    var properties = null;
+    if (annotation.properties) {
+      properties = (new PropertiesBuilder(annotation.properties, component)).build();
     }
-    var bind = null;
-    if (annotation.bind) {
-      bind = (new BindBuilder(annotation.bind, component)).build();
-    }
-    var ddo = new Ng2DirectiveDefinitionObject(controller, annotation, templateProperties, bind);
+    var ddo = new Ng2DirectiveDefinitionObject(controller, annotation, template, properties);
     module.directive(ddo.name, ddo.factoryFn);
   }
 }

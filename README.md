@@ -95,13 +95,13 @@ Angular 2 introduces an entirely new syntax for working with directives. The mos
 ```javascript
 @Component({
   selector: "awesome",
-  bind: {
+  properties: {
     apple: "apple"
   },
-  services: ["ExampleService"]
+  injectables: ["ExampleService"]
 })
-@Template({
-  url: "awesome.tpl.html"
+@View({
+  templateUrl: "awesome.tpl.html"
 })
 class AwesomeComponent {
   constructor(exampleService) {
@@ -127,7 +127,7 @@ angular.directive('awesome', function() {
   	restrict: 'E',
   	bindToController: {
   	  apple: "@apple"
-  	  // a setter is created automatically on your 
+  	  // a setter is created automatically on your
   	  // controller so that your controller can access this.apple
   	  ___bindable___apple: "=?bindApple"
   	},
@@ -153,7 +153,7 @@ Other features:
 2. What about bind? Well, rather than force you to use Angular 1's bizarre character syntax, we try to emulate Angular 2's behavior. if you call your directive with a plain old attribute, it's just interpreted as a string literal. If you call it with a bind- prefix, it gets passed the value of the expression. Sorry, no [] abbreviated syntax here -- Angular 1.x doesn't let you specify scope properties that have [] characters in them
 2. Services is optional for injecting dependencies into your component class
 3. Class inheritance does work with components, but you'll need to define annotations on the child class
-4. Component supports somes Angular1 customizations. You can specify a require or transclude property. You can also specify a custom controllerAs value. 
+4. Component supports somes Angular1 customizations. You can specify a require or transclude property. You can also specify a custom controllerAs value.
 5. Template annotation supports simply "url" for templateUrls and 'inline' for inline templates
 
 TemplateDirective and DecoratorDirective will be supported in a future release. I'm still examining the best way to port these to Angular 1.x and maintain a similar feature set and syntax to 2.0.

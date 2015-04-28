@@ -4,7 +4,7 @@ describe("SelectorMatcher", function() {
   var selectorMatcher;
   describe("element", function() {
     beforeEach(function() {
-      selectorMatcher = new SelectorMatcher("hello");
+      selectorMatcher = new SelectorMatcher("hello-test");
     });
 
     it("should be restricted to an element", function() {
@@ -12,12 +12,12 @@ describe("SelectorMatcher", function() {
     });
 
     it("should have the right name", function() {
-      expect(selectorMatcher.name).toEqual('hello');
+      expect(selectorMatcher.name).toEqual('helloTest');
     });
   });
   describe("attribute", function() {
     beforeEach(function() {
-      selectorMatcher = new SelectorMatcher("[hello]");
+      selectorMatcher = new SelectorMatcher("[hello-test]");
     });
 
     it("should be restricted to an element", function() {
@@ -25,12 +25,12 @@ describe("SelectorMatcher", function() {
     });
 
     it("should have the right name", function() {
-      expect(selectorMatcher.name).toEqual('hello');
+      expect(selectorMatcher.name).toEqual('helloTest');
     });
   });
   describe("class", function() {
     beforeEach(function() {
-      selectorMatcher = new SelectorMatcher(".hello");
+      selectorMatcher = new SelectorMatcher(".hello-test");
     });
 
     it("should be restricted to an element", function() {
@@ -38,7 +38,7 @@ describe("SelectorMatcher", function() {
     });
 
     it("should have the right name", function() {
-      expect(selectorMatcher.name).toEqual('hello');
+      expect(selectorMatcher.name).toEqual('helloTest');
     });
   });
 });
