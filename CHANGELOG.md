@@ -1,3 +1,7 @@
+0.2.2 / 2015-04-29
+==================
+* Make ToAnnotation a non default export so it can be used externally
+
 0.2.1 / 2015-04-28
 ==================
 

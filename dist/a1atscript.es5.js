@@ -30,10 +30,9 @@ define('a1atscript/ToAnnotation',[], function() {
     decorator.originalClass = AnnotationClass;
     return decorator;
   }
-  var $__default = ToAnnotation;
   return {
-    get default() {
-      return $__default;
+    get ToAnnotation() {
+      return ToAnnotation;
     },
     __esModule: true
   };
@@ -43,7 +42,7 @@ define('a1atscript/annotations',["./ToAnnotation"], function($__0) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
-  var ToAnnotation = $__0.default;
+  var ToAnnotation = $__0.ToAnnotation;
   var NgAnnotation = function NgAnnotation() {
     for (var dependencies = [],
         $__3 = 0; $__3 < arguments.length; $__3++)
@@ -617,7 +616,7 @@ define('a1atscript/DirectiveObject',["./injectorTypes", "./Injector", "./ToAnnot
     $__4 = {default: $__4};
   var ListInjector = $__0.ListInjector;
   var registerInjector = $__2.registerInjector;
-  var ToAnnotation = $__4.default;
+  var ToAnnotation = $__4.ToAnnotation;
   var DirectiveObject = function DirectiveObject(token) {
     var dependencies = arguments[1] !== (void 0) ? arguments[1] : [];
     this.dependencies = dependencies;
@@ -711,7 +710,7 @@ define('a1atscript/ng2Directives/Component',["./Ng2Directive", "../ToAnnotation"
   if (!$__2 || !$__2.__esModule)
     $__2 = {default: $__2};
   var Ng2Directive = $__0.default;
-  var ToAnnotation = $__2.default;
+  var ToAnnotation = $__2.ToAnnotation;
   var Component = function Component(descriptor) {
     $traceurRuntime.superConstructor($Component).call(this, descriptor);
     this.injectables = descriptor.injectables || descriptor.services;
