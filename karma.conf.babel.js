@@ -8,7 +8,7 @@ module.exports = function(config) {
   var files;
 
   files = [
-      'test/**/*.js'
+      'test/**/*.js', 'test-babel/ToAnnotation_spec.js'
   ];
 
   config.set({
@@ -26,7 +26,8 @@ module.exports = function(config) {
     ].concat(files),
 
     preprocessors: {
-      'test/**/*.js': ['browserify']
+      'test/**/*.js': ['browserify'],
+      'test-babel/ToAnnotation_spec.js': ['browserify']
     },
 
     browsers: ['Chrome'],
