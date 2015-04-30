@@ -1,5 +1,39 @@
 define('a1atscript/ToAnnotation',[], function() {
   
+  function defineAnnotation(target, AnnotationClass, callParams) {
+    var oldAnnotation = Object.getOwnPropertyDescriptor(target, 'annotations');
+    if (oldAnnotation) {
+      var oldGetter = oldAnnotation.get;
+      Object.defineProperty(target, 'annotations', {
+        configurable: true,
+        get: function() {
+          return oldGetter().concat([new (Function.prototype.bind.apply(AnnotationClass, callParams))]);
+        }
+      });
+    } else {
+      Object.defineProperty(target, 'annotations', {
+        configurable: true,
+        get: function() {
+          return [new (Function.prototype.bind.apply(AnnotationClass, callParams))];
+        }
+      });
+    }
+  }
+  function handleProperty(descriptor, AnnotationClass, callParams) {
+    var value;
+    if (descriptor.initializer) {
+      value = descriptor.initializer();
+    } else {
+      value = descriptor.value;
+    }
+    defineAnnotation(value, AnnotationClass, callParams);
+    if (descriptor.initializer) {
+      descriptor.initializer = function() {
+        return value;
+      };
+    }
+    return descriptor;
+  }
   function ToAnnotation(AnnotationClass) {
     var decorator = function() {
       for (var callParams = [],
@@ -10,33 +44,12 @@ define('a1atscript/ToAnnotation',[], function() {
         for (var otherParams = [],
             $__1 = 1; $__1 < arguments.length; $__1++)
           otherParams[$__1 - 1] = arguments[$__1];
-        var target,
-            returnVal;
         if (otherParams.length >= 2) {
-          target = otherParams[1].value;
-          returnVal = otherParams[1];
+          return handleProperty(otherParams[1], AnnotationClass, callParams);
         } else {
-          target = targetClass;
-          returnVal = targetClass;
+          defineAnnotation(targetClass, AnnotationClass, callParams);
+          return targetClass;
         }
-        var oldAnnotation = Object.getOwnPropertyDescriptor(targetClass, 'annotations');
-        if (oldAnnotation) {
-          var oldGetter = oldAnnotation.get;
-          Object.defineProperty(target, 'annotations', {
-            configurable: true,
-            get: function() {
-              return oldGetter().concat([new (Function.prototype.bind.apply(AnnotationClass, callParams))]);
-            }
-          });
-        } else {
-          Object.defineProperty(target, 'annotations', {
-            configurable: true,
-            get: function() {
-              return [new (Function.prototype.bind.apply(AnnotationClass, callParams))];
-            }
-          });
-        }
-        return returnVal;
       };
     };
     decorator.originalClass = AnnotationClass;

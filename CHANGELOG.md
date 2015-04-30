@@ -1,3 +1,7 @@
+0.2.4 / 2015-04-30
+==================
+* [Fix] Make ToAnnotation work on a class/object property
+
 0.2.3 / 2015-04-30
 ==================
 * Make ToAnnotation work on a class/object property
