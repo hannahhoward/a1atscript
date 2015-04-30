@@ -1,5 +1,5 @@
 import Ng2Directive from './Ng2Directive.js';
-import ToAnnotation from '../ToAnnotation.js';
+import {ToAnnotation} from '../ToAnnotation.js';
 
 @ToAnnotation
 export class Component extends Ng2Directive {

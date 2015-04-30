@@ -1,4 +1,4 @@
-export default function ToAnnotation(AnnotationClass) {
+export function ToAnnotation(AnnotationClass) {
   var decorator = function(...callParams) {
     callParams.unshift(null);
     return function(targetClass) {

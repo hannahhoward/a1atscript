@@ -1,4 +1,4 @@
-import ToAnnotation from './ToAnnotation.js';
+import {ToAnnotation} from './ToAnnotation.js';
 
 class NgAnnotation {
   constructor(...dependencies) {

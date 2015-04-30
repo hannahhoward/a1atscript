@@ -1,4 +1,4 @@
-import ToAnnotation from '../src/a1atscript/ToAnnotation.js';
+import {ToAnnotation} from '../src/a1atscript/ToAnnotation.js';
 
 class AnnoClass {
 
