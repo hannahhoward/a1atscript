@@ -1,3 +1,7 @@
+0.2.3 / 2015-04-30
+==================
+* Make ToAnnotation work on a class/object property
+
 0.2.2 / 2015-04-29
 ==================
 * Make ToAnnotation a non default export so it can be used externally

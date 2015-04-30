@@ -7,24 +7,36 @@ define('a1atscript/ToAnnotation',[], function() {
         callParams[$__0] = arguments[$__0];
       callParams.unshift(null);
       return function(targetClass) {
+        for (var otherParams = [],
+            $__1 = 1; $__1 < arguments.length; $__1++)
+          otherParams[$__1 - 1] = arguments[$__1];
+        var target,
+            returnVal;
+        if (otherParams.length >= 2) {
+          target = otherParams[1].value;
+          returnVal = otherParams[1];
+        } else {
+          target = targetClass;
+          returnVal = targetClass;
+        }
         var oldAnnotation = Object.getOwnPropertyDescriptor(targetClass, 'annotations');
         if (oldAnnotation) {
           var oldGetter = oldAnnotation.get;
-          Object.defineProperty(targetClass, 'annotations', {
+          Object.defineProperty(target, 'annotations', {
             configurable: true,
             get: function() {
               return oldGetter().concat([new (Function.prototype.bind.apply(AnnotationClass, callParams))]);
             }
           });
         } else {
-          Object.defineProperty(targetClass, 'annotations', {
+          Object.defineProperty(target, 'annotations', {
             configurable: true,
             get: function() {
               return [new (Function.prototype.bind.apply(AnnotationClass, callParams))];
             }
           });
         }
-        return targetClass;
+        return returnVal;
       };
     };
     decorator.originalClass = AnnotationClass;
