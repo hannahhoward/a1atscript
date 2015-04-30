@@ -12,7 +12,9 @@ class Anno2Class {
 }
 
 class TargetClass {
+  method() {
 
+  }
 }
 
 describe("ToAnnotation decorator", function() {
@@ -30,5 +32,10 @@ describe("ToAnnotation decorator", function() {
   it("on second annotation", function() {
     anno2Decorator("cheese", "grater")(TargetClass);
     expect(TargetClass.annotations).toEqual([new AnnoClass(), new Anno2Class("cheese", "grater")]);
+  });
+
+  it("operating on method", function() {
+    annoDecorator()(TargetClass.prototype, 'method', Object.getOwnPropertyDescriptor(TargetClass.prototype, 'method'));
+    expect(TargetClass.prototype.method.annotations).toEqual([new AnnoClass()]);
   });
 });
