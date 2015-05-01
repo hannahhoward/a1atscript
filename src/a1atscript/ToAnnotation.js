@@ -27,6 +27,7 @@ function handleProperty(descriptor, AnnotationClass, callParams) {
   if (descriptor.initializer) {
     descriptor.initializer = function() { return value; }
   }
+  descriptor.enumerable = true;
   return descriptor;
 }
 
