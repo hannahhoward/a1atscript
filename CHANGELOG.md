@@ -1,3 +1,7 @@
+0.2.5 / 2015-04-30
+==================
+* Set properties enumerable when they get an annotation
+
 0.2.4 / 2015-04-30
 ==================
 * [Fix] Make ToAnnotation work on a class/object property

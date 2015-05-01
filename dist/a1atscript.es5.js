@@ -32,6 +32,7 @@ define('a1atscript/ToAnnotation',[], function() {
         return value;
       };
     }
+    descriptor.enumerable = true;
     return descriptor;
   }
   function ToAnnotation(AnnotationClass) {
