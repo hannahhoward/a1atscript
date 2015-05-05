@@ -4,3 +4,4 @@ export * from './a1atscript/DirectiveObject.js';
 import './a1atscript/ng2Directives/ComponentInjector.js';
 export * from "./a1atscript/ng2Directives/Component.js";
 export * from './a1atscript/ToAnnotation.js';
+export * from './a1atscript/bootstrap.js';

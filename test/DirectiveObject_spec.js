@@ -10,7 +10,7 @@ import {
 
 import {
   bootstrap
-} from '../src/a1atscript/Injector';
+} from '../src/a1atscript/bootstrap';
 
 var mock = angular.mock;
 

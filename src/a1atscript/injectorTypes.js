@@ -11,6 +11,7 @@ import {
   Animation,
   Filter
 } from './annotations.js';
+import {Router} from "./Router.js";
 
 export class ListInjector {
   instantiate(module, dependencyList) {
@@ -52,6 +53,7 @@ export class ControllerInjector extends ListInjector {
 
   instantiateOne(module, controller, metadata) {
     controller['$inject'] = metadata.dependencies;
+    Router.routeReader.read(controller);
     module.controller(metadata.token, controller);
   }
 

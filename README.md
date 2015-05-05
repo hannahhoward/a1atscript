@@ -284,7 +284,7 @@ export var MyModule = new Module('MyModule', [
 ]);
 ```
 
-Now the the abbrievated syntax is changed to:
+Now the the abbrievated syntax is changed to:2. 
 
 ```javascript
 @AsModule('ServiceModule')
