@@ -175,7 +175,7 @@ bootstrap(AppComponent)
 
 app.tpl.html:
 ```html
-<ng-outlet><ng-outlet>
+<ng-viewport><ng-viewport>
 ```
 
 index.html:
@@ -189,17 +189,19 @@ navigate to /home/sub would yield:
 ```html
 <body>
 	<awesome>
-		<ng-outlet>
+		<ng-viewport>
 			<p>Home</p>
-			<ng-outlet>
+			<ng-viewport>
 				<p>Sub</p>
-			</ng-outlet>
-		</ng-outlet>
+			</ng-viewport>
+		</ng-viewport>
 	</awesome>
 <body>
 ```
 
 That's what Angular 2 routing is likely to look like -- except you can use this today!
+
+*Note: the name of the ng-viewport directive is about to change in the next release of the new Angular router to ng-outlet*
 
 ### Notes:
 
