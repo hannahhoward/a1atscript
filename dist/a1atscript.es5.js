@@ -7,7 +7,9 @@ define('a1atscript/ToAnnotation',[], function() {
       Object.defineProperty(target, 'annotations', {
         configurable: true,
         get: function() {
-          return oldGetter().concat([new (Function.prototype.bind.apply(AnnotationClass, callParams))]);
+          var oldValue = oldGetter();
+          oldValue.unshift(new (Function.prototype.bind.apply(AnnotationClass, callParams)));
+          return oldValue;
         }
       });
     } else {

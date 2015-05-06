@@ -1,3 +1,7 @@
+0.3.0 / 2015-05-05
+==================
+* Add support for the new Angular Router!
+
 0.2.5 / 2015-04-30
 ==================
 * Set properties enumerable when they get an annotation
