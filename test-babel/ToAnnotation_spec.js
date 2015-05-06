@@ -31,7 +31,7 @@ var literal = {
 describe("ToAnnotation decorator", function() {
 
   it("operating on class", function() {
-    expect(TargetClass.annotations).toEqual([new (Anno2Class.originalClass)("cheese", "grater"), new (AnnoClass.originalClass)()]);
+    expect(TargetClass.annotations).toEqual([new (AnnoClass.originalClass)(), new (Anno2Class.originalClass)("cheese", "grater")]);
   });
 
   it("operating on method", function() {

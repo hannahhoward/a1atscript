@@ -227,10 +227,521 @@ define('a1atscript/annotations',["./ToAnnotation"], function($__0) {
   };
 });
 
-define('a1atscript/injectorTypes',["./annotations"], function($__0) {
+define('a1atscript/AnnotationFinder',[], function() {
+  
+  var AnnotationFinder = function AnnotationFinder(AnnotatedClass) {
+    this.AnnotatedClass = AnnotatedClass;
+  };
+  ($traceurRuntime.createClass)(AnnotationFinder, {
+    annotationFor: function(AnnotationClass) {
+      var OriginalClass = AnnotationClass.originalClass || AnnotationClass;
+      if (this.AnnotatedClass.annotations) {
+        return this.AnnotatedClass.annotations.find((function(annotation) {
+          return annotation instanceof OriginalClass;
+        }));
+      } else {
+        return null;
+      }
+    },
+    annotationsFor: function(AnnotationClass) {
+      var OriginalClass = AnnotationClass.originalClass || AnnotationClass;
+      if (this.AnnotatedClass.annotations) {
+        return this.AnnotatedClass.annotations.filter((function(annotation) {
+          return annotation instanceof OriginalClass;
+        }));
+      } else {
+        return null;
+      }
+    }
+  }, {});
+  return {
+    get AnnotationFinder() {
+      return AnnotationFinder;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/ng2Directives/Ng2Directive',[], function() {
+  
+  var Ng2Directive = function Ng2Directive(descriptor) {
+    this.selector = descriptor.selector;
+    this.properties = descriptor.properties || descriptor.bind;
+    this.controllerAs = descriptor.controllerAs;
+    this.require = descriptor.require;
+    this.transclude = descriptor.transclude;
+  };
+  ($traceurRuntime.createClass)(Ng2Directive, {}, {});
+  var $__default = Ng2Directive;
+  return {
+    get default() {
+      return $__default;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/ng2Directives/Component',["./Ng2Directive", "../ToAnnotation"], function($__0,$__2) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
+  if (!$__2 || !$__2.__esModule)
+    $__2 = {default: $__2};
+  var Ng2Directive = $__0.default;
+  var ToAnnotation = $__2.ToAnnotation;
+  var Component = function Component(descriptor) {
+    $traceurRuntime.superConstructor($Component).call(this, descriptor);
+    this.injectables = descriptor.injectables || descriptor.services;
+  };
+  var $Component = Component;
+  ($traceurRuntime.createClass)(Component, {}, {}, Ng2Directive);
+  Object.defineProperty(Component, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
+  var ViewBase = function ViewBase(descriptor) {
+    this.templateUrl = descriptor.templateUrl || descriptor.url;
+    this.template = descriptor.template || descriptor.inline;
+  };
+  ($traceurRuntime.createClass)(ViewBase, {}, {});
+  var Template = function Template() {
+    $traceurRuntime.superConstructor($Template).apply(this, arguments);
+  };
+  var $Template = Template;
+  ($traceurRuntime.createClass)(Template, {}, {}, ViewBase);
+  Object.defineProperty(Template, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
+  var View = function View() {
+    $traceurRuntime.superConstructor($View).apply(this, arguments);
+  };
+  var $View = View;
+  ($traceurRuntime.createClass)(View, {}, {}, ViewBase);
+  Object.defineProperty(View, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
+  return {
+    get Component() {
+      return Component;
+    },
+    get ViewBase() {
+      return ViewBase;
+    },
+    get Template() {
+      return Template;
+    },
+    get View() {
+      return View;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/ng2Directives/SelectorMatcher',[], function() {
+  
+  var SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g;
+  var MOZ_HACK_REGEXP = /^moz([A-Z])/;
+  var SelectorMatcher = function SelectorMatcher(selector) {
+    this._selector = selector;
+  };
+  ($traceurRuntime.createClass)(SelectorMatcher, {
+    _camelizeName: function() {
+      this._name = this._name.replace(SPECIAL_CHARS_REGEXP, (function(_, separator, letter, offset) {
+        return offset ? letter.toUpperCase() : letter;
+      })).replace(MOZ_HACK_REGEXP, 'Moz$1');
+    },
+    _split: function() {
+      if (this._selector[0] == ".") {
+        this._restrict = "C";
+        this._name = this._selector.substring(1);
+      } else if (this._selector[0] == "[" && this._selector[this._selector.length - 1] == "]") {
+        this._restrict = "A";
+        this._name = this._selector.substring(1, this._selector.length - 1);
+      } else {
+        this._restrict = "E";
+        this._name = this._selector;
+      }
+    },
+    get name() {
+      if (!this._name) {
+        this._split();
+      }
+      this._camelizeName();
+      return this._name;
+    },
+    get restrict() {
+      if (!this._restrict) {
+        this._split();
+      }
+      return this._restrict;
+    }
+  }, {});
+  var $__default = SelectorMatcher;
+  Object.defineProperty(SelectorMatcher, "parameters", {get: function() {
+      return [[$traceurRuntime.type.string]];
+    }});
+  return {
+    get default() {
+      return $__default;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/router/ComponentMapper',["../annotations", "../ng2Directives/Component", "../AnnotationFinder", "../ng2Directives/SelectorMatcher"], function($__0,$__2,$__4,$__6) {
+  
+  if (!$__0 || !$__0.__esModule)
+    $__0 = {default: $__0};
+  if (!$__2 || !$__2.__esModule)
+    $__2 = {default: $__2};
+  if (!$__4 || !$__4.__esModule)
+    $__4 = {default: $__4};
+  if (!$__6 || !$__6.__esModule)
+    $__6 = {default: $__6};
+  var Controller = $__0.Controller;
+  var $__3 = $__2,
+      Component = $__3.Component,
+      ViewBase = $__3.ViewBase;
+  var AnnotationFinder = $__4.AnnotationFinder;
+  var SelectorMatcher = $__6.default;
+  var DEFAULT_CONTROLLER_SUFFIX = "Controller";
+  var DEFAULT_COMPONENT_PREFIX = "a1atscript";
+  var DEFAULT_CONTROLLER_PREFIX = "A1AtScript";
+  var ComponentMapping = function ComponentMapping(component, componentMapper) {
+    this.component = component;
+    this.componentMapper = componentMapper;
+  };
+  ($traceurRuntime.createClass)(ComponentMapping, {
+    get componentName() {
+      return this.componentMapper.map.get(this.component);
+    },
+    get templateUrl() {
+      return this.componentMapper.registry[this.componentName].templateUrl;
+    },
+    get isController() {
+      return this.componentMapper.registry[this.componentName].isController;
+    },
+    get controllerName() {
+      return this.componentMapper.registry[this.componentName].controllerName;
+    }
+  }, {});
+  var ComponentMapper = function ComponentMapper() {};
+  ($traceurRuntime.createClass)(ComponentMapper, {
+    register: function(component) {
+      if (!this.map.get(component)) {
+        this._setupComponent(component);
+      }
+      return new ComponentMapping(component, this);
+    },
+    _getControllerComponentName: function(component) {
+      var name = this._getControllerName(component);
+      if (name) {
+        if (name.endsWith(DEFAULT_CONTROLLER_SUFFIX)) {
+          return name[0].toLowerCase() + name.substr(1, name.length - DEFAULT_CONTROLLER_SUFFIX.length - 1);
+        } else {
+          return name[0].toLowerCase() + name.substr(1, name.length - 1);
+        }
+      } else {
+        return null;
+      }
+    },
+    _getControllerName: function(component) {
+      var controllerAnnotation = (new AnnotationFinder(component)).annotationFor(Controller);
+      if (controllerAnnotation) {
+        return controllerAnnotation.token;
+      } else {
+        return null;
+      }
+    },
+    _isController: function(component) {
+      var controllerAnnotation = (new AnnotationFinder(component)).annotationFor(Controller);
+      if (controllerAnnotation) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    _getComponentName: function(component) {
+      var componentAnnotation = (new AnnotationFinder(component)).annotationFor(Component);
+      if (componentAnnotation) {
+        if (componentAnnotation.controllerAs) {
+          return componentAnnotation.controllerAs;
+        } else if (componentAnnotation.selector) {
+          var selectorMatcher = new SelectorMatcher(componentAnnotation.selector);
+          return selectorMatcher.name;
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    },
+    _getGeneratedName: function() {
+      this._componentIndex = this._componentIndex || 0;
+      var name = (DEFAULT_COMPONENT_PREFIX + "Component_" + this._componentIndex);
+      this._componentIndex = this._componentIndex + 1;
+      return name;
+    },
+    _generateName: function(component) {
+      var name = this._getControllerComponentName(component);
+      name = name || this._getComponentName(component);
+      name = name || this._getGeneratedName();
+      return name;
+    },
+    _generateTemplate: function(name, component) {
+      var viewAnnotation = (new AnnotationFinder(component)).annotationFor(ViewBase);
+      if (viewAnnotation && viewAnnotation.templateUrl) {
+        return viewAnnotation.templateUrl;
+      } else {
+        return ("./components/" + name + "/" + name + ".html");
+      }
+    },
+    _readInlineTemplate: function(templateUrl, component) {
+      var viewAnnotation = (new AnnotationFinder(component)).annotationFor(ViewBase);
+      if (viewAnnotation && viewAnnotation.template) {
+        this.inlineTemplateCache[templateUrl] = viewAnnotation.template;
+      }
+    },
+    _generateControllerName: function(name) {
+      var componentBase;
+      if (name.startsWith(DEFAULT_COMPONENT_PREFIX)) {
+        componentBase = name.substring(DEFAULT_COMPONENT_PREFIX.length, name.length);
+      } else {
+        componentBase = name;
+      }
+      return DEFAULT_CONTROLLER_PREFIX + componentBase[0].toUpperCase() + componentBase.substring(1, componentBase.length) + DEFAULT_CONTROLLER_SUFFIX;
+    },
+    _setupComponent: function(component) {
+      var name = this._generateName(component);
+      var templateUrl = this._generateTemplate(name, component);
+      var controllerName = this._getControllerName(component);
+      var isController;
+      if (controllerName) {
+        isController = true;
+      } else {
+        isController = false;
+        controllerName = this._generateControllerName(name);
+      }
+      this.map.set(component, name);
+      this.registry[name] = {
+        component: component,
+        templateUrl: templateUrl,
+        isController: isController,
+        controllerName: controllerName
+      };
+      this.controllerRegistry[controllerName] = name;
+      this._readInlineTemplate(templateUrl, component);
+    },
+    get registry() {
+      this._componentRegistry = this._componentRegistry || {};
+      return this._componentRegistry;
+    },
+    get map() {
+      this._componentMap = this._componentMap || new Map();
+      return this._componentMap;
+    },
+    getComponent: function(componentName) {
+      return this.registry[componentName].component;
+    },
+    getTemplateUrl: function(componentName) {
+      return this.registry[componentName].templateUrl;
+    },
+    getComponentName: function(component) {
+      return this.map.get(component);
+    },
+    get controllerRegistry() {
+      this._controllerRegistry = this._controllerRegistry || {};
+      return this._controllerRegistry;
+    },
+    get inlineTemplateCache() {
+      this._inlineTemplateCache = this._inlineTemplateCache || {};
+      return this._inlineTemplateCache;
+    }
+  }, {});
+  return {
+    get ComponentMapper() {
+      return ComponentMapper;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/router/RouteConfig',["../ToAnnotation"], function($__0) {
+  
+  if (!$__0 || !$__0.__esModule)
+    $__0 = {default: $__0};
+  var ToAnnotation = $__0.ToAnnotation;
+  var RouteConfig = function RouteConfig(routeDescription) {
+    this.routeDescription = routeDescription;
+  };
+  ($traceurRuntime.createClass)(RouteConfig, {}, {});
+  Object.defineProperty(RouteConfig, "annotations", {get: function() {
+      return [new ToAnnotation];
+    }});
+  return {
+    get RouteConfig() {
+      return RouteConfig;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/router/RouteReader',["./RouteConfig", "../AnnotationFinder"], function($__0,$__2) {
+  
+  if (!$__0 || !$__0.__esModule)
+    $__0 = {default: $__0};
+  if (!$__2 || !$__2.__esModule)
+    $__2 = {default: $__2};
+  var RouteConfig = $__0.RouteConfig;
+  var AnnotationFinder = $__2.AnnotationFinder;
+  var RouteReader = function RouteReader(componentMapper) {
+    this.componentMapper = componentMapper;
+  };
+  ($traceurRuntime.createClass)(RouteReader, {
+    _routeConfigAnnotations: function(component) {
+      return (new AnnotationFinder(component)).annotationsFor(RouteConfig);
+    },
+    _routeConfig: function(component) {
+      return this._routeConfigAnnotations(component).map(this._convertConfig.bind(this));
+    },
+    _componentName: function(component) {
+      if (typeof(component) === "string") {
+        return component;
+      } else {
+        return this.componentMapper.register(component).componentName;
+      }
+    },
+    _convertConfig: function(routeConfigAnnotation) {
+      var $__4 = this;
+      var routeDescription = Object.assign({}, routeConfigAnnotation.routeDescription);
+      if (routeDescription.component) {
+        routeDescription.component = this._componentName(routeDescription.component);
+      }
+      if (routeDescription.components) {
+        var components = {};
+        Object.keys(routeDescription.components).forEach((function(key) {
+          components[key] = $__4._componentName(routeDescription.components[key]);
+        }));
+        routeDescription.components = components;
+      }
+      return routeDescription;
+    },
+    read: function(component) {
+      var mapping = this.componentMapper.register(component);
+      component.$routeConfig = this._routeConfig(component);
+    }
+  }, {});
+  return {
+    get RouteReader() {
+      return RouteReader;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/router/RouteInitializer',[], function() {
+  
+  var RouteInitializer = function RouteInitializer(componentMapper) {
+    this.componentMapper = componentMapper;
+  };
+  ($traceurRuntime.createClass)(RouteInitializer, {
+    configurationFunction: function(componentMapperName) {
+      var componentMapper = this.componentMapper;
+      return function($injector) {
+        var $componentMapper;
+        try {
+          $componentMapper = $injector.get(componentMapperName);
+        } catch (e) {
+          return ;
+        }
+        $componentMapper.setCtrlNameMapping(function(name) {
+          return componentMapper.registry[name].controllerName;
+        });
+        $componentMapper.setTemplateMapping(function(name) {
+          return componentMapper.registry[name].templateUrl;
+        });
+        $componentMapper.setComponentFromCtrlMapping(function(controllerName) {
+          return componentMapper.controllerRegistry[controllerName];
+        });
+      };
+    },
+    topRouteConfig: function(routeConfig) {
+      return function($router) {
+        $router.config(routeConfig);
+      };
+    },
+    setupComponentControllers: function() {
+      var $__0 = this;
+      Object.keys(this.componentMapper.registry).forEach((function(component) {
+        var config = $__0.componentMapper.registry[component];
+        if (!config.isController) {
+          $__0.module.controller(config.controllerName, config.component);
+        }
+      }));
+    },
+    setupInlineTemplates: function() {
+      var inlineTemplateCache = this.componentMapper.inlineTemplateCache;
+      return function($templateCache) {
+        Object.keys(inlineTemplateCache).forEach((function(templateUrl) {
+          $templateCache.put(templateUrl, inlineTemplateCache[templateUrl]);
+        }));
+      };
+    },
+    initialize: function(ngModuleName) {
+      var topComponent = arguments[1] !== (void 0) ? arguments[1] : null;
+      this.module = angular.module(ngModuleName);
+      this.module.config(['$injector', this.configurationFunction('$componentLoaderProvider')]);
+      this.module.run(['$injector', this.configurationFunction('$componentMapper')]);
+      this.setupComponentControllers();
+      this.module.run(['$templateCache', this.setupInlineTemplates()]);
+      if (topComponent && topComponent.$routeConfig) {
+        this.module.run(['$router', this.topRouteConfig(topComponent.$routeConfig)]);
+      }
+    }
+  }, {});
+  return {
+    get RouteInitializer() {
+      return RouteInitializer;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/Router',["./router/ComponentMapper", "./router/RouteReader", "./router/RouteInitializer", "./router/RouteConfig"], function($__0,$__2,$__4,$__6) {
+  
+  if (!$__0 || !$__0.__esModule)
+    $__0 = {default: $__0};
+  if (!$__2 || !$__2.__esModule)
+    $__2 = {default: $__2};
+  if (!$__4 || !$__4.__esModule)
+    $__4 = {default: $__4};
+  if (!$__6 || !$__6.__esModule)
+    $__6 = {default: $__6};
+  var ComponentMapper = $__0.ComponentMapper;
+  var RouteReader = $__2.RouteReader;
+  var RouteInitializer = $__4.RouteInitializer;
+  var $__router_47_RouteConfig_46_js__ = $__6;
+  var componentMapper = new ComponentMapper();
+  var routeReader = new RouteReader(componentMapper);
+  var routeInitializer = new RouteInitializer(componentMapper);
+  var Router = {
+    componentMapper: componentMapper,
+    routeReader: routeReader,
+    routeInitializer: routeInitializer
+  };
+  return $traceurRuntime.exportStar({
+    get Router() {
+      return Router;
+    },
+    __esModule: true
+  }, $__router_47_RouteConfig_46_js__);
+});
+
+define('a1atscript/injectorTypes',["./annotations", "./Router"], function($__0,$__2) {
+  
+  if (!$__0 || !$__0.__esModule)
+    $__0 = {default: $__0};
+  if (!$__2 || !$__2.__esModule)
+    $__2 = {default: $__2};
   var $__1 = $__0,
       Config = $__1.Config,
       Run = $__1.Run,
@@ -243,11 +754,12 @@ define('a1atscript/injectorTypes',["./annotations"], function($__0) {
       Constant = $__1.Constant,
       Animation = $__1.Animation,
       Filter = $__1.Filter;
+  var Router = $__2.Router;
   var ListInjector = function ListInjector() {};
   ($traceurRuntime.createClass)(ListInjector, {instantiate: function(module, dependencyList) {
-      var $__2 = this;
+      var $__4 = this;
       dependencyList.forEach((function(dependencyObject) {
-        $__2.instantiateOne(module, dependencyObject.dependency, dependencyObject.metadata);
+        $__4.instantiateOne(module, dependencyObject.dependency, dependencyObject.metadata);
       }));
     }}, {});
   var ConfigInjector = function ConfigInjector() {
@@ -286,6 +798,7 @@ define('a1atscript/injectorTypes',["./annotations"], function($__0) {
     },
     instantiateOne: function(module, controller, metadata) {
       controller['$inject'] = metadata.dependencies;
+      Router.routeReader.read(controller);
       module.controller(metadata.token, controller);
     }
   }, {}, ListInjector);
@@ -434,27 +947,30 @@ define('a1atscript/injectorTypes',["./annotations"], function($__0) {
   };
 });
 
-define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0,$__2) {
+define('a1atscript/Injector',["./annotations", "./AnnotationFinder", "./injectorTypes"], function($__0,$__2,$__4) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
   if (!$__2 || !$__2.__esModule)
     $__2 = {default: $__2};
+  if (!$__4 || !$__4.__esModule)
+    $__4 = {default: $__4};
   var $__1 = $__0,
       AsModule = $__1.AsModule,
       Module = $__1.Module;
-  var $__3 = $__2,
-      ConfigInjector = $__3.ConfigInjector,
-      RunInjector = $__3.RunInjector,
-      ControllerInjector = $__3.ControllerInjector,
-      DirectiveInjector = $__3.DirectiveInjector,
-      ServiceInjector = $__3.ServiceInjector,
-      FactoryInjector = $__3.FactoryInjector,
-      ProviderInjector = $__3.ProviderInjector,
-      ValueInjector = $__3.ValueInjector,
-      ConstantInjector = $__3.ConstantInjector,
-      AnimationInjector = $__3.AnimationInjector,
-      FilterInjector = $__3.FilterInjector;
+  var AnnotationFinder = $__2.AnnotationFinder;
+  var $__5 = $__4,
+      ConfigInjector = $__5.ConfigInjector,
+      RunInjector = $__5.RunInjector,
+      ControllerInjector = $__5.ControllerInjector,
+      DirectiveInjector = $__5.DirectiveInjector,
+      ServiceInjector = $__5.ServiceInjector,
+      FactoryInjector = $__5.FactoryInjector,
+      ProviderInjector = $__5.ProviderInjector,
+      ValueInjector = $__5.ValueInjector,
+      ConstantInjector = $__5.ConstantInjector,
+      AnimationInjector = $__5.AnimationInjector,
+      FilterInjector = $__5.FilterInjector;
   var registeredInjectors = {};
   function registerInjector(name, InjectorClass) {
     registeredInjectors[name] = new InjectorClass();
@@ -536,9 +1052,7 @@ define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0
       return null;
     },
     _getModuleAnnotation: function(dependency) {
-      return dependency.annotations.find((function(annotation) {
-        return annotation instanceof Module || annotation instanceof AsModule;
-      }));
+      return (new AnnotationFinder(dependency)).annotationFor(Module);
     },
     _mergeSortedDependencies: function(sorted1, sorted2) {
       var newSorted = {};
@@ -554,7 +1068,7 @@ define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0
     },
     _sortDependency: function(dependency) {
       var checkModule = arguments[1] !== (void 0) ? arguments[1] : true;
-      var $__4 = this;
+      var $__6 = this;
       var sorted = {};
       if (typeof dependency === "string" || dependency instanceof Module) {
         sorted.module = [dependency];
@@ -573,18 +1087,18 @@ define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0
       } else {
         Object.keys(dependency).forEach((function(key) {
           var subDependency = dependency[key];
-          var sortedSubDependencies = $__4._sortDependency(subDependency);
-          sorted = $__4._mergeSortedDependencies(sorted, sortedSubDependencies);
+          var sortedSubDependencies = $__6._sortDependency(subDependency);
+          sorted = $__6._mergeSortedDependencies(sorted, sortedSubDependencies);
         }));
       }
       return sorted;
     },
     _sortModuleDependencies: function(moduleClass) {
-      var $__4 = this;
+      var $__6 = this;
       var sorted = {};
       moduleClass.dependencies.forEach((function(dependency) {
-        var newSortedDependencies = $__4._sortDependency(dependency);
-        sorted = $__4._mergeSortedDependencies(sorted, newSortedDependencies);
+        var newSortedDependencies = $__6._sortDependency(dependency);
+        sorted = $__6._mergeSortedDependencies(sorted, newSortedDependencies);
       }));
       return sorted;
     },
@@ -594,14 +1108,14 @@ define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0
       }));
     },
     _instantiateModuleDependencies: function(moduleDependencies) {
-      var $__4 = this;
+      var $__6 = this;
       var returnedDependencies = [];
       if (moduleDependencies) {
         moduleDependencies.forEach((function(moduleDependency) {
           if (typeof moduleDependency === "string") {
             returnedDependencies.push(moduleDependency);
           } else {
-            returnedDependencies.push($__4.instantiate(moduleDependency));
+            returnedDependencies.push($__6.instantiate(moduleDependency));
           }
         }));
       }
@@ -613,20 +1127,12 @@ define('a1atscript/Injector',["./annotations", "./injectorTypes"], function($__0
       }));
     }
   }, {});
-  function bootstrap(appModule) {
-    var appPrefix = arguments[1] !== (void 0) ? arguments[1] : "";
-    var injector = new Injector(appPrefix);
-    injector.instantiate(appModule);
-  }
   return {
     get registerInjector() {
       return registerInjector;
     },
     get Injector() {
       return Injector;
-    },
-    get bootstrap() {
-      return bootstrap;
     },
     __esModule: true
   };
@@ -705,131 +1211,6 @@ define('a1atscript/DirectiveObject',["./injectorTypes", "./Injector", "./ToAnnot
   return {
     get DirectiveObject() {
       return DirectiveObject;
-    },
-    __esModule: true
-  };
-});
-
-define('a1atscript/ng2Directives/Ng2Directive',[], function() {
-  
-  var Ng2Directive = function Ng2Directive(descriptor) {
-    this.selector = descriptor.selector;
-    this.properties = descriptor.properties || descriptor.bind;
-    this.controllerAs = descriptor.controllerAs;
-    this.require = descriptor.require;
-    this.transclude = descriptor.transclude;
-  };
-  ($traceurRuntime.createClass)(Ng2Directive, {}, {});
-  var $__default = Ng2Directive;
-  return {
-    get default() {
-      return $__default;
-    },
-    __esModule: true
-  };
-});
-
-define('a1atscript/ng2Directives/Component',["./Ng2Directive", "../ToAnnotation"], function($__0,$__2) {
-  
-  if (!$__0 || !$__0.__esModule)
-    $__0 = {default: $__0};
-  if (!$__2 || !$__2.__esModule)
-    $__2 = {default: $__2};
-  var Ng2Directive = $__0.default;
-  var ToAnnotation = $__2.ToAnnotation;
-  var Component = function Component(descriptor) {
-    $traceurRuntime.superConstructor($Component).call(this, descriptor);
-    this.injectables = descriptor.injectables || descriptor.services;
-  };
-  var $Component = Component;
-  ($traceurRuntime.createClass)(Component, {}, {}, Ng2Directive);
-  Object.defineProperty(Component, "annotations", {get: function() {
-      return [new ToAnnotation];
-    }});
-  var ViewBase = function ViewBase(descriptor) {
-    this.templateUrl = descriptor.templateUrl || descriptor.url;
-    this.template = descriptor.template || descriptor.inline;
-  };
-  ($traceurRuntime.createClass)(ViewBase, {}, {});
-  var Template = function Template() {
-    $traceurRuntime.superConstructor($Template).apply(this, arguments);
-  };
-  var $Template = Template;
-  ($traceurRuntime.createClass)(Template, {}, {}, ViewBase);
-  Object.defineProperty(Template, "annotations", {get: function() {
-      return [new ToAnnotation];
-    }});
-  var View = function View() {
-    $traceurRuntime.superConstructor($View).apply(this, arguments);
-  };
-  var $View = View;
-  ($traceurRuntime.createClass)(View, {}, {}, ViewBase);
-  Object.defineProperty(View, "annotations", {get: function() {
-      return [new ToAnnotation];
-    }});
-  return {
-    get Component() {
-      return Component;
-    },
-    get ViewBase() {
-      return ViewBase;
-    },
-    get Template() {
-      return Template;
-    },
-    get View() {
-      return View;
-    },
-    __esModule: true
-  };
-});
-
-define('a1atscript/ng2Directives/SelectorMatcher',[], function() {
-  
-  var SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g;
-  var MOZ_HACK_REGEXP = /^moz([A-Z])/;
-  var SelectorMatcher = function SelectorMatcher(selector) {
-    this._selector = selector;
-  };
-  ($traceurRuntime.createClass)(SelectorMatcher, {
-    _camelizeName: function() {
-      this._name = this._name.replace(SPECIAL_CHARS_REGEXP, (function(_, separator, letter, offset) {
-        return offset ? letter.toUpperCase() : letter;
-      })).replace(MOZ_HACK_REGEXP, 'Moz$1');
-    },
-    _split: function() {
-      if (this._selector[0] == ".") {
-        this._restrict = "C";
-        this._name = this._selector.substring(1);
-      } else if (this._selector[0] == "[" && this._selector[this._selector.length - 1] == "]") {
-        this._restrict = "A";
-        this._name = this._selector.substring(1, this._selector.length - 1);
-      } else {
-        this._restrict = "E";
-        this._name = this._selector;
-      }
-    },
-    get name() {
-      if (!this._name) {
-        this._split();
-      }
-      this._camelizeName();
-      return this._name;
-    },
-    get restrict() {
-      if (!this._restrict) {
-        this._split();
-      }
-      return this._restrict;
-    }
-  }, {});
-  var $__default = SelectorMatcher;
-  Object.defineProperty(SelectorMatcher, "parameters", {get: function() {
-      return [[$traceurRuntime.type.string]];
-    }});
-  return {
-    get default() {
-      return $__default;
     },
     __esModule: true
   };
@@ -954,7 +1335,7 @@ define('a1atscript/ng2Directives/PropertiesBuilder',[], function() {
   };
 });
 
-define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component", "../injectorTypes", "./Ng2DirectiveDefinitionObject", "./PropertiesBuilder"], function($__0,$__2,$__4,$__6,$__8) {
+define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component", "../injectorTypes", "./Ng2DirectiveDefinitionObject", "./PropertiesBuilder", "../Router"], function($__0,$__2,$__4,$__6,$__8,$__10) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
@@ -966,6 +1347,8 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
     $__6 = {default: $__6};
   if (!$__8 || !$__8.__esModule)
     $__8 = {default: $__8};
+  if (!$__10 || !$__10.__esModule)
+    $__10 = {default: $__10};
   var registerInjector = $__0.registerInjector;
   var $__3 = $__2,
       Component = $__3.Component,
@@ -973,6 +1356,7 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
   var ListInjector = $__4.ListInjector;
   var Ng2DirectiveDefinitionObject = $__6.default;
   var PropertiesBuilder = $__8.default;
+  var Router = $__10.Router;
   var ComponentInjector = function ComponentInjector() {
     $traceurRuntime.superConstructor($ComponentInjector).apply(this, arguments);
   };
@@ -987,26 +1371,48 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
       })) || {};
     },
     instantiateOne: function(module, component, annotation) {
-      var controller;
       if (annotation.injectables) {
-        controller = annotation.injectables.concat([component]);
-      } else {
-        controller = component;
+        component.$inject = annotation.injectables;
       }
+      Router.routeReader.read(component);
       var template = this._template(component);
       var properties = null;
       if (annotation.properties) {
         properties = (new PropertiesBuilder(annotation.properties, component)).build();
       }
-      var ddo = new Ng2DirectiveDefinitionObject(controller, annotation, template, properties);
-      module.directive(ddo.name, ddo.factoryFn);
+      if (annotation.selector) {
+        var ddo = new Ng2DirectiveDefinitionObject(component, annotation, template, properties);
+        module.directive(ddo.name, ddo.factoryFn);
+      }
     }
   }, {}, ListInjector);
   registerInjector('component', ComponentInjector);
   return {};
 });
 
-define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1atscript/DirectiveObject", "./a1atscript/ng2Directives/ComponentInjector", "./a1atscript/ng2Directives/Component", "./a1atscript/ToAnnotation"], function($__0,$__1,$__2,$__3,$__4,$__5) {
+define('a1atscript/bootstrap',["./Injector", "./Router"], function($__0,$__2) {
+  
+  if (!$__0 || !$__0.__esModule)
+    $__0 = {default: $__0};
+  if (!$__2 || !$__2.__esModule)
+    $__2 = {default: $__2};
+  var Injector = $__0.Injector;
+  var Router = $__2.Router;
+  function bootstrap(appModule) {
+    var appPrefix = arguments[1] !== (void 0) ? arguments[1] : "";
+    var injector = new Injector(appPrefix);
+    var moduleName = injector.instantiate(appModule);
+    Router.routeInitializer.initialize(moduleName, appModule);
+  }
+  return {
+    get bootstrap() {
+      return bootstrap;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1atscript/DirectiveObject", "./a1atscript/ng2Directives/ComponentInjector", "./a1atscript/ng2Directives/Component", "./a1atscript/ToAnnotation", "./a1atscript/bootstrap"], function($__0,$__1,$__2,$__3,$__4,$__5,$__6) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
@@ -1020,12 +1426,15 @@ define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1a
     $__4 = {default: $__4};
   if (!$__5 || !$__5.__esModule)
     $__5 = {default: $__5};
+  if (!$__6 || !$__6.__esModule)
+    $__6 = {default: $__6};
   var $__a1atscript_47_Injector_46_js__ = $__0;
   var $__a1atscript_47_annotations_46_js__ = $__1;
   var $__a1atscript_47_DirectiveObject_46_js__ = $__2;
   $__3;
   var $__a1atscript_47_ng2Directives_47_Component_46_js__ = $__4;
   var $__a1atscript_47_ToAnnotation_46_js__ = $__5;
-  return $traceurRuntime.exportStar({__esModule: true}, $__a1atscript_47_Injector_46_js__, $__a1atscript_47_annotations_46_js__, $__a1atscript_47_DirectiveObject_46_js__, $__a1atscript_47_ng2Directives_47_Component_46_js__, $__a1atscript_47_ToAnnotation_46_js__);
+  var $__a1atscript_47_bootstrap_46_js__ = $__6;
+  return $traceurRuntime.exportStar({__esModule: true}, $__a1atscript_47_Injector_46_js__, $__a1atscript_47_annotations_46_js__, $__a1atscript_47_DirectiveObject_46_js__, $__a1atscript_47_ng2Directives_47_Component_46_js__, $__a1atscript_47_ToAnnotation_46_js__, $__a1atscript_47_bootstrap_46_js__);
 });
 

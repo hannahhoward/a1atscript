@@ -31,7 +31,7 @@ describe("ToAnnotation decorator", function() {
 
   it("on second annotation", function() {
     anno2Decorator("cheese", "grater")(TargetClass);
-    expect(TargetClass.annotations).toEqual([new AnnoClass(), new Anno2Class("cheese", "grater")]);
+    expect(TargetClass.annotations).toEqual([new Anno2Class("cheese", "grater"), new AnnoClass()]);
   });
 
   it("operating on method", function() {

@@ -1,4 +1,5 @@
 import { AsModule, Module } from './annotations.js';
+import { AnnotationFinder} from './AnnotationFinder.js';
 
 import {
   ConfigInjector,
@@ -104,7 +105,7 @@ export class Injector {
   }
 
   _getModuleAnnotation(dependency) {
-    return dependency.annotations.find((annotation) => annotation instanceof Module || annotation instanceof AsModule);
+    return (new AnnotationFinder(dependency)).annotationFor(Module);
   }
 
   _mergeSortedDependencies(sorted1, sorted2) {
@@ -186,9 +187,4 @@ export class Injector {
       );
     });
   }
-}
-
-export function bootstrap(appModule, appPrefix = "") {
-  var injector = new Injector(appPrefix);
-  injector.instantiate(appModule);
 }

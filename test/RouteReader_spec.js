@@ -1,17 +1,6 @@
 import {RouteReader} from '../src/a1atscript/router/RouteReader.js'
 import {RouteConfig} from '../src/a1atscript/router/RouteConfig';
 
-@RouteConfig({
-  path: '/user', component: UserComponent
-})
-@RouteConfig({
-  path: '/test', components: {
-    test: AwesomeComponent,
-    headline: MyController
-  }
-})
-class AppComponent {
-}
 
 class UserComponent {
 
@@ -25,6 +14,18 @@ class AwesomeComponent {
   path: 'cheese', component: 'awesome'
 })
 class MyController {
+}
+
+@RouteConfig({
+  path: '/user', component: UserComponent
+})
+@RouteConfig({
+  path: '/test', components: {
+    test: AwesomeComponent,
+    headline: MyController
+  }
+})
+class AppComponent {
 }
 
 describe("RouteReader", function() {

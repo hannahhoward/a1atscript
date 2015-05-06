@@ -11,8 +11,8 @@ class Anno2 {
 
 }
 
-@Anno1
-@Anno2
+@Anno1()
+@Anno2()
 class Something {
   constructor() {
 
