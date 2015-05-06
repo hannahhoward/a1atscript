@@ -1414,7 +1414,7 @@ define('a1atscript/bootstrap',["./Injector", "./Router"], function($__0,$__2) {
   };
 });
 
-define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1atscript/DirectiveObject", "./a1atscript/ng2Directives/ComponentInjector", "./a1atscript/ng2Directives/Component", "./a1atscript/ToAnnotation", "./a1atscript/bootstrap"], function($__0,$__1,$__2,$__3,$__4,$__5,$__6) {
+define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1atscript/DirectiveObject", "./a1atscript/ng2Directives/ComponentInjector", "./a1atscript/ng2Directives/Component", "./a1atscript/ToAnnotation", "./a1atscript/bootstrap", "./a1atscript/Router"], function($__0,$__1,$__2,$__3,$__4,$__5,$__6,$__7) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
@@ -1430,6 +1430,8 @@ define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1a
     $__5 = {default: $__5};
   if (!$__6 || !$__6.__esModule)
     $__6 = {default: $__6};
+  if (!$__7 || !$__7.__esModule)
+    $__7 = {default: $__7};
   var $__a1atscript_47_Injector_46_js__ = $__0;
   var $__a1atscript_47_annotations_46_js__ = $__1;
   var $__a1atscript_47_DirectiveObject_46_js__ = $__2;
@@ -1437,6 +1439,7 @@ define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1a
   var $__a1atscript_47_ng2Directives_47_Component_46_js__ = $__4;
   var $__a1atscript_47_ToAnnotation_46_js__ = $__5;
   var $__a1atscript_47_bootstrap_46_js__ = $__6;
-  return $traceurRuntime.exportStar({__esModule: true}, $__a1atscript_47_Injector_46_js__, $__a1atscript_47_annotations_46_js__, $__a1atscript_47_DirectiveObject_46_js__, $__a1atscript_47_ng2Directives_47_Component_46_js__, $__a1atscript_47_ToAnnotation_46_js__, $__a1atscript_47_bootstrap_46_js__);
+  var $__a1atscript_47_Router_46_js__ = $__7;
+  return $traceurRuntime.exportStar({__esModule: true}, $__a1atscript_47_Injector_46_js__, $__a1atscript_47_annotations_46_js__, $__a1atscript_47_DirectiveObject_46_js__, $__a1atscript_47_ng2Directives_47_Component_46_js__, $__a1atscript_47_ToAnnotation_46_js__, $__a1atscript_47_bootstrap_46_js__, $__a1atscript_47_Router_46_js__);
 });
 

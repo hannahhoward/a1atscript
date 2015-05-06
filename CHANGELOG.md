@@ -1,3 +1,7 @@
+0.3.2 / 2015-05-06
+==================
+* Minor fixes
+
 0.3.0 / 2015-05-05
 ==================
 * Add support for the new Angular Router!
