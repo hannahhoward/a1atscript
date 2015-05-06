@@ -1,19 +1,23 @@
 [![Code Climate](https://codeclimate.com/github/hannahhoward/a1atscript/badges/gpa.svg)](https://codeclimate.com/github/hannahhoward/a1atscript) [![Build Status](https://travis-ci.org/hannahhoward/a1atscript.svg?branch=master)](https://travis-ci.org/hannahhoward/a1atscript)
 
-*NOTE: Please see the changelog for important breaking changes*
-
-## A-1 AtScript
+# A-1 AtScript
 
 This is a package that uses annotations to provide syntactic sugar around Angular 1.x's Dependency Injection mechanism. It is designed to be a "bridge" to Angular 2.0  -- to get you as close as possible to writing Angular 2.0 like code in Angular 1.x. More features will be added as Angular 2.0's feature set becomes more clear.
 
-### Initial setup
+## Initial setup
 
-> You must be building your Angular 1.x with an ES Next transpiler. The system has been tested with both Babel.js and Traceur. See "Using a transpiler other than Traceur" for important caveats if you are not using Traceur. How to setup a JS build system that incorporates ES6 is beyond the scope of this document. Check for tutorials on the internet
+> You must be building your Angular 1.x with an ES Next transpiler. The system has been tested with both Babel.js and Traceur. See "Using a transpiler other than Traceur" for important caveats if you are not using Traceur. Check for tutorials on the internet for how to setup a JS build system that incorporates ES6.
 
 #### Install the module
 
 ```bash
 bower install a1atscript --save
+```
+
+or
+
+```bash
+npm install a1atscript
 ```
 
 #### Angular Type Annotations
@@ -88,8 +92,6 @@ var AppModule = Module('AppModule', [
 bootstrap(AppModule, "myAppPrefix");
 ```
 
-*Those of you who want to manually use the Injector class still can -- the bootstrap function is meant to mirror Angular 2's*
-
 ## Get ready for Angular 2!
 
 Angular 2 introduces an entirely new syntax for working with directives. The most common type of directive is a Component. The good news is with A1AtScript you can write components right now, using a syntax remarkably similar to Angular 2.
@@ -121,7 +123,87 @@ class AwesomeComponent {
 <awesome bind-apple="expression"></awesome>
 ```
 
-functionally this is equivalent to:
+### Routeable Components
+
+You can take your Angular 2 prep a step further by using A1AtScript with the new Angular router, using routable component syntax from Angular 2.
+
+make sure to install the new router:
+
+```
+npm install angular-new-router
+```
+
+Then you can build an amazing route aware app using a super simple syntax like this:
+
+app.js:
+
+```javascript
+@Component({})
+@View({
+  template: "<p>Sub</p>"
+})
+class SubComponent {
+
+}
+
+@Component({})
+@View({
+  template: "<p>Home</p><ng-viewport></ng-viewport>"
+})
+@RouteConfig({
+  path: "/sub", component: SubComponent
+})
+class HomeComponent {
+}
+
+// the AsModule annotation is an extra need to setup Angular's module system on the top level component for now
+@AsModule('AppModule', ['templates', 'ngNewRouter', HomeComponent, SubComponent])
+@Component({
+  selector: "awesome"
+})
+@View({
+  templateUrl: "app.tpl.html"
+})
+@RouteConfig({
+  path: "/home", component: HomeComponent
+})
+class AppComponent {
+}
+
+bootstrap(AppComponent)
+```
+
+app.tpl.html:
+```html
+<ng-outlet><ng-outlet>
+```
+
+index.html:
+```html
+<body>
+   <awesome></awesome>
+<body>
+```
+
+navigate to /home/sub would yield:
+```html
+<body>
+	<awesome>
+		<ng-outlet>
+			<p>Home</p>
+			<ng-outlet>
+				<p>Sub</p>
+			</ng-outlet>
+		</ng-outlet>
+	</awesome>
+<body>
+```
+
+That's what Angular 2 routing is likely to look like -- except you can use this today!
+
+### Notes:
+
+functionally the initial component declaration above is equivalent to:
 
 ```javascript
 angular.directive('awesome', function() {
@@ -147,179 +229,33 @@ angular.directive('awesome', function() {
   }
 });
 ```
+
 The syntax is supported in a Angular 1.3+ (in 1.3 it will set bindToController to true, and set properties on scope, because bindToController object syntax is 1.4 only). If angular 1.x adopts a built-in component feature (see [https://github.com/angular/angular.js/issues/10007](https://github.com/angular/angular.js/issues/10007)) then this module will be updated to use that feature when it is available.
 
 Other features:
 
 1. Selector is a very, very basic css selector. If you pass '[awesome]', your directive will be called awesome and it'll be set restrict: 'A', and if you pass '.awesome' it'll be set restrict: 'C'
-2. What about bind? Well, rather than force you to use Angular 1's bizarre character syntax, we try to emulate Angular 2's behavior. if you call your directive with a plain old attribute, it's just interpreted as a string literal. If you call it with a bind- prefix, it gets passed the value of the expression. Sorry, no [] abbreviated syntax here -- Angular 1.x doesn't let you specify scope properties that have [] characters in them
+2. What about properties? Well, rather than force you to use Angular 1's bizarre character syntax, we try to emulate Angular 2's behavior. if you call your directive with a plain old attribute, it's just interpreted as a string literal. If you call it with a bind- prefix, it gets passed the value of the expression. Sorry, no [] abbreviated syntax here -- Angular 1.x doesn't let you specify scope properties that have [] characters in them
 2. Services is optional for injecting dependencies into your component class
 3. Class inheritance does work with components, but you'll need to define annotations on the child class
 4. Component supports somes Angular1 customizations. You can specify a require or transclude property. You can also specify a custom controllerAs value.
 5. Template annotation supports simply "url" for templateUrls and 'inline' for inline templates
 
-TemplateDirective and DecoratorDirective will be supported in a future release. I'm still examining the best way to port these to Angular 1.x and maintain a similar feature set and syntax to 2.0.
+Angular 2's Directive will be supported in a future release. I'm still examining the best way to port this to Angular 1.x and maintain a similar feature set and syntax to 2.0.
 
-*This new syntax replaces the old DirectiveObject, which is deprecated, and may be removed in a future release*
+## Wrapping up
 
-### Spice It Up: Write Your Own Injectors
+#### More Info
 
-One of the things that has always annoyed me about ui-router is you write your states into a config block. Wouldn't it be nice if you could do something like this:
-
-```javascript
-@State('root.main.inner')
-class RootMainInnerState {
-  constructor() {
-    this.template = 'awesome/awesome.html'
-    this.controller = 'AwesomeController'
-  }
-
-  @Resolve('Backend')
-  model: function(Backend) {
-  }
-
-  @Resolve('AuthService')
-  user: function(AuthService) {
-  }
-
-}
-```
-
-Well the good news is you could potentially do that. Just define an Annotation and an Injector
-
-```javascript
-import {registerInjector} from 'bower_components/dist/a1atscript'
-
-export class State {
-   constructor(stateName) {
-     this.stateName = stateName;
-   }
-}
-
-export class Resolve {
-  constructor(...inject) {
-    this.inject = inject;
-  }
-}
-
-// An Injector must define an annotationClass getter and an instantiate method
-export class StateInjector {
-  get annotationClass() {
-    return State;
-  }
-
-  annotateResolves(state) {
-    state.resolve = {}
-    for (var prop in state) {
-      if (typeof state[prop] == "function") {
-        var resolveItem = state[prop];
-        resolveItem.annotations.forEach((annotation) => {
-          if (annotation instanceof Resolve) {
-            resolveItem['$inject'] = annotation.inject;
-            state.resolve[prop] = resolveItem;
-          }
-        });
-      }
-    }
-  }
-
-  instantiate(module, dependencyList) {
-    var injector = this;
-    module.config(function($stateProvider) {
-      dependencyList.forEach((dependencyObject) => {
-        var metadata = dependencyObject.metadata;
-        var StateClass = dependencyObject.dependency;
-        var state = new StateClass();
-        injector.annotateResolves(state);
-        $stateProvider.state(
-          metadata.stateName,
-          state
-        );
-      });
-    })
-  }
-}
-
-registerInjector('state', StateInjector);
-```
-
-That code works -- I've used it in my own projects for making ui-router easy to use. The best part is then you can create base states with common resolves and the extend them for your individual states.
+Check out the [Wiki](https://github.com/hannahhoward/a1atscript/wiki) for more specialized topics.
 
 #### What's included?
 
 The /dist folder contains the es6 source files so that you can package up A1AtScript using whatever packaging system is most comfortable for you. However, if you are using a workflow that uses AMD modules, you can also use a1atscript.es5.js -- which has all of the code transpiled to ES5 as an AMD module.
 
-#### Using A Transpiler Other Than Traceur
-
-A1AtScripts supports any transpiler that supports the experimental ES7 Decorator spec. Decorators operate differently than Traceur's annotations (and presumably traceur will eventually convert to decorators). A1AtScript largely obscures this difference, with two major exceptions:
-
-1. Traceur supports annotations on functions, but decorators only work on classes. So the following code will work using Traceur but not a transpiler that supports decorators:
-
-```javascript
-@Controller('ExampleController', ['$scope', 'SomeService'])
-function ExampleController($scope, SomeService) {
-}
-```
-
-2. Because Decorators work differently, Module cannot simulteneously be a class you can "new" and also an annotation. So where before you could do either:
-
-```javascript
-@Module('ServiceModule')
-@Service('ExampleService')
-class ExampleService {
-  constructor() {
-    this.value = 'Test Value';
-  }
-}
-```
-
-or:
-
-```javascript
-export var MyModule = new Module('MyModule', [
-	AnotherModule,
-	ExampleController,
-	ExampleService,
-	'aRegularAngularModule'
-]);
-```
-
-Now the the abbrievated syntax is changed to:2. 
-
-```javascript
-@AsModule('ServiceModule')
-@Service('ExampleService')
-class ExampleService {
-  constructor() {
-    this.value = 'Test Value';
-  }
-}
-```
-
-### Developing A1AtScript
-
-1. Fork/clone the repo
-2. Setup tasks
-
-```
-npm install
-bower install
-```
-
-3. Run tests (karma/jasmine)
-
-```
-karma start
-```
-
-4. Bundle for distribution after making changes to src:
-
-```
-npm run-script dist
-```
 
 ### Wait a second, I thought AtScript was called TypeScript now
 
-It is. T1000TypeScript anyone?
+A new name is coming as soon as I get big enough to be able to lose what little brand recognition I have.
 
 # That's It. Enjoy
