@@ -13,12 +13,19 @@
     "dist/a1atscript/Injector.js",
     "dist/a1atscript/injectorTypes.js",
     "dist/a1atscript/ToAnnotation.js",
+    "dist/a1atscript/Router.js",
+    "dist/a1atscript/bootstrap.js",
+    "dist/a1atscript/AnnotationFinder.js",
     "dist/a1atscript/ng2Directives/Component.js",
     "dist/a1atscript/ng2Directives/ComponentInjector.js",
     "dist/a1atscript/ng2Directives/Ng2Directive.js",
     "dist/a1atscript/ng2Directives/Ng2DirectiveDefinitionObject.js",
     "dist/a1atscript/ng2Directives/SelectorMatcher.js",
-    "dist/a1atscript/ng2Directives/PropertiesBuilder.js"
+    "dist/a1atscript/ng2Directives/PropertiesBuilder.js",
+    "dist/a1atscript/router/ComponentMapper.js",
+    "dist/a1atscript/router/RouteConfig.js",
+    "dist/a1atscript/router/RouteInitializer.js",
+    "dist/a1atscript/router/RouteReader.js"
   ],
   "keywords": [
     "angular",
