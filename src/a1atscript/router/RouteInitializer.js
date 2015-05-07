@@ -33,7 +33,7 @@ export class RouteInitializer {
   setupComponentControllers() {
     Object.keys(this.componentMapper.registry).forEach((component) => {
       var config = this.componentMapper.registry[component];
-      if (!config.isController) {
+      if (!config.isController && config.component != this.topComponent) {
         this.module.controller(
           config.controllerName,
           config.component
@@ -60,12 +60,14 @@ export class RouteInitializer {
     this.module.config(['$injector', this.configurationFunction('$componentLoaderProvider')]);
     this.module.run(['$injector', this.configurationFunction('$componentMapper')]);
 
+    if (topComponent && topComponent.$routeConfig) {
+      this.topComponent = topComponent;
+      this.module.run(['$router', this.topRouteConfig(topComponent.$routeConfig)])
+    }
+
     this.setupComponentControllers();
 
     this.module.run(['$templateCache', this.setupInlineTemplates()]);
 
-    if (topComponent && topComponent.$routeConfig) {
-      this.module.run(['$router', this.topRouteConfig(topComponent.$routeConfig)])
-    }
   }
 }

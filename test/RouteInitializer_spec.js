@@ -11,12 +11,18 @@ angular.module('testApp', ['ngNewRouter']);
 describe("RouteInitializer", function() {
 
   describe("initialize", function() {
-    var componentMapper, routeInitializer, $templateCache, $componentLoader, TestComponent, TestController, controllerSpy;
+    var componentMapper, routeInitializer, $templateCache, $componentLoader, TestComponent, TestController, controllerSpy, TopConfigComponent;
     beforeEach(function() {
       TestComponent = function() {
       };
       TestController = function() {
       };
+      TopConfigComponent = function() {
+      };
+      TopConfigComponent.$routeConfig = [{
+        path: "awesome", component: "awesome"
+      }];
+
       componentMapper = {
         registry: {
           "awesome": {
@@ -33,6 +39,15 @@ describe("RouteInitializer", function() {
             'component': TestController,
             'controllerName': "CheesetasticController",
             'isController': true
+          },
+          "topConfig": {
+            'templateUrl': 'topConfig.tpl.html',
+            'component': TopConfigComponent,
+            'controllerName': 'TopConfigController',
+            'isController': false,
+            'routeConfig': [{
+              path: "awesome", component: "awesome"
+            }]
           }
         },
         controllerRegistry: {
@@ -46,8 +61,8 @@ describe("RouteInitializer", function() {
 
       routeInitializer = new RouteInitializer(componentMapper);
       controllerSpy = spyOn(angular.module('testApp'), 'controller');
-      routeInitializer.initialize('testApp');
-      mock.module("testApp");
+      routeInitializer.initialize('testApp', TopConfigComponent);
+      mock.module("testApp", TopConfigComponent);
       mock.inject(function(_$componentLoader_, _$templateCache_) {
         $componentLoader = _$componentLoader_;
         $templateCache = _$templateCache_;
@@ -72,6 +87,7 @@ describe("RouteInitializer", function() {
     it("should initialize controllers for all components", function() {
       expect(controllerSpy).toHaveBeenCalledWith("AwesomeController", TestComponent);
       expect(controllerSpy).not.toHaveBeenCalledWith("CheesetasticController", TestController);
+      expect(controllerSpy).not.toHaveBeenCalledWith("TopConfigController", TopConfigComponent);
     });
 
     it("should setup inline templates in the template cache", function() {

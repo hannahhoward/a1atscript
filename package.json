@@ -1,7 +1,7 @@
 {
   "name": "a1atscript",
   "private": false,
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "The Angular 2 Polyfill.",
   "homepage": "https://github.com/hannahhoward/a1atscript",
   "repository": {
@@ -42,6 +42,16 @@
     "rjs": "./node_modules/.bin/r.js -o out=./dist/a1atscript.es5.js baseUrl=./build/amd name=a1atscript optimize=none",
     "amd": "npm run-script traceur-amd; npm run-script rjs",
     "dist": "./node_modules/.bin/gulp dist; npm run-script amd"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "stage": 0
+        }
+      ]
+    ]
   },
   "author": "Hannah Howard <hannah@techgirlwonder.com>",
   "license": "Apache-2.0"
