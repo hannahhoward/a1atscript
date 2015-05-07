@@ -675,7 +675,7 @@ define('a1atscript/router/RouteInitializer',[], function() {
       var $__0 = this;
       Object.keys(this.componentMapper.registry).forEach((function(component) {
         var config = $__0.componentMapper.registry[component];
-        if (!config.isController) {
+        if (!config.isController && config.component != $__0.topComponent) {
           $__0.module.controller(config.controllerName, config.component);
         }
       }));
@@ -693,11 +693,12 @@ define('a1atscript/router/RouteInitializer',[], function() {
       this.module = angular.module(ngModuleName);
       this.module.config(['$injector', this.configurationFunction('$componentLoaderProvider')]);
       this.module.run(['$injector', this.configurationFunction('$componentMapper')]);
-      this.setupComponentControllers();
-      this.module.run(['$templateCache', this.setupInlineTemplates()]);
       if (topComponent && topComponent.$routeConfig) {
+        this.topComponent = topComponent;
         this.module.run(['$router', this.topRouteConfig(topComponent.$routeConfig)]);
       }
+      this.setupComponentControllers();
+      this.module.run(['$templateCache', this.setupInlineTemplates()]);
     }
   }, {});
   return {

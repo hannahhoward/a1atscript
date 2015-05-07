@@ -1,3 +1,7 @@
+0.3.5 / 2015-05-07
+==================
+* Fixed a bug in route initialization
+
 0.3.2 / 2015-05-06
 ==================
 * Minor fixes
