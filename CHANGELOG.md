@@ -1,3 +1,7 @@
+0.3.6 / 2015-05-08
+==================
+* Add events to components
+
 0.3.5 / 2015-05-07
 ==================
 * Fixed a bug in route initialization

@@ -5,5 +5,6 @@ export default class Ng2Directive {
     this.controllerAs = descriptor.controllerAs;
     this.require = descriptor.require;
     this.transclude = descriptor.transclude;
+    this.events = descriptor.events;
   }
 }

@@ -3,6 +3,7 @@ import {Component, ViewBase} from './Component.js';
 import {ListInjector} from "../injectorTypes.js";
 import Ng2DirectiveDefinitionObject from "./Ng2DirectiveDefinitionObject.js";
 import PropertiesBuilder from "./PropertiesBuilder.js";
+import EventsBuilder from "./EventsBuilder.js";
 import {Router} from "../Router.js";
 
 class ComponentInjector extends ListInjector {
@@ -20,12 +21,19 @@ class ComponentInjector extends ListInjector {
     }
     Router.routeReader.read(component);
     var template = this._template(component);
-    var properties = null;
+    var properties = {},
+        events = {},
+        bind;
     if (annotation.properties) {
       properties = (new PropertiesBuilder(annotation.properties, component)).build();
     }
+    if (annotation.events) {
+      events = (new EventsBuilder(annotation.events, component)).build();
+    }
+    bind = Object.assign({}, properties, events);
+    if (bind === {}) bind = null;
     if (annotation.selector) {
-      var ddo = new Ng2DirectiveDefinitionObject(component, annotation, template, properties);
+      var ddo = new Ng2DirectiveDefinitionObject(component, annotation, template, bind);
       module.directive(ddo.name, ddo.factoryFn);
     }
   }

@@ -272,6 +272,7 @@ define('a1atscript/ng2Directives/Ng2Directive',[], function() {
     this.controllerAs = descriptor.controllerAs;
     this.require = descriptor.require;
     this.transclude = descriptor.transclude;
+    this.events = descriptor.events;
   };
   ($traceurRuntime.createClass)(Ng2Directive, {}, {});
   var $__default = Ng2Directive;
@@ -1226,11 +1227,11 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
   var SelectorMatcher = $__0.default;
   var Ng2DirectiveDefinitionObject = function Ng2DirectiveDefinitionObject(controller, annotation) {
     var template = arguments[2] !== (void 0) ? arguments[2] : {};
-    var properties = arguments[3] !== (void 0) ? arguments[3] : null;
+    var bind = arguments[3] !== (void 0) ? arguments[3] : null;
     this._annotation = annotation;
     this._controller = controller;
     this._template = template;
-    this._properties = properties;
+    this._bind = bind;
   };
   ($traceurRuntime.createClass)(Ng2DirectiveDefinitionObject, {
     get selectorMatcher() {
@@ -1245,7 +1246,7 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
     },
     get bindToController() {
       if (angular.version.major == 1 && angular.version.minor >= 4) {
-        return this._properties || this._annotation.properties;
+        return this._bind || this._annotation.properties;
       } else {
         return true;
       }
@@ -1254,7 +1255,7 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
       if (angular.version.major == 1 && angular.version.minor >= 4) {
         return {};
       } else {
-        return this._properties || this._annotation.properties;
+        return this._bind || this._annotation.properties;
       }
     },
     get template() {
@@ -1301,15 +1302,42 @@ define('a1atscript/ng2Directives/Ng2DirectiveDefinitionObject',["./SelectorMatch
   };
 });
 
-define('a1atscript/ng2Directives/PropertiesBuilder',[], function() {
+define('a1atscript/ng2Directives/BindBuilder',[], function() {
   
-  var prefix = "___bindable___";
-  var PropertiesBuilder = function PropertiesBuilder(propertiesObj, component) {
-    this._propertiesObj = propertiesObj;
+  var BindBuilder = function BindBuilder(bindObj, component) {
+    this._bindObj = bindObj;
     this._component = component;
   };
-  ($traceurRuntime.createClass)(PropertiesBuilder, {
-    setupProperty: function(key) {
+  ($traceurRuntime.createClass)(BindBuilder, {build: function() {
+      var $__0 = this;
+      var properties = {};
+      Object.keys(this._bindObj).forEach((function(key) {
+        $__0.setupProperty(key, properties);
+      }));
+      return properties;
+    }}, {});
+  var $__default = BindBuilder;
+  return {
+    get default() {
+      return $__default;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/ng2Directives/PropertiesBuilder',["./BindBuilder"], function($__0) {
+  
+  if (!$__0 || !$__0.__esModule)
+    $__0 = {default: $__0};
+  var BindBuilder = $__0.default;
+  var prefix = "___bindable___";
+  var PropertiesBuilder = function PropertiesBuilder() {
+    $traceurRuntime.superConstructor($PropertiesBuilder).apply(this, arguments);
+  };
+  var $PropertiesBuilder = PropertiesBuilder;
+  ($traceurRuntime.createClass)(PropertiesBuilder, {setupProperty: function(key, properties) {
+      properties[key] = "@" + this._bindObj[key];
+      properties[prefix + key] = "=?bind" + this._bindObj[key][0].toUpperCase() + this._bindObj[key].slice(1);
       Object.defineProperty(this._component.prototype, prefix + key, {
         enumerable: true,
         configurable: true,
@@ -1317,18 +1345,7 @@ define('a1atscript/ng2Directives/PropertiesBuilder',[], function() {
           this[key] = value;
         }
       });
-    },
-    build: function() {
-      var $__0 = this;
-      var properties = {};
-      Object.keys(this._propertiesObj).forEach((function(key) {
-        properties[key] = "@" + $__0._propertiesObj[key];
-        properties[prefix + key] = "=?bind" + $__0._propertiesObj[key][0].toUpperCase() + $__0._propertiesObj[key].slice(1);
-        $__0.setupProperty(key);
-      }));
-      return properties;
-    }
-  }, {});
+    }}, {}, BindBuilder);
   var $__default = PropertiesBuilder;
   return {
     get default() {
@@ -1338,7 +1355,29 @@ define('a1atscript/ng2Directives/PropertiesBuilder',[], function() {
   };
 });
 
-define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component", "../injectorTypes", "./Ng2DirectiveDefinitionObject", "./PropertiesBuilder", "../Router"], function($__0,$__2,$__4,$__6,$__8,$__10) {
+define('a1atscript/ng2Directives/EventsBuilder',["./BindBuilder"], function($__0) {
+  
+  if (!$__0 || !$__0.__esModule)
+    $__0 = {default: $__0};
+  var BindBuilder = $__0.default;
+  var prefix = "___bindable___";
+  var EventsBuilder = function EventsBuilder() {
+    $traceurRuntime.superConstructor($EventsBuilder).apply(this, arguments);
+  };
+  var $EventsBuilder = EventsBuilder;
+  ($traceurRuntime.createClass)(EventsBuilder, {setupProperty: function(key, events) {
+      events[key] = "=?on" + this._bindObj[key][0].toUpperCase() + this._bindObj[key].slice(1);
+    }}, {}, BindBuilder);
+  var $__default = EventsBuilder;
+  return {
+    get default() {
+      return $__default;
+    },
+    __esModule: true
+  };
+});
+
+define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component", "../injectorTypes", "./Ng2DirectiveDefinitionObject", "./PropertiesBuilder", "./EventsBuilder", "../Router"], function($__0,$__2,$__4,$__6,$__8,$__10,$__12) {
   
   if (!$__0 || !$__0.__esModule)
     $__0 = {default: $__0};
@@ -1352,6 +1391,8 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
     $__8 = {default: $__8};
   if (!$__10 || !$__10.__esModule)
     $__10 = {default: $__10};
+  if (!$__12 || !$__12.__esModule)
+    $__12 = {default: $__12};
   var registerInjector = $__0.registerInjector;
   var $__3 = $__2,
       Component = $__3.Component,
@@ -1359,7 +1400,8 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
   var ListInjector = $__4.ListInjector;
   var Ng2DirectiveDefinitionObject = $__6.default;
   var PropertiesBuilder = $__8.default;
-  var Router = $__10.Router;
+  var EventsBuilder = $__10.default;
+  var Router = $__12.Router;
   var ComponentInjector = function ComponentInjector() {
     $traceurRuntime.superConstructor($ComponentInjector).apply(this, arguments);
   };
@@ -1379,12 +1421,20 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
       }
       Router.routeReader.read(component);
       var template = this._template(component);
-      var properties = null;
+      var properties = {},
+          events = {},
+          bind;
       if (annotation.properties) {
         properties = (new PropertiesBuilder(annotation.properties, component)).build();
       }
+      if (annotation.events) {
+        events = (new EventsBuilder(annotation.events, component)).build();
+      }
+      bind = Object.assign({}, properties, events);
+      if (bind === {})
+        bind = null;
       if (annotation.selector) {
-        var ddo = new Ng2DirectiveDefinitionObject(component, annotation, template, properties);
+        var ddo = new Ng2DirectiveDefinitionObject(component, annotation, template, bind);
         module.directive(ddo.name, ddo.factoryFn);
       }
     }

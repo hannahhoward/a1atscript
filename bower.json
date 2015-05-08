@@ -1,6 +1,6 @@
 {
   "name": "a1atscript",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "homepage": "https://github.com/hannahhoward/a1atscript",
   "authors": [
     "Hannah Howard <hannah@hannahhoward.net>"
@@ -21,6 +21,8 @@
     "dist/a1atscript/ng2Directives/Ng2Directive.js",
     "dist/a1atscript/ng2Directives/Ng2DirectiveDefinitionObject.js",
     "dist/a1atscript/ng2Directives/SelectorMatcher.js",
+    "dist/a1atscript/ng2Directives/BindBuilder.js",
+    "dist/a1atscript/ng2Directives/EventsBuilder.js",
     "dist/a1atscript/ng2Directives/PropertiesBuilder.js",
     "dist/a1atscript/router/ComponentMapper.js",
     "dist/a1atscript/router/RouteConfig.js",

@@ -1,12 +1,12 @@
+import BindBuilder from "./BindBuilder.js"
+
 var prefix = "___bindable___"
 
-export default class PropertiesBuilder {
-  constructor(propertiesObj, component) {
-    this._propertiesObj = propertiesObj;
-    this._component = component;
-  }
+export default class PropertiesBuilder extends BindBuilder {
 
-  setupProperty(key) {
+  setupProperty(key, properties) {
+    properties[key] = "@"+this._bindObj[key];
+    properties[prefix+key] = "=?bind"+this._bindObj[key][0].toUpperCase() + this._bindObj[key].slice(1);
     Object.defineProperty(this._component.prototype, prefix+key, {
       enumerable: true,
       configurable: true,
@@ -16,13 +16,4 @@ export default class PropertiesBuilder {
     });
   }
 
-  build() {
-    var properties = {};
-    Object.keys(this._propertiesObj).forEach((key) => {
-      properties[key] = "@"+this._propertiesObj[key];
-      properties[prefix+key] = "=?bind"+this._propertiesObj[key][0].toUpperCase() + this._propertiesObj[key].slice(1);
-      this.setupProperty(key);
-    });
-    return properties;
-  }
 }
