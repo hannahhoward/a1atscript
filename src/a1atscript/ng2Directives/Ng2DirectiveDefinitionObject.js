@@ -2,11 +2,11 @@ import SelectorMatcher from "./SelectorMatcher.js";
 
 export default class Ng2DirectiveDefinitionObject {
 
-  constructor(controller, annotation, template = {}, properties = null) {
+  constructor(controller, annotation, template = {}, bind = null) {
     this._annotation = annotation;
     this._controller = controller;
     this._template = template;
-    this._properties = properties;
+    this._bind = bind;
   }
 
   get selectorMatcher() {
@@ -26,7 +26,7 @@ export default class Ng2DirectiveDefinitionObject {
   get bindToController() {
     // bindToController as object syntax only supported on 1.4
     if (angular.version.major == 1 && angular.version.minor >= 4) {
-      return this._properties || this._annotation.properties;
+      return this._bind || this._annotation.properties;
     } else {
       return true;
     }
@@ -38,7 +38,7 @@ export default class Ng2DirectiveDefinitionObject {
     if (angular.version.major == 1 && angular.version.minor >= 4) {
       return {};
     } else {
-      return this._properties || this._annotation.properties;
+      return this._bind || this._annotation.properties;
     }
   }
 

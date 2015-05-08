@@ -37,6 +37,9 @@ class AwesomeBase {
   properties: {
     apple: "apple"
   },
+  events: {
+    click: "click"
+  },
   injectables: ["ExampleService"]
 })
 @View({
@@ -61,7 +64,7 @@ angular.module("awesomeTemplate", []).run(["$templateCache", function($templateC
 var AppModule = new Module('AppModule', ['awesomeTemplate', ExampleService, AwesomeComponent])
 
 describe("Component", function() {
-  var scope, isolateScope, element, injector, $compile;
+  var scope, isolateScope, element, injector, $compile, saveSpy;
 
   beforeEach(function() {
     bootstrap(AppModule, "AppModule");
@@ -69,8 +72,10 @@ describe("Component", function() {
     mock.inject(function($rootScope, _$compile_) {
       scope = $rootScope.$new();
       scope.apple = "cheese";
+      scope.save = function() { };
+      saveSpy = spyOn(scope, 'save');
       $compile = _$compile_;
-      element = '<awesome bind-apple="apple"></awesome>';
+      element = '<awesome bind-apple="apple" on-click="save"></awesome>';
       element = $compile(element)(scope);
       scope.$digest();
       isolateScope = element.isolateScope();
@@ -80,6 +85,11 @@ describe("Component", function() {
   it("should function as a directive definition object", function() {
     expect(element.find('p').length).toEqual(1);
     expect(element.find('p')[0].innerHTML).toEqual("test cheese")
+  });
+
+  it("should setup the events", function() {
+    isolateScope.awesome.click();
+    expect(saveSpy).toHaveBeenCalled();
   });
 
   describe("this", function() {
