@@ -1,3 +1,7 @@
+0.3.7 / 2015-05-20
+==================
+* Add a CJS distribution for JSPM
+
 0.3.6 / 2015-05-08
 ==================
 * Add events to components
