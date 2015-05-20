@@ -55,6 +55,9 @@
       ]
     ]
   },
+  "jspm": {
+    "main": "dist/cjs/a1atscript.js"
+  },
   "author": "Hannah Howard <hannah@techgirlwonder.com>",
   "license": "Apache-2.0"
 }
