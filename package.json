@@ -1,7 +1,7 @@
 {
   "name": "a1atscript",
   "private": false,
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "The Angular 2 Polyfill.",
   "homepage": "https://github.com/hannahhoward/a1atscript",
   "repository": {

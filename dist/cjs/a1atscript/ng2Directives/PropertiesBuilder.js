@@ -16,7 +16,11 @@ var _BindBuilderJs = require("./BindBuilder.js");
 
 var _BindBuilderJs2 = _interopRequireDefault(_BindBuilderJs);
 
-var prefix = "___bindable___";
+var BIND_PREFIX = "_=_";
+var STRING_PREFIX = "_@_";
+
+var USING_DATA_BINDING = 1;
+var USING_RAW_STRING = 2;
 
 var PropertiesBuilder = (function (_BindBuilder) {
   function PropertiesBuilder() {
@@ -32,15 +36,41 @@ var PropertiesBuilder = (function (_BindBuilder) {
   _createClass(PropertiesBuilder, [{
     key: "setupProperty",
     value: function setupProperty(key, properties) {
-      properties[key] = "@" + this._bindObj[key];
-      properties[prefix + key] = "=?bind" + this._bindObj[key][0].toUpperCase() + this._bindObj[key].slice(1);
-      Object.defineProperty(this._component.prototype, prefix + key, {
+      var using = undefined;
+
+      properties[STRING_PREFIX + key] = "@" + this._bindObj[key];
+      properties[BIND_PREFIX + key] = "=?bind" + this._bindObj[key][0].toUpperCase() + this._bindObj[key].slice(1);
+
+      // This property is used when user uses the `bind-property` attribute on a directive to bind an expression
+      Object.defineProperty(this._component.prototype, BIND_PREFIX + key, {
         enumerable: true,
         configurable: true,
-        set: function set(value) {
-          this[key] = value;
-        }
+        set: genericSetter(USING_RAW_STRING, USING_DATA_BINDING)
       });
+
+      // This property is used when user uses the `property` attribute on a directive to bind a string
+      Object.defineProperty(this._component.prototype, STRING_PREFIX + key, {
+        enumerable: true,
+        configurable: true,
+        set: genericSetter(USING_DATA_BINDING, USING_RAW_STRING)
+      });
+
+      function genericSetter(toExpect, toIgnore) {
+        return function (value) {
+          if (using === toIgnore) {
+            if (value !== undefined) {
+              throw new Error("Cannot use bind-" + key + " and " + key + " simultaneously");
+            }
+            return;
+          }
+
+          if (value !== undefined) {
+            using = toExpect;
+          }
+
+          this[key] = value;
+        };
+      }
     }
   }]);
 

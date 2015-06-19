@@ -1,3 +1,7 @@
+0.3.8 / 2015-06-19
+==================
+* [Fix] Error with using bind-attr and attr at once from Tim Kindberg
+
 0.3.7 / 2015-05-20
 ==================
 * Add a CJS distribution for JSPM
