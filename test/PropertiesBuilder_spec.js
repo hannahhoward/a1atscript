@@ -51,4 +51,16 @@ describe("PropertiesBuilder", function() {
     expect(() => component["_=_apple"] = "bind").toThrow(new Error('Cannot use bind-apple and apple simultaneously'));
     expect(component.apple).toEqual('string');
   });
+
+  it("should generate getter for bind property that proxies to the bound object real property", function() {
+    var component = new Component();
+    component.apple = 'bind';
+    expect(component["_=_apple"]).toEqual('bind');
+  });
+
+  it("should generate getter for string property that proxies to the bound object real property", function() {
+    var component = new Component();
+    component.apple = 'string';
+    expect(component["_@_apple"]).toEqual('string');
+  })
 });

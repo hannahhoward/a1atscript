@@ -18,14 +18,20 @@ export default class PropertiesBuilder extends BindBuilder {
     Object.defineProperty(this._component.prototype, BIND_PREFIX + key, {
       enumerable: true,
       configurable: true,
-      set: genericSetter(USING_RAW_STRING, USING_DATA_BINDING)
+      set: genericSetter(USING_RAW_STRING, USING_DATA_BINDING),
+      get: function() {
+        return this[key];
+      }
     });
 
     // This property is used when user uses the `property` attribute on a directive to bind a string
     Object.defineProperty(this._component.prototype, STRING_PREFIX + key, {
       enumerable: true,
       configurable: true,
-      set: genericSetter(USING_DATA_BINDING, USING_RAW_STRING)
+      set: genericSetter(USING_DATA_BINDING, USING_RAW_STRING),
+      get: function() {
+        return this[key];
+      }
     });
 
     function genericSetter(toExpect, toIgnore) {
@@ -42,7 +48,7 @@ export default class PropertiesBuilder extends BindBuilder {
         }
 
         this[key] = value;
-      }
+      };
     }
   }
 
