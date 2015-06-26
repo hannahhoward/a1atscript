@@ -1,3 +1,7 @@
+0.3.9 / 2015-06-25
+==================
+* [Fix] Component property getters
+
 0.3.8 / 2015-06-19
 ==================
 * [Fix] Error with using bind-attr and attr at once from Tim Kindberg
