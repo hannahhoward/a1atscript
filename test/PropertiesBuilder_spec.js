@@ -63,4 +63,12 @@ describe("PropertiesBuilder", function() {
     component.apple = 'string';
     expect(component["_@_apple"]).toEqual('string');
   })
+
+  it("should allow different component instances to use different property binding strategies (string and bind)", function() {
+    var componentA = new Component();
+    var componentB = new Component();
+
+    componentA["_@_apple"] = "string";
+    expect(() => componentB["_=_apple"] = "bind").not.toThrow();
+  })
 });
