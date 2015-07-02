@@ -2,6 +2,8 @@
 
 # A-1 AtScript
 
+[![Join the chat at https://gitter.im/hannahhoward/a1atscript](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hannahhoward/a1atscript?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This is a package that uses annotations to provide syntactic sugar around Angular 1.x's Dependency Injection mechanism. It is designed to be a "bridge" to Angular 2.0  -- to get you as close as possible to writing Angular 2.0 like code in Angular 1.x. More features will be added as Angular 2.0's feature set becomes more clear.
 
 ## Initial setup
