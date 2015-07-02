@@ -1,3 +1,9 @@
+0.4.0 / 2015-07-01
+==================
+* [Fix] Multiple instances of components can use different bind types
+* [Fix] Make symbol exports explicit
+* [Fix] Make ngNewRouter not a dependency even if you have routeConfigs
+
 0.3.9 / 2015-06-25
 ==================
 * [Fix] Component property getters

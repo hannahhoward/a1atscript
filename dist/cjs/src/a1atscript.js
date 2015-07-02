@@ -4,36 +4,169 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
-
 require('./a1atscript/ng2Directives/ComponentInjector.js');
 
 var _a1atscriptInjectorJs = require('./a1atscript/Injector.js');
 
-_defaults(exports, _interopRequireWildcard(_a1atscriptInjectorJs));
+Object.defineProperty(exports, 'registerInjector', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptInjectorJs.registerInjector;
+  }
+});
+Object.defineProperty(exports, 'Injector', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptInjectorJs.Injector;
+  }
+});
 
 var _a1atscriptAnnotationsJs = require('./a1atscript/annotations.js');
 
-_defaults(exports, _interopRequireWildcard(_a1atscriptAnnotationsJs));
+Object.defineProperty(exports, 'Config', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Config;
+  }
+});
+Object.defineProperty(exports, 'Run', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Run;
+  }
+});
+Object.defineProperty(exports, 'Controller', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Controller;
+  }
+});
+Object.defineProperty(exports, 'Directive', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Directive;
+  }
+});
+Object.defineProperty(exports, 'Service', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Service;
+  }
+});
+Object.defineProperty(exports, 'Factory', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Factory;
+  }
+});
+Object.defineProperty(exports, 'Provider', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Provider;
+  }
+});
+Object.defineProperty(exports, 'Value', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Value;
+  }
+});
+Object.defineProperty(exports, 'Constant', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Constant;
+  }
+});
+Object.defineProperty(exports, 'Filter', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Filter;
+  }
+});
+Object.defineProperty(exports, 'Animation', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Animation;
+  }
+});
+Object.defineProperty(exports, 'Module', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.Module;
+  }
+});
+Object.defineProperty(exports, 'AsModule', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptAnnotationsJs.AsModule;
+  }
+});
 
 var _a1atscriptDirectiveObjectJs = require('./a1atscript/DirectiveObject.js');
 
-_defaults(exports, _interopRequireWildcard(_a1atscriptDirectiveObjectJs));
+Object.defineProperty(exports, 'DirectiveObject', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptDirectiveObjectJs.DirectiveObject;
+  }
+});
 
 var _a1atscriptNg2DirectivesComponentJs = require('./a1atscript/ng2Directives/Component.js');
 
-_defaults(exports, _interopRequireWildcard(_a1atscriptNg2DirectivesComponentJs));
+Object.defineProperty(exports, 'Component', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptNg2DirectivesComponentJs.Component;
+  }
+});
+Object.defineProperty(exports, 'Template', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptNg2DirectivesComponentJs.Template;
+  }
+});
+Object.defineProperty(exports, 'BaseView', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptNg2DirectivesComponentJs.BaseView;
+  }
+});
+Object.defineProperty(exports, 'View', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptNg2DirectivesComponentJs.View;
+  }
+});
 
 var _a1atscriptToAnnotationJs = require('./a1atscript/ToAnnotation.js');
 
-_defaults(exports, _interopRequireWildcard(_a1atscriptToAnnotationJs));
+Object.defineProperty(exports, 'ToAnnotation', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptToAnnotationJs.ToAnnotation;
+  }
+});
 
 var _a1atscriptBootstrapJs = require('./a1atscript/bootstrap.js');
 
-_defaults(exports, _interopRequireWildcard(_a1atscriptBootstrapJs));
+Object.defineProperty(exports, 'bootstrap', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptBootstrapJs.bootstrap;
+  }
+});
 
 var _a1atscriptRouterJs = require('./a1atscript/Router.js');
 
-_defaults(exports, _interopRequireWildcard(_a1atscriptRouterJs));
+Object.defineProperty(exports, 'Router', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptRouterJs.Router;
+  }
+});
+Object.defineProperty(exports, 'RouteConfig', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptRouterJs.RouteConfig;
+  }
+});

@@ -24,8 +24,15 @@ export class RouteInitializer {
     }
   }
 
-  topRouteConfig(routeConfig) {
-    return function($router) {
+  topRouteConfig(routerName, routeConfig) {
+    return function($injector) {
+      var $router;
+      try {
+        $router = $injector.get(routerName);
+
+      } catch(e) {
+        return;
+      }
       $router.config(routeConfig);
     };
   }
@@ -62,7 +69,7 @@ export class RouteInitializer {
 
     if (topComponent && topComponent.$routeConfig) {
       this.topComponent = topComponent;
-      this.module.run(['$router', this.topRouteConfig(topComponent.$routeConfig)])
+      this.module.run(['$injector', this.topRouteConfig('$router', topComponent.$routeConfig)])
     }
 
     this.setupComponentControllers();

@@ -667,8 +667,14 @@ define('a1atscript/router/RouteInitializer',[], function() {
         });
       };
     },
-    topRouteConfig: function(routeConfig) {
-      return function($router) {
+    topRouteConfig: function(routerName, routeConfig) {
+      return function($injector) {
+        var $router;
+        try {
+          $router = $injector.get(routerName);
+        } catch (e) {
+          return ;
+        }
         $router.config(routeConfig);
       };
     },
@@ -696,7 +702,7 @@ define('a1atscript/router/RouteInitializer',[], function() {
       this.module.run(['$injector', this.configurationFunction('$componentMapper')]);
       if (topComponent && topComponent.$routeConfig) {
         this.topComponent = topComponent;
-        this.module.run(['$router', this.topRouteConfig(topComponent.$routeConfig)]);
+        this.module.run(['$injector', this.topRouteConfig('$router', topComponent.$routeConfig)]);
       }
       this.setupComponentControllers();
       this.module.run(['$templateCache', this.setupInlineTemplates()]);
@@ -732,12 +738,15 @@ define('a1atscript/Router',["./router/ComponentMapper", "./router/RouteReader", 
     routeReader: routeReader,
     routeInitializer: routeInitializer
   };
-  return $traceurRuntime.exportStar({
+  return {
+    get RouteConfig() {
+      return $__router_47_RouteConfig_46_js__.RouteConfig;
+    },
     get Router() {
       return Router;
     },
     __esModule: true
-  }, $__router_47_RouteConfig_46_js__);
+  };
 });
 
 define('a1atscript/injectorTypes',["./annotations", "./Router"], function($__0,$__2) {
@@ -1332,20 +1341,19 @@ define('a1atscript/ng2Directives/PropertiesBuilder',["./BindBuilder"], function(
   var BindBuilder = $__0.default;
   var BIND_PREFIX = "_=_";
   var STRING_PREFIX = "_@_";
-  var USING_DATA_BINDING = 1;
-  var USING_RAW_STRING = 2;
+  var BINDING = BIND_PREFIX;
+  var RAW_STRING = STRING_PREFIX;
   var PropertiesBuilder = function PropertiesBuilder() {
     $traceurRuntime.superConstructor($PropertiesBuilder).apply(this, arguments);
   };
   var $PropertiesBuilder = PropertiesBuilder;
   ($traceurRuntime.createClass)(PropertiesBuilder, {setupProperty: function(key, properties) {
-      var using;
       properties[STRING_PREFIX + key] = "@" + this._bindObj[key];
       properties[BIND_PREFIX + key] = "=?bind" + this._bindObj[key][0].toUpperCase() + this._bindObj[key].slice(1);
       Object.defineProperty(this._component.prototype, BIND_PREFIX + key, {
         enumerable: true,
         configurable: true,
-        set: genericSetter(USING_RAW_STRING, USING_DATA_BINDING),
+        set: genericSetter(BINDING, RAW_STRING),
         get: function() {
           return this[key];
         }
@@ -1353,21 +1361,22 @@ define('a1atscript/ng2Directives/PropertiesBuilder',["./BindBuilder"], function(
       Object.defineProperty(this._component.prototype, STRING_PREFIX + key, {
         enumerable: true,
         configurable: true,
-        set: genericSetter(USING_DATA_BINDING, USING_RAW_STRING),
+        set: genericSetter(RAW_STRING, BINDING),
         get: function() {
           return this[key];
         }
       });
-      function genericSetter(toExpect, toIgnore) {
+      function genericSetter(use, errorOn) {
         return function(value) {
-          if (using === toIgnore) {
+          this.__using_binding__ = this.__using_binding__ || {};
+          if (this.__using_binding__[key] === errorOn) {
             if (value !== undefined) {
               throw new Error(("Cannot use bind-" + key + " and " + key + " simultaneously"));
             }
             return ;
           }
           if (value !== undefined) {
-            using = toExpect;
+            this.__using_binding__[key] = use;
           }
           this[key] = value;
         };
@@ -1518,6 +1527,80 @@ define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1a
   var $__a1atscript_47_ToAnnotation_46_js__ = $__5;
   var $__a1atscript_47_bootstrap_46_js__ = $__6;
   var $__a1atscript_47_Router_46_js__ = $__7;
-  return $traceurRuntime.exportStar({__esModule: true}, $__a1atscript_47_Injector_46_js__, $__a1atscript_47_annotations_46_js__, $__a1atscript_47_DirectiveObject_46_js__, $__a1atscript_47_ng2Directives_47_Component_46_js__, $__a1atscript_47_ToAnnotation_46_js__, $__a1atscript_47_bootstrap_46_js__, $__a1atscript_47_Router_46_js__);
+  return {
+    get registerInjector() {
+      return $__a1atscript_47_Injector_46_js__.registerInjector;
+    },
+    get Injector() {
+      return $__a1atscript_47_Injector_46_js__.Injector;
+    },
+    get Config() {
+      return $__a1atscript_47_annotations_46_js__.Config;
+    },
+    get Run() {
+      return $__a1atscript_47_annotations_46_js__.Run;
+    },
+    get Controller() {
+      return $__a1atscript_47_annotations_46_js__.Controller;
+    },
+    get Directive() {
+      return $__a1atscript_47_annotations_46_js__.Directive;
+    },
+    get Service() {
+      return $__a1atscript_47_annotations_46_js__.Service;
+    },
+    get Factory() {
+      return $__a1atscript_47_annotations_46_js__.Factory;
+    },
+    get Provider() {
+      return $__a1atscript_47_annotations_46_js__.Provider;
+    },
+    get Value() {
+      return $__a1atscript_47_annotations_46_js__.Value;
+    },
+    get Constant() {
+      return $__a1atscript_47_annotations_46_js__.Constant;
+    },
+    get Filter() {
+      return $__a1atscript_47_annotations_46_js__.Filter;
+    },
+    get Animation() {
+      return $__a1atscript_47_annotations_46_js__.Animation;
+    },
+    get Module() {
+      return $__a1atscript_47_annotations_46_js__.Module;
+    },
+    get AsModule() {
+      return $__a1atscript_47_annotations_46_js__.AsModule;
+    },
+    get DirectiveObject() {
+      return $__a1atscript_47_DirectiveObject_46_js__.DirectiveObject;
+    },
+    get Component() {
+      return $__a1atscript_47_ng2Directives_47_Component_46_js__.Component;
+    },
+    get Template() {
+      return $__a1atscript_47_ng2Directives_47_Component_46_js__.Template;
+    },
+    get BaseView() {
+      return $__a1atscript_47_ng2Directives_47_Component_46_js__.BaseView;
+    },
+    get View() {
+      return $__a1atscript_47_ng2Directives_47_Component_46_js__.View;
+    },
+    get ToAnnotation() {
+      return $__a1atscript_47_ToAnnotation_46_js__.ToAnnotation;
+    },
+    get bootstrap() {
+      return $__a1atscript_47_bootstrap_46_js__.bootstrap;
+    },
+    get Router() {
+      return $__a1atscript_47_Router_46_js__.Router;
+    },
+    get RouteConfig() {
+      return $__a1atscript_47_Router_46_js__.RouteConfig;
+    },
+    __esModule: true
+  };
 });
 

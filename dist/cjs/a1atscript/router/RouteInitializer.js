@@ -39,8 +39,14 @@ var RouteInitializer = (function () {
     }
   }, {
     key: 'topRouteConfig',
-    value: function topRouteConfig(routeConfig) {
-      return function ($router) {
+    value: function topRouteConfig(routerName, routeConfig) {
+      return function ($injector) {
+        var $router;
+        try {
+          $router = $injector.get(routerName);
+        } catch (e) {
+          return;
+        }
         $router.config(routeConfig);
       };
     }
@@ -82,7 +88,7 @@ var RouteInitializer = (function () {
 
       if (topComponent && topComponent.$routeConfig) {
         this.topComponent = topComponent;
-        this.module.run(['$router', this.topRouteConfig(topComponent.$routeConfig)]);
+        this.module.run(['$injector', this.topRouteConfig('$router', topComponent.$routeConfig)]);
       }
 
       this.setupComponentControllers();

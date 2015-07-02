@@ -18,9 +18,8 @@ var _BindBuilderJs2 = _interopRequireDefault(_BindBuilderJs);
 
 var BIND_PREFIX = "_=_";
 var STRING_PREFIX = "_@_";
-
-var USING_DATA_BINDING = 1;
-var USING_RAW_STRING = 2;
+var BINDING = BIND_PREFIX;
+var RAW_STRING = STRING_PREFIX;
 
 var PropertiesBuilder = (function (_BindBuilder) {
   function PropertiesBuilder() {
@@ -36,8 +35,6 @@ var PropertiesBuilder = (function (_BindBuilder) {
   _createClass(PropertiesBuilder, [{
     key: "setupProperty",
     value: function setupProperty(key, properties) {
-      var using = undefined;
-
       properties[STRING_PREFIX + key] = "@" + this._bindObj[key];
       properties[BIND_PREFIX + key] = "=?bind" + this._bindObj[key][0].toUpperCase() + this._bindObj[key].slice(1);
 
@@ -45,7 +42,7 @@ var PropertiesBuilder = (function (_BindBuilder) {
       Object.defineProperty(this._component.prototype, BIND_PREFIX + key, {
         enumerable: true,
         configurable: true,
-        set: genericSetter(USING_RAW_STRING, USING_DATA_BINDING),
+        set: genericSetter(BINDING, RAW_STRING),
         get: function get() {
           return this[key];
         }
@@ -55,23 +52,26 @@ var PropertiesBuilder = (function (_BindBuilder) {
       Object.defineProperty(this._component.prototype, STRING_PREFIX + key, {
         enumerable: true,
         configurable: true,
-        set: genericSetter(USING_DATA_BINDING, USING_RAW_STRING),
+        set: genericSetter(RAW_STRING, BINDING),
         get: function get() {
           return this[key];
         }
       });
 
-      function genericSetter(toExpect, toIgnore) {
+      function genericSetter(use, errorOn) {
         return function (value) {
-          if (using === toIgnore) {
+          this.__using_binding__ = this.__using_binding__ || {};
+
+          if (this.__using_binding__[key] === errorOn) {
             if (value !== undefined) {
               throw new Error("Cannot use bind-" + key + " and " + key + " simultaneously");
             }
+
             return;
           }
 
           if (value !== undefined) {
-            using = toExpect;
+            this.__using_binding__[key] = use;
           }
 
           this[key] = value;
