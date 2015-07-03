@@ -9,7 +9,9 @@ import {
 } from '../src/a1atscript/annotations';
 
 import {
-  Injector
+  Injector,
+  registerInjector,
+  getInjector
 } from '../src/a1atscript/Injector';
 
 var mock = angular.mock;
@@ -103,5 +105,11 @@ describe("Injector", function() {
 
   });
 
-
+  describe("Registering an injector", function() {
+    it("should store an instance of the class", function() {
+      class Foo {}
+      registerInjector('foo', Foo);
+      expect(getInjector('foo') instanceof Foo).toBeTruthy();
+    })
+  })
 });
