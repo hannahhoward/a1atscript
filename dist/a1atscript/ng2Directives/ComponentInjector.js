@@ -7,6 +7,11 @@ import EventsBuilder from "./EventsBuilder.js";
 import {Router} from "../Router.js";
 
 class ComponentInjector extends ListInjector {
+  constructor() {
+    super();
+    this.componentHooks = {before: [], after: []};
+  }
+
   get annotationClass() {
     return Component;
   }
@@ -34,9 +39,17 @@ class ComponentInjector extends ListInjector {
     if (bind === {}) bind = null;
     if (annotation.selector) {
       var ddo = new Ng2DirectiveDefinitionObject(component, annotation, template, bind);
+      this.hooks('before', module, ddo);
       module.directive(ddo.name, ddo.factoryFn);
+      this.hooks('after', module, ddo);
     }
   }
+
+  hooks(phase, module, ddo) {
+    this.componentHooks[phase].forEach((hook) => {
+      hook(module, ddo);
+  });
+}
 }
 
 registerInjector('component', ComponentInjector);

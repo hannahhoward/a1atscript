@@ -1,5 +1,6 @@
 export {
   registerInjector,
+  getInjector,
   Injector
 } from './a1atscript/Injector.js';
 

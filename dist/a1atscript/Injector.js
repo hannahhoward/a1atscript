@@ -21,6 +21,10 @@ export function registerInjector(name, InjectorClass) {
   registeredInjectors[name] = new InjectorClass();
 }
 
+export function getInjector(name) {
+  return registeredInjectors[name];
+}
+
 registerInjector('config', ConfigInjector);
 registerInjector('run', RunInjector);
 registerInjector('controller', ControllerInjector);

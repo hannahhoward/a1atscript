@@ -1,3 +1,7 @@
+0.4.1 / 2015-07-03
+==================
+* [Feature] Add component hooks to component injector
+
 0.4.0 / 2015-07-01
 ==================
 * [Fix] Multiple instances of components can use different bind types

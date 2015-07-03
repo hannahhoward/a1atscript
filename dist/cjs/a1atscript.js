@@ -14,6 +14,12 @@ Object.defineProperty(exports, 'registerInjector', {
     return _a1atscriptInjectorJs.registerInjector;
   }
 });
+Object.defineProperty(exports, 'getInjector', {
+  enumerable: true,
+  get: function get() {
+    return _a1atscriptInjectorJs.getInjector;
+  }
+});
 Object.defineProperty(exports, 'Injector', {
   enumerable: true,
   get: function get() {

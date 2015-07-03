@@ -988,6 +988,9 @@ define('a1atscript/Injector',["./annotations", "./AnnotationFinder", "./injector
   function registerInjector(name, InjectorClass) {
     registeredInjectors[name] = new InjectorClass();
   }
+  function getInjector(name) {
+    return registeredInjectors[name];
+  }
   registerInjector('config', ConfigInjector);
   registerInjector('run', RunInjector);
   registerInjector('controller', ControllerInjector);
@@ -1143,6 +1146,9 @@ define('a1atscript/Injector',["./annotations", "./AnnotationFinder", "./injector
   return {
     get registerInjector() {
       return registerInjector;
+    },
+    get getInjector() {
+      return getInjector;
     },
     get Injector() {
       return Injector;
@@ -1439,7 +1445,11 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
   var EventsBuilder = $__10.default;
   var Router = $__12.Router;
   var ComponentInjector = function ComponentInjector() {
-    $traceurRuntime.superConstructor($ComponentInjector).apply(this, arguments);
+    $traceurRuntime.superConstructor($ComponentInjector).call(this);
+    this.componentHooks = {
+      before: [],
+      after: []
+    };
   };
   var $ComponentInjector = ComponentInjector;
   ($traceurRuntime.createClass)(ComponentInjector, {
@@ -1471,8 +1481,15 @@ define('a1atscript/ng2Directives/ComponentInjector',["../Injector", "./Component
         bind = null;
       if (annotation.selector) {
         var ddo = new Ng2DirectiveDefinitionObject(component, annotation, template, bind);
+        this.hooks('before', module, ddo);
         module.directive(ddo.name, ddo.factoryFn);
+        this.hooks('after', module, ddo);
       }
+    },
+    hooks: function(phase, module, ddo) {
+      this.componentHooks[phase].forEach((function(hook) {
+        hook(module, ddo);
+      }));
     }
   }, {}, ListInjector);
   registerInjector('component', ComponentInjector);
@@ -1530,6 +1547,9 @@ define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1a
   return {
     get registerInjector() {
       return $__a1atscript_47_Injector_46_js__.registerInjector;
+    },
+    get getInjector() {
+      return $__a1atscript_47_Injector_46_js__.getInjector;
     },
     get Injector() {
       return $__a1atscript_47_Injector_46_js__.Injector;
