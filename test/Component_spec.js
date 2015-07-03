@@ -112,8 +112,9 @@ describe("Component", function() {
     let hookArgs = hooks.before.calls.argsFor(0);
     let module = hookArgs[0];
     let ddo = hookArgs[1];
+    let ComponentClass = Component.originalClass || Component;
     expect(module).toEqual(angular.module(AppModule.token));
-    expect(ddo._annotation instanceof Component).toBeTruthy();
+    expect(ddo._annotation instanceof ComponentClass).toBeTruthy();
     expect(ddo._controller).toEqual(AwesomeComponent);
     expect(isolateScope.awesome.foo).toEqual('bar');
   });
@@ -122,8 +123,9 @@ describe("Component", function() {
     let hookArgs = hooks.after.calls.argsFor(0);
     let module = hookArgs[0];
     let ddo = hookArgs[1];
+    let ComponentClass = Component.originalClass || Component;
     expect(module).toEqual(angular.module(AppModule.token));
-    expect(ddo._annotation instanceof Component).toBeTruthy();
+    expect(ddo._annotation instanceof ComponentClass).toBeTruthy();
     expect(ddo._controller).toEqual(AwesomeComponent);
   });
 

@@ -107,7 +107,14 @@ describe("Injector", function() {
 
   describe("Registering an injector", function() {
     it("should store an instance of the class", function() {
-      class Foo {}
+      class Bar {
+
+      }
+      class Foo {
+        get annotationClass() {
+          return Bar;
+        }
+      }
       registerInjector('foo', Foo);
       expect(getInjector('foo') instanceof Foo).toBeTruthy();
     })
