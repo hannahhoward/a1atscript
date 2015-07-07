@@ -1,3 +1,7 @@
+0.4.2 / 2015-07-07
+==================
+* [Fix] Bad import in ComponentMapper
+
 0.4.1 / 2015-07-03
 ==================
 * [Feature] Add component hooks to component injector

@@ -14,7 +14,7 @@ var _annotationsJs = require("../annotations.js");
 
 var _ng2DirectivesComponentJs = require("../ng2Directives/Component.js");
 
-var _AnnotationFinder = require("../AnnotationFinder");
+var _AnnotationFinderJs = require("../AnnotationFinder.js");
 
 var _ng2DirectivesSelectorMatcherJs = require("../ng2Directives/SelectorMatcher.js");
 
@@ -87,7 +87,7 @@ var ComponentMapper = (function () {
   }, {
     key: "_getControllerName",
     value: function _getControllerName(component) {
-      var controllerAnnotation = new _AnnotationFinder.AnnotationFinder(component).annotationFor(_annotationsJs.Controller);
+      var controllerAnnotation = new _AnnotationFinderJs.AnnotationFinder(component).annotationFor(_annotationsJs.Controller);
       if (controllerAnnotation) {
         return controllerAnnotation.token;
       } else {
@@ -97,7 +97,7 @@ var ComponentMapper = (function () {
   }, {
     key: "_isController",
     value: function _isController(component) {
-      var controllerAnnotation = new _AnnotationFinder.AnnotationFinder(component).annotationFor(_annotationsJs.Controller);
+      var controllerAnnotation = new _AnnotationFinderJs.AnnotationFinder(component).annotationFor(_annotationsJs.Controller);
       if (controllerAnnotation) {
         return true;
       } else {
@@ -107,7 +107,7 @@ var ComponentMapper = (function () {
   }, {
     key: "_getComponentName",
     value: function _getComponentName(component) {
-      var componentAnnotation = new _AnnotationFinder.AnnotationFinder(component).annotationFor(_ng2DirectivesComponentJs.Component);
+      var componentAnnotation = new _AnnotationFinderJs.AnnotationFinder(component).annotationFor(_ng2DirectivesComponentJs.Component);
       if (componentAnnotation) {
         if (componentAnnotation.controllerAs) {
           return componentAnnotation.controllerAs;
@@ -140,7 +140,7 @@ var ComponentMapper = (function () {
   }, {
     key: "_generateTemplate",
     value: function _generateTemplate(name, component) {
-      var viewAnnotation = new _AnnotationFinder.AnnotationFinder(component).annotationFor(_ng2DirectivesComponentJs.ViewBase);
+      var viewAnnotation = new _AnnotationFinderJs.AnnotationFinder(component).annotationFor(_ng2DirectivesComponentJs.ViewBase);
       if (viewAnnotation && viewAnnotation.templateUrl) {
         return viewAnnotation.templateUrl;
       } else {
@@ -150,7 +150,7 @@ var ComponentMapper = (function () {
   }, {
     key: "_readInlineTemplate",
     value: function _readInlineTemplate(templateUrl, component) {
-      var viewAnnotation = new _AnnotationFinder.AnnotationFinder(component).annotationFor(_ng2DirectivesComponentJs.ViewBase);
+      var viewAnnotation = new _AnnotationFinderJs.AnnotationFinder(component).annotationFor(_ng2DirectivesComponentJs.ViewBase);
       if (viewAnnotation && viewAnnotation.template) {
         this.inlineTemplateCache[templateUrl] = viewAnnotation.template;
       }

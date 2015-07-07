@@ -1,6 +1,6 @@
 import {Controller} from "../annotations.js";
 import {Component, ViewBase} from "../ng2Directives/Component.js";
-import {AnnotationFinder} from "../AnnotationFinder";
+import {AnnotationFinder} from "../AnnotationFinder.js";
 import SelectorMatcher from "../ng2Directives/SelectorMatcher.js";
 
 var DEFAULT_CONTROLLER_SUFFIX = "Controller";
