@@ -131,12 +131,6 @@ Object.defineProperty(exports, 'Template', {
     return _a1atscriptNg2DirectivesComponentJs.Template;
   }
 });
-Object.defineProperty(exports, 'BaseView', {
-  enumerable: true,
-  get: function get() {
-    return _a1atscriptNg2DirectivesComponentJs.BaseView;
-  }
-});
 Object.defineProperty(exports, 'View', {
   enumerable: true,
   get: function get() {

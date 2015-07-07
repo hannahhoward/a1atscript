@@ -1,3 +1,7 @@
+0.4.3 / 2015-07-07
+==================
+* [Fix] Bad export in a1atscript.js
+
 0.4.2 / 2015-07-07
 ==================
 * [Fix] Bad import in ComponentMapper

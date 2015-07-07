@@ -1602,9 +1602,6 @@ define('a1atscript',["./a1atscript/Injector", "./a1atscript/annotations", "./a1a
     get Template() {
       return $__a1atscript_47_ng2Directives_47_Component_46_js__.Template;
     },
-    get BaseView() {
-      return $__a1atscript_47_ng2Directives_47_Component_46_js__.BaseView;
-    },
     get View() {
       return $__a1atscript_47_ng2Directives_47_Component_46_js__.View;
     },
