@@ -42,7 +42,7 @@ class AwesomeBase {
   events: {
     click: "click"
   },
-  injectables: ["ExampleService"]
+  appInjector: ["ExampleService"]
 })
 @View({
   templateUrl: "awesome.tpl.html"
