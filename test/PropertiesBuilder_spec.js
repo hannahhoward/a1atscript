@@ -10,10 +10,7 @@ describe("PropertiesBuilder", function() {
   var propertiesObj, properties;
 
   beforeEach(function() {
-    propertiesObj = {
-      "cheese": "danish",
-      "apple": "apple"
-    };
+    propertiesObj = ["cheese:danish","apple"];
     properties = (new PropertiesBuilder(propertiesObj, Component)).build();
   });
 
