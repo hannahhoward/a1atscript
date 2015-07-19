@@ -21,8 +21,8 @@ class ComponentInjector extends ListInjector {
   }
 
   instantiateOne(module, component, annotation) {
-    if (annotation.injectables) {
-      component.$inject = annotation.injectables;
+    if (annotation.appInjector) {
+      component.$inject = annotation.appInjector;
     }
     Router.routeReader.read(component);
     var template = this._template(component);

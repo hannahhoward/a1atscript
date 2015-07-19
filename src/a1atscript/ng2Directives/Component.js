@@ -5,7 +5,7 @@ import {ToAnnotation} from '../ToAnnotation.js';
 export class Component extends Ng2Directive {
   constructor(descriptor) {
     super(descriptor)
-    this.injectables = descriptor.injectables || descriptor.services;
+    this.appInjector = descriptor.appInjector || descriptor.injectables || descriptor.services;
   }
 }
 
