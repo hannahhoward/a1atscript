@@ -10,10 +10,7 @@ describe("EventsBuilder", function() {
   var eventsObj, events;
 
   beforeEach(function() {
-    eventsObj = {
-      "cheese": "danish",
-      "apple": "apple"
-    };
+    eventsObj = [ "cheese: danish", "apple"];
     events = (new EventsBuilder(eventsObj, Component)).build();
   });
 

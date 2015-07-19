@@ -8,8 +8,8 @@ const RAW_STRING = STRING_PREFIX;
 export default class PropertiesBuilder extends BindBuilder {
 
   setupProperty(key, properties) {
-    properties[STRING_PREFIX + key] = "@" + this._bindObj[key];
-    properties[BIND_PREFIX + key] = "=?bind" + this._bindObj[key][0].toUpperCase() + this._bindObj[key].slice(1);
+    properties[STRING_PREFIX + key] = "@" + this.bindObj[key];
+    properties[BIND_PREFIX + key] = "=?bind" + this.bindObj[key][0].toUpperCase() + this.bindObj[key].slice(1);
 
 
     // This property is used when user uses the `bind-property` attribute on a directive to bind an expression
