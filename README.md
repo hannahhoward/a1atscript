@@ -101,10 +101,8 @@ Angular 2 introduces an entirely new syntax for working with directives. The mos
 ```javascript
 @Component({
   selector: "awesome",
-  properties: {
-    apple: "apple"
-  },
-  injectables: ["ExampleService"]
+  properties: [ "apple" ],
+  appInjector: ["ExampleService"]
 })
 @View({
   templateUrl: "awesome.tpl.html"
