@@ -40,7 +40,7 @@
   "scripts": {
     "test": "karma start --browsers Firefox --single-run; karma start karma.conf.babel.js --browsers Firefox --single-run",
     "build": "webpack",
-    "postInstall": "npm run build"
+    "postinstall": "npm run build"
   },
   "jspm": {
     "main": "dist/cjs/a1atscript.js"
