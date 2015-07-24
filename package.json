@@ -45,7 +45,8 @@
     "dist": "webpack"
   },
   "jspm": {
-    "main": "dist/cjs/a1atscript.js"
+    "main": "dist/a1atscript.bundle.js",
+    "format": "global"
   },
   "author": "Hannah Howard <hannah@techgirlwonder.com>",
   "license": "Apache-2.0"
