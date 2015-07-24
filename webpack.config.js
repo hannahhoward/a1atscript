@@ -5,7 +5,7 @@ module.exports = {
     app: './src/a1atscript.js'
   },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'dist'),
     filename: 'a1atscript.bundle.js',
     libraryTarget: 'commonjs'
   },
