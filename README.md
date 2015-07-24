@@ -253,7 +253,7 @@ Check out the [Wiki](https://github.com/hannahhoward/a1atscript/wiki) for more s
 
 #### What's included?
 
-The /dist folder contains the es6 source files so that you can package up A1AtScript using whatever packaging system is most comfortable for you. However, if you are using a workflow that uses AMD modules, you can also use a1atscript.es5.js -- which has all of the code transpiled to ES5 as an AMD module.
+The /src folder contains the es6 source files so that you can package up A1AtScript using whatever packaging system is most comfortable for you. However, if you want an ES5 global build, in dist is a1atscript.bundle.js that will load everything as global.
 
 
 ### Wait a second, I thought AtScript was called TypeScript now

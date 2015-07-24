@@ -1,4 +1,7 @@
-Untagged
+0.4.4 / 2015-07-08
+==================
+* BREAKING - removed ES6 files from the dist directory -- no need for double copies.
+* BREAKING - removed amd build in favor of webpack global
 * [Fix] support appInjector property instead of injectables on Component
 * [Fix] support array notation for properties and events on Component
 
