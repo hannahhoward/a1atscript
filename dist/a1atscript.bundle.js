@@ -50,9 +50,9 @@
 	  value: true
 	});
 	
-	__webpack_require__(4);
+	__webpack_require__(1);
 	
-	var _a1atscriptInjectorJs = __webpack_require__(5);
+	var _a1atscriptInjectorJs = __webpack_require__(2);
 	
 	Object.defineProperty(exports, 'registerInjector', {
 	  enumerable: true,
@@ -73,7 +73,7 @@
 	  }
 	});
 	
-	var _a1atscriptAnnotationsJs = __webpack_require__(6);
+	var _a1atscriptAnnotationsJs = __webpack_require__(3);
 	
 	Object.defineProperty(exports, 'Config', {
 	  enumerable: true,
@@ -163,7 +163,7 @@
 	  }
 	});
 	
-	var _a1atscriptNg2DirectivesComponentJs = __webpack_require__(1);
+	var _a1atscriptNg2DirectivesComponentJs = __webpack_require__(9);
 	
 	Object.defineProperty(exports, 'Component', {
 	  enumerable: true,
@@ -184,7 +184,7 @@
 	  }
 	});
 	
-	var _a1atscriptToAnnotationJs = __webpack_require__(3);
+	var _a1atscriptToAnnotationJs = __webpack_require__(4);
 	
 	Object.defineProperty(exports, 'ToAnnotation', {
 	  enumerable: true,
@@ -202,7 +202,7 @@
 	  }
 	});
 	
-	var _a1atscriptRouterJs = __webpack_require__(9);
+	var _a1atscriptRouterJs = __webpack_require__(7);
 	
 	Object.defineProperty(exports, 'Router', {
 	  enumerable: true,
@@ -216,188 +216,18 @@
 	    return _a1atscriptRouterJs.RouteConfig;
 	  }
 	});
+	
+	var _a1atscriptApplyAnnotationJs = __webpack_require__(21);
+	
+	Object.defineProperty(exports, 'applyAnnotation', {
+	  enumerable: true,
+	  get: function get() {
+	    return _a1atscriptApplyAnnotationJs.applyAnnotation;
+	  }
+	});
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-	
-	var _Ng2DirectiveJs = __webpack_require__(2);
-	
-	var _Ng2DirectiveJs2 = _interopRequireDefault(_Ng2DirectiveJs);
-	
-	var _ToAnnotationJs = __webpack_require__(3);
-	
-	var Component = (function (_Ng2Directive) {
-	  _inherits(Component, _Ng2Directive);
-	
-	  function Component(descriptor) {
-	    _classCallCheck(this, _Component);
-	
-	    _get(Object.getPrototypeOf(_Component.prototype), 'constructor', this).call(this, descriptor);
-	    this.appInjector = descriptor.appInjector || descriptor.injectables || descriptor.services;
-	  }
-	
-	  var _Component = Component;
-	  Component = (0, _ToAnnotationJs.ToAnnotation)(Component) || Component;
-	  return Component;
-	})(_Ng2DirectiveJs2['default']);
-	
-	exports.Component = Component;
-	
-	var ViewBase = function ViewBase(descriptor) {
-	  _classCallCheck(this, ViewBase);
-	
-	  this.templateUrl = descriptor.templateUrl || descriptor.url;
-	  this.template = descriptor.template || descriptor.inline;
-	};
-	
-	exports.ViewBase = ViewBase;
-	
-	var Template = (function (_ViewBase) {
-	  _inherits(Template, _ViewBase);
-	
-	  function Template() {
-	    _classCallCheck(this, _Template);
-	
-	    _get(Object.getPrototypeOf(_Template.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  var _Template = Template;
-	  Template = (0, _ToAnnotationJs.ToAnnotation)(Template) || Template;
-	  return Template;
-	})(ViewBase);
-	
-	exports.Template = Template;
-	
-	var View = (function (_ViewBase2) {
-	  _inherits(View, _ViewBase2);
-	
-	  function View() {
-	    _classCallCheck(this, _View);
-	
-	    _get(Object.getPrototypeOf(_View.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  var _View = View;
-	  View = (0, _ToAnnotationJs.ToAnnotation)(View) || View;
-	  return View;
-	})(ViewBase);
-	
-	exports.View = View;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Ng2Directive = function Ng2Directive(descriptor) {
-	  _classCallCheck(this, Ng2Directive);
-	
-	  this.selector = descriptor.selector;
-	  this.properties = descriptor.properties || descriptor.bind;
-	  this.controllerAs = descriptor.controllerAs;
-	  this.require = descriptor.require;
-	  this.transclude = descriptor.transclude;
-	  this.events = descriptor.events;
-	};
-	
-	exports["default"] = Ng2Directive;
-	module.exports = exports["default"];
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports.ToAnnotation = ToAnnotation;
-	function defineAnnotation(target, AnnotationClass, callParams) {
-	  var oldAnnotation = Object.getOwnPropertyDescriptor(target, 'annotations');
-	  if (oldAnnotation) {
-	    var oldGetter = oldAnnotation.get;
-	    Object.defineProperty(target, 'annotations', {
-	      configurable: true,
-	      get: function get() {
-	        var oldValue = oldGetter();
-	        oldValue.unshift(new (Function.prototype.bind.apply(AnnotationClass, callParams))());
-	        return oldValue;
-	      } });
-	  } else {
-	    Object.defineProperty(target, 'annotations', {
-	      configurable: true,
-	      get: function get() {
-	        return [new (Function.prototype.bind.apply(AnnotationClass, callParams))()];
-	      } });
-	  }
-	}
-	
-	function handleProperty(descriptor, AnnotationClass, callParams) {
-	  var value;
-	  if (descriptor.initializer) {
-	    value = descriptor.initializer();
-	  } else {
-	    value = descriptor.value;
-	  }
-	  defineAnnotation(value, AnnotationClass, callParams);
-	  if (descriptor.initializer) {
-	    descriptor.initializer = function () {
-	      return value;
-	    };
-	  }
-	  descriptor.enumerable = true;
-	  return descriptor;
-	}
-	
-	function ToAnnotation(AnnotationClass) {
-	  var decorator = function decorator() {
-	    for (var _len = arguments.length, callParams = Array(_len), _key = 0; _key < _len; _key++) {
-	      callParams[_key] = arguments[_key];
-	    }
-	
-	    callParams.unshift(null);
-	    return function (targetClass) {
-	      for (var _len2 = arguments.length, otherParams = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-	        otherParams[_key2 - 1] = arguments[_key2];
-	      }
-	
-	      if (otherParams.length >= 2) {
-	        return handleProperty(otherParams[1], AnnotationClass, callParams);
-	      } else {
-	        defineAnnotation(targetClass, AnnotationClass, callParams);
-	        return targetClass;
-	      }
-	    };
-	  };
-	  decorator.originalClass = AnnotationClass;
-	  return decorator;
-	}
-
-/***/ },
-/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -412,11 +242,11 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
-	var _InjectorJs = __webpack_require__(5);
+	var _InjectorJs = __webpack_require__(2);
 	
-	var _ComponentJs = __webpack_require__(1);
+	var _ComponentJs = __webpack_require__(9);
 	
-	var _injectorTypesJs = __webpack_require__(8);
+	var _injectorTypesJs = __webpack_require__(6);
 	
 	var _Ng2DirectiveDefinitionObjectJs = __webpack_require__(15);
 	
@@ -430,7 +260,7 @@
 	
 	var _EventsBuilderJs2 = _interopRequireDefault(_EventsBuilderJs);
 	
-	var _RouterJs = __webpack_require__(9);
+	var _RouterJs = __webpack_require__(7);
 	
 	var ComponentInjector = (function (_ListInjector) {
 	  _inherits(ComponentInjector, _ListInjector);
@@ -495,7 +325,7 @@
 	(0, _InjectorJs.registerInjector)('component', ComponentInjector);
 
 /***/ },
-/* 5 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -511,11 +341,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _annotationsJs = __webpack_require__(6);
+	var _annotationsJs = __webpack_require__(3);
 	
-	var _AnnotationFinderJs = __webpack_require__(7);
+	var _AnnotationFinderJs = __webpack_require__(5);
 	
-	var _injectorTypesJs = __webpack_require__(8);
+	var _injectorTypesJs = __webpack_require__(6);
 	
 	var registeredInjectors = {};
 	
@@ -723,7 +553,7 @@
 	exports.Injector = Injector;
 
 /***/ },
-/* 6 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -738,7 +568,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _ToAnnotationJs = __webpack_require__(3);
+	var _ToAnnotationJs = __webpack_require__(4);
 	
 	var NgAnnotation = function NgAnnotation() {
 	  _classCallCheck(this, NgAnnotation);
@@ -966,7 +796,78 @@
 	exports.AsModule = AsModule;
 
 /***/ },
-/* 7 */
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports.ToAnnotation = ToAnnotation;
+	function defineAnnotation(target, AnnotationClass, callParams) {
+	  var oldAnnotation = Object.getOwnPropertyDescriptor(target, 'annotations');
+	  if (oldAnnotation) {
+	    var oldGetter = oldAnnotation.get;
+	    Object.defineProperty(target, 'annotations', {
+	      configurable: true,
+	      get: function get() {
+	        var oldValue = oldGetter();
+	        oldValue.unshift(new (Function.prototype.bind.apply(AnnotationClass, callParams))());
+	        return oldValue;
+	      } });
+	  } else {
+	    Object.defineProperty(target, 'annotations', {
+	      configurable: true,
+	      get: function get() {
+	        return [new (Function.prototype.bind.apply(AnnotationClass, callParams))()];
+	      } });
+	  }
+	}
+	
+	function handleProperty(descriptor, AnnotationClass, callParams) {
+	  var value;
+	  if (descriptor.initializer) {
+	    value = descriptor.initializer();
+	  } else {
+	    value = descriptor.value;
+	  }
+	  defineAnnotation(value, AnnotationClass, callParams);
+	  if (descriptor.initializer) {
+	    descriptor.initializer = function () {
+	      return value;
+	    };
+	  }
+	  descriptor.enumerable = true;
+	  return descriptor;
+	}
+	
+	function ToAnnotation(AnnotationClass) {
+	  var decorator = function decorator() {
+	    for (var _len = arguments.length, callParams = Array(_len), _key = 0; _key < _len; _key++) {
+	      callParams[_key] = arguments[_key];
+	    }
+	
+	    callParams.unshift(null);
+	    return function (targetClass) {
+	      for (var _len2 = arguments.length, otherParams = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+	        otherParams[_key2 - 1] = arguments[_key2];
+	      }
+	
+	      if (otherParams.length >= 2) {
+	        return handleProperty(otherParams[1], AnnotationClass, callParams);
+	      } else {
+	        defineAnnotation(targetClass, AnnotationClass, callParams);
+	        return targetClass;
+	      }
+	    };
+	  };
+	  decorator.originalClass = AnnotationClass;
+	  return decorator;
+	}
+
+/***/ },
+/* 5 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1018,7 +919,7 @@
 	exports.AnnotationFinder = AnnotationFinder;
 
 /***/ },
-/* 8 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1035,9 +936,9 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _annotationsJs = __webpack_require__(6);
+	var _annotationsJs = __webpack_require__(3);
 	
-	var _RouterJs = __webpack_require__(9);
+	var _RouterJs = __webpack_require__(7);
 	
 	var ListInjector = (function () {
 	  function ListInjector() {
@@ -1359,7 +1260,7 @@
 	exports.FilterInjector = FilterInjector;
 
 /***/ },
-/* 9 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1368,7 +1269,7 @@
 	  value: true
 	});
 	
-	var _routerComponentMapperJs = __webpack_require__(10);
+	var _routerComponentMapperJs = __webpack_require__(8);
 	
 	var _routerRouteReaderJs = __webpack_require__(12);
 	
@@ -1395,7 +1296,7 @@
 	exports.Router = Router;
 
 /***/ },
-/* 10 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1410,11 +1311,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var _annotationsJs = __webpack_require__(6);
+	var _annotationsJs = __webpack_require__(3);
 	
-	var _ng2DirectivesComponentJs = __webpack_require__(1);
+	var _ng2DirectivesComponentJs = __webpack_require__(9);
 	
-	var _AnnotationFinderJs = __webpack_require__(7);
+	var _AnnotationFinderJs = __webpack_require__(5);
 	
 	var _ng2DirectivesSelectorMatcherJs = __webpack_require__(11);
 	
@@ -1631,6 +1532,114 @@
 	exports.ComponentMapper = ComponentMapper;
 
 /***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _Ng2DirectiveJs = __webpack_require__(10);
+	
+	var _Ng2DirectiveJs2 = _interopRequireDefault(_Ng2DirectiveJs);
+	
+	var _ToAnnotationJs = __webpack_require__(4);
+	
+	var Component = (function (_Ng2Directive) {
+	  _inherits(Component, _Ng2Directive);
+	
+	  function Component(descriptor) {
+	    _classCallCheck(this, _Component);
+	
+	    _get(Object.getPrototypeOf(_Component.prototype), 'constructor', this).call(this, descriptor);
+	    this.appInjector = descriptor.appInjector || descriptor.injectables || descriptor.services;
+	  }
+	
+	  var _Component = Component;
+	  Component = (0, _ToAnnotationJs.ToAnnotation)(Component) || Component;
+	  return Component;
+	})(_Ng2DirectiveJs2['default']);
+	
+	exports.Component = Component;
+	
+	var ViewBase = function ViewBase(descriptor) {
+	  _classCallCheck(this, ViewBase);
+	
+	  this.templateUrl = descriptor.templateUrl || descriptor.url;
+	  this.template = descriptor.template || descriptor.inline;
+	};
+	
+	exports.ViewBase = ViewBase;
+	
+	var Template = (function (_ViewBase) {
+	  _inherits(Template, _ViewBase);
+	
+	  function Template() {
+	    _classCallCheck(this, _Template);
+	
+	    _get(Object.getPrototypeOf(_Template.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  var _Template = Template;
+	  Template = (0, _ToAnnotationJs.ToAnnotation)(Template) || Template;
+	  return Template;
+	})(ViewBase);
+	
+	exports.Template = Template;
+	
+	var View = (function (_ViewBase2) {
+	  _inherits(View, _ViewBase2);
+	
+	  function View() {
+	    _classCallCheck(this, _View);
+	
+	    _get(Object.getPrototypeOf(_View.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  var _View = View;
+	  View = (0, _ToAnnotationJs.ToAnnotation)(View) || View;
+	  return View;
+	})(ViewBase);
+	
+	exports.View = View;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Ng2Directive = function Ng2Directive(descriptor) {
+	  _classCallCheck(this, Ng2Directive);
+	
+	  this.selector = descriptor.selector;
+	  this.properties = descriptor.properties || descriptor.bind;
+	  this.controllerAs = descriptor.controllerAs;
+	  this.require = descriptor.require;
+	  this.transclude = descriptor.transclude;
+	  this.events = descriptor.events;
+	};
+	
+	exports["default"] = Ng2Directive;
+	module.exports = exports["default"];
+
+/***/ },
 /* 11 */
 /***/ function(module, exports) {
 
@@ -1716,7 +1725,7 @@
 	
 	var _RouteConfigJs = __webpack_require__(13);
 	
-	var _AnnotationFinderJs = __webpack_require__(7);
+	var _AnnotationFinderJs = __webpack_require__(5);
 	
 	var RouteReader = (function () {
 	  function RouteReader(componentMapper) {
@@ -1789,7 +1798,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _ToAnnotationJs = __webpack_require__(3);
+	var _ToAnnotationJs = __webpack_require__(4);
 	
 	var RouteConfig = (function () {
 	  function RouteConfig(routeDescription) {
@@ -2262,11 +2271,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _injectorTypesJs = __webpack_require__(8);
+	var _injectorTypesJs = __webpack_require__(6);
 	
-	var _InjectorJs = __webpack_require__(5);
+	var _InjectorJs = __webpack_require__(2);
 	
-	var _ToAnnotationJs = __webpack_require__(3);
+	var _ToAnnotationJs = __webpack_require__(4);
 	
 	var DirectiveObject = (function () {
 	  function DirectiveObject(token) {
@@ -2406,9 +2415,9 @@
 	});
 	exports.bootstrap = bootstrap;
 	
-	var _InjectorJs = __webpack_require__(5);
+	var _InjectorJs = __webpack_require__(2);
 	
-	var _RouterJs = __webpack_require__(9);
+	var _RouterJs = __webpack_require__(7);
 	
 	function bootstrap(appModule) {
 	  var appPrefix = arguments.length <= 1 || arguments[1] === undefined ? "" : arguments[1];
@@ -2416,6 +2425,29 @@
 	  var injector = new _InjectorJs.Injector(appPrefix);
 	  var moduleName = injector.instantiate(appModule);
 	  _RouterJs.Router.routeInitializer.initialize(moduleName, appModule);
+	}
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var _bind = Function.prototype.bind;
+	exports.applyAnnotation = applyAnnotation;
+	
+	function applyAnnotation(target, annotationClass) {
+	  var AnnotationVersion = annotationClass.originalClass || annotationClass;
+	  target.annotations = target.annotations || [];
+	
+	  for (var _len = arguments.length, params = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+	    params[_key - 2] = arguments[_key];
+	  }
+	
+	  target.annotations.push(new (_bind.apply(AnnotationVersion, [null].concat(params)))());
 	}
 
 /***/ }

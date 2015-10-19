@@ -5,6 +5,7 @@ import {
   Module,
   AsModule,
   Controller,
+  Directive,
   Service
 } from '../src/a1atscript/annotations';
 
@@ -14,6 +15,9 @@ import {
   getInjector
 } from '../src/a1atscript/Injector';
 
+import {
+  applyAnnotation
+} from "../src/a1atscript/applyAnnotation.js";
 var mock = angular.mock;
 
 @Controller('ExampleController', ['$scope', 'ExampleService'])
@@ -31,9 +35,18 @@ class ExampleService {
   }
 }
 
+function testDirective() {
+  return {
+    restrict: 'E',
+    template: "<p>Hello</p"
+  };
+}
+
+applyAnnotation(testDirective, Directive, 'testDirective', []);
+
 angular.module('NonAtScriptModule', []).value('NonAtScriptValue', 'Another Test Value');
 
-var AppModule = new Module('AppModule', [ExampleService, 'NonAtScriptModule', ExampleController])
+var AppModule = new Module('AppModule', [ExampleService, 'NonAtScriptModule', ExampleController, testDirective])
 
 describe("Injector", function() {
   var exampleService,
@@ -90,17 +103,32 @@ describe("Injector", function() {
     });
 
     describe("components of the module", function() {
-      beforeEach(mock.inject(function($controller, $rootScope) {
-        scope = $rootScope.$new();
-        exampleController = $controller('ExampleController', { $scope: scope });
-        scope.$digest();
-      }));
+      describe("controller", function() {
+        beforeEach(mock.inject(function($controller, $rootScope) {
+          scope = $rootScope.$new();
+          exampleController = $controller('ExampleController', { $scope: scope });
+          scope.$digest();
+        }));
 
 
-      it("should all components to depend on other components", function() {
-        expect(scope.value).toEqual("Test Value");
-      });
+        it("should all components to depend on other components", function() {
+          expect(scope.value).toEqual("Test Value");
+        });
 
+      })
+
+      describe("directive", function() {
+        var element;
+        beforeEach(mock.inject(function($compile, $rootScope) {
+          scope = $rootScope.$new();
+          element = $compile("<test-directive></test-directive>");
+          element = element(scope);
+        }))
+
+        it("should be able to use annotations on functions using apply annotation", function() {
+          expect(element.find("p").length).toEqual(1);
+        })
+      })
     });
 
   });

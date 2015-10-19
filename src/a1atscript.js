@@ -35,3 +35,5 @@ export { ToAnnotation } from './a1atscript/ToAnnotation.js';
 export { bootstrap } from './a1atscript/bootstrap.js';
 
 export { Router, RouteConfig } from './a1atscript/Router.js';
+
+export { applyAnnotation} from "./a1atscript/applyAnnotation.js";
