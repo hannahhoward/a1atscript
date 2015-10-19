@@ -1,3 +1,7 @@
+0.4.5 / 2015-10-18
+==================
+* Add applyAnnotation function to maintain compatibility between Babel / Traceur
+
 0.4.4 / 2015-07-08
 ==================
 * BREAKING - removed ES6 files from the dist directory -- no need for double copies.
