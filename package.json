@@ -18,6 +18,7 @@
     "angular-new-router": "^0.5.3",
     "assert": "angular/assert#dist",
     "babel": "^5.4.4",
+    "babel-loader": "^5.3.2",
     "babelify": "^6.0.2",
     "gulp": "^3.8.9",
     "gulp-bump": "^0.2.2",
@@ -34,15 +35,16 @@
     "karma-jasmine": "^0.2.2",
     "karma-requirejs": "^0.2.2",
     "karma-traceur-preprocessor": "^0.4.0",
-    "requirejs": "^2.1.15",
-    "traceur": "^0.0.86",
-    "babel-loader": "^5.3.2",
     "node-libs-browser": "^0.5.2",
+    "requirejs": "^2.1.15",
+    "systemjs-builder": "^0.15.7",
+    "traceur": "^0.0.86",
     "webpack": "^1.10.1"
   },
   "scripts": {
     "test": "karma start --browsers Firefox --single-run; karma start karma.conf.babel.js --browsers Firefox --single-run",
-    "dist": "webpack"
+    "dist": "webpack",
+    "build_cjs": "rm -rf dist/cjs && babel src --stage 0 --out-dir dist/cjs"
   },
   "jspm": {
     "main": "dist/a1atscript.bundle.js",
