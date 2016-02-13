@@ -14,14 +14,14 @@ var config = {
 };
 
 
-build('a1atscript', '../dist/a1atscript.system.bundle.js', '../dist/a1atscript.system.bundle.min.js');
+build('a1atscript', '../dist/a1atscript.system.bundle.js');
 
-function build(name, inputFile, outputFile) {
+function build(name, outputFile) {
   var devBuilder = new Builder();
 
   devBuilder.config(config);
 
-  devBuilder.bundle(name, path.resolve(__dirname, inputFile), {normalize: true, sourceMaps: true, sourceMapContents: true}).then(function() {
+  devBuilder.bundle(name, path.resolve(__dirname, outputFile), {normalize: true, sourceMaps: true, sourceMapContents: true}).then(function() {
     process.exit(0);
   }, function(err) {
     console.error('dev died', err);
