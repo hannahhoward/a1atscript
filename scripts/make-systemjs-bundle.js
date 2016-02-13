@@ -21,16 +21,8 @@ function build(name, inputFile, outputFile) {
 
   devBuilder.config(config);
 
-  devBuilder.bundle(name, path.resolve(__dirname, inputFile), {normalize: true, sourceMaps: true}).then(function() {
-    var prodBuilder = new Builder();
-    prodBuilder.config(config);
-    prodBuilder.bundle(name, path.resolve(__dirname, outputFile), {sourceMaps: false, minify: true, normalize: true}).then(function() {
-      process.exit(0);
-    }, function(err) {
-      console.error('prod died', err);
-      process.exit(1);
-    });
-
+  devBuilder.bundle(name, path.resolve(__dirname, inputFile), {normalize: true, sourceMaps: true, sourceMapContents: true}).then(function() {
+    process.exit(0);
   }, function(err) {
     console.error('dev died', err);
     process.exit(1);

@@ -43,8 +43,7 @@
   },
   "scripts": {
     "test": "karma start --browsers Firefox --single-run; karma start karma.conf.babel.js --browsers Firefox --single-run",
-    "dist": "webpack",
-    "build_cjs": "rm -rf dist/cjs && babel src --stage 0 --out-dir dist/cjs"
+    "dist": "webpack; node scripts/make-systemjs-bundle.js"
   },
   "jspm": {
     "main": "dist/a1atscript.bundle.js",
