@@ -1,3 +1,9 @@
+0.5.0 / 2016-02-18
+==================
+
+* Universalize code between Babel and Traceur. Both now compile to code that is functionally the same
+* Add a SystemJS Bundle of package
+
 0.4.5 / 2015-10-18
 ==================
 * Add applyAnnotation function to maintain compatibility between Babel / Traceur
