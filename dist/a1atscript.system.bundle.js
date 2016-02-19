@@ -365,7 +365,7 @@ System.register('a1atscript/ng2Directives/ComponentInjector.js', ['a1atscript/In
 System.register('a1atscript/DirectiveObject.js', ['a1atscript/injectorTypes.js', 'a1atscript/Injector.js', 'a1atscript/ToAnnotation.js'], function (_export) {
   'use strict';
 
-  var ListInjector, registerInjector, ToAnnotation, DirectiveObject, DirectiveObjectInjector;
+  var ListInjector, registerInjector, ToAnnotation, DirectiveObjectAnnotation, DirectiveObject, DirectiveObjectInjector;
   return {
     setters: [function (_a1atscriptInjectorTypesJs) {
       ListInjector = _a1atscriptInjectorTypesJs.ListInjector;
@@ -375,19 +375,15 @@ System.register('a1atscript/DirectiveObject.js', ['a1atscript/injectorTypes.js',
       ToAnnotation = _a1atscriptToAnnotationJs.ToAnnotation;
     }],
     execute: function () {
-      DirectiveObject = (function () {
-        function DirectiveObject(token) {
-          var dependencies = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
-          babelHelpers.classCallCheck(this, _DirectiveObject);
+      DirectiveObjectAnnotation = function DirectiveObjectAnnotation(token) {
+        var dependencies = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+        babelHelpers.classCallCheck(this, DirectiveObjectAnnotation);
 
-          this.dependencies = dependencies;
-          this.token = token;
-        }
+        this.dependencies = dependencies;
+        this.token = token;
+      };
 
-        var _DirectiveObject = DirectiveObject;
-        DirectiveObject = ToAnnotation(DirectiveObject) || DirectiveObject;
-        return DirectiveObject;
-      })();
+      DirectiveObject = ToAnnotation(DirectiveObjectAnnotation);
 
       _export('DirectiveObject', DirectiveObject);
 
@@ -1081,7 +1077,7 @@ System.register("a1atscript/bootstrap.js", ["a1atscript/Injector.js", "a1atscrip
 System.register('a1atscript/annotations.js', ['a1atscript/ToAnnotation.js'], function (_export) {
   'use strict';
 
-  var ToAnnotation, NgAnnotation, NgNamedAnnotation, Config, Run, Controller, Directive, Service, Factory, Provider, Value, Constant, Filter, Animation, Module, AsModule;
+  var ToAnnotation, NgAnnotation, NgNamedAnnotation, ConfigAnnotation, Config, RunAnnotation, Run, ControllerAnnotation, Controller, DirectiveAnnotation, Directive, ServiceAnnotation, Service, FactoryAnnotation, Factory, ProviderAnnotation, Provider, ValueAnnotation, Value, ConstantAnnotation, Constant, FilterAnnotation, Filter, AnimationAnnotation, Animation, Module, AsModule;
   return {
     setters: [function (_a1atscriptToAnnotationJs) {
       ToAnnotation = _a1atscriptToAnnotationJs.ToAnnotation;
@@ -1105,168 +1101,168 @@ System.register('a1atscript/annotations.js', ['a1atscript/ToAnnotation.js'], fun
         this.token = token;
       };
 
-      Config = (function (_NgAnnotation) {
-        babelHelpers.inherits(Config, _NgAnnotation);
+      ConfigAnnotation = (function (_NgAnnotation) {
+        babelHelpers.inherits(ConfigAnnotation, _NgAnnotation);
 
-        function Config() {
-          babelHelpers.classCallCheck(this, _Config);
-          babelHelpers.get(Object.getPrototypeOf(_Config.prototype), 'constructor', this).apply(this, arguments);
+        function ConfigAnnotation() {
+          babelHelpers.classCallCheck(this, ConfigAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(ConfigAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Config = Config;
-        Config = ToAnnotation(Config) || Config;
-        return Config;
+        return ConfigAnnotation;
       })(NgAnnotation);
+
+      Config = ToAnnotation(ConfigAnnotation);
 
       _export('Config', Config);
 
-      Run = (function (_NgAnnotation2) {
-        babelHelpers.inherits(Run, _NgAnnotation2);
+      RunAnnotation = (function (_NgAnnotation2) {
+        babelHelpers.inherits(RunAnnotation, _NgAnnotation2);
 
-        function Run() {
-          babelHelpers.classCallCheck(this, _Run);
-          babelHelpers.get(Object.getPrototypeOf(_Run.prototype), 'constructor', this).apply(this, arguments);
+        function RunAnnotation() {
+          babelHelpers.classCallCheck(this, RunAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(RunAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Run = Run;
-        Run = ToAnnotation(Run) || Run;
-        return Run;
+        return RunAnnotation;
       })(NgAnnotation);
+
+      Run = ToAnnotation(RunAnnotation);
 
       _export('Run', Run);
 
-      Controller = (function (_NgNamedAnnotation) {
-        babelHelpers.inherits(Controller, _NgNamedAnnotation);
+      ControllerAnnotation = (function (_NgNamedAnnotation) {
+        babelHelpers.inherits(ControllerAnnotation, _NgNamedAnnotation);
 
-        function Controller() {
-          babelHelpers.classCallCheck(this, _Controller);
-          babelHelpers.get(Object.getPrototypeOf(_Controller.prototype), 'constructor', this).apply(this, arguments);
+        function ControllerAnnotation() {
+          babelHelpers.classCallCheck(this, ControllerAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(ControllerAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Controller = Controller;
-        Controller = ToAnnotation(Controller) || Controller;
-        return Controller;
+        return ControllerAnnotation;
       })(NgNamedAnnotation);
+
+      Controller = ToAnnotation(ControllerAnnotation);
 
       _export('Controller', Controller);
 
-      Directive = (function (_NgNamedAnnotation2) {
-        babelHelpers.inherits(Directive, _NgNamedAnnotation2);
+      DirectiveAnnotation = (function (_NgNamedAnnotation2) {
+        babelHelpers.inherits(DirectiveAnnotation, _NgNamedAnnotation2);
 
-        function Directive() {
-          babelHelpers.classCallCheck(this, _Directive);
-          babelHelpers.get(Object.getPrototypeOf(_Directive.prototype), 'constructor', this).apply(this, arguments);
+        function DirectiveAnnotation() {
+          babelHelpers.classCallCheck(this, DirectiveAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(DirectiveAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Directive = Directive;
-        Directive = ToAnnotation(Directive) || Directive;
-        return Directive;
+        return DirectiveAnnotation;
       })(NgNamedAnnotation);
+
+      Directive = ToAnnotation(DirectiveAnnotation);
 
       _export('Directive', Directive);
 
-      Service = (function (_NgNamedAnnotation3) {
-        babelHelpers.inherits(Service, _NgNamedAnnotation3);
+      ServiceAnnotation = (function (_NgNamedAnnotation3) {
+        babelHelpers.inherits(ServiceAnnotation, _NgNamedAnnotation3);
 
-        function Service() {
-          babelHelpers.classCallCheck(this, _Service);
-          babelHelpers.get(Object.getPrototypeOf(_Service.prototype), 'constructor', this).apply(this, arguments);
+        function ServiceAnnotation() {
+          babelHelpers.classCallCheck(this, ServiceAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(ServiceAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Service = Service;
-        Service = ToAnnotation(Service) || Service;
-        return Service;
+        return ServiceAnnotation;
       })(NgNamedAnnotation);
+
+      Service = ToAnnotation(ServiceAnnotation);
 
       _export('Service', Service);
 
-      Factory = (function (_NgNamedAnnotation4) {
-        babelHelpers.inherits(Factory, _NgNamedAnnotation4);
+      FactoryAnnotation = (function (_NgNamedAnnotation4) {
+        babelHelpers.inherits(FactoryAnnotation, _NgNamedAnnotation4);
 
-        function Factory() {
-          babelHelpers.classCallCheck(this, _Factory);
-          babelHelpers.get(Object.getPrototypeOf(_Factory.prototype), 'constructor', this).apply(this, arguments);
+        function FactoryAnnotation() {
+          babelHelpers.classCallCheck(this, FactoryAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(FactoryAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Factory = Factory;
-        Factory = ToAnnotation(Factory) || Factory;
-        return Factory;
+        return FactoryAnnotation;
       })(NgNamedAnnotation);
+
+      Factory = ToAnnotation(FactoryAnnotation);
 
       _export('Factory', Factory);
 
-      Provider = (function (_NgNamedAnnotation5) {
-        babelHelpers.inherits(Provider, _NgNamedAnnotation5);
+      ProviderAnnotation = (function (_NgNamedAnnotation5) {
+        babelHelpers.inherits(ProviderAnnotation, _NgNamedAnnotation5);
 
-        function Provider() {
-          babelHelpers.classCallCheck(this, _Provider);
-          babelHelpers.get(Object.getPrototypeOf(_Provider.prototype), 'constructor', this).apply(this, arguments);
+        function ProviderAnnotation() {
+          babelHelpers.classCallCheck(this, ProviderAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(ProviderAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Provider = Provider;
-        Provider = ToAnnotation(Provider) || Provider;
-        return Provider;
+        return ProviderAnnotation;
       })(NgNamedAnnotation);
+
+      Provider = ToAnnotation(ProviderAnnotation);
 
       _export('Provider', Provider);
 
-      Value = (function (_NgNamedAnnotation6) {
-        babelHelpers.inherits(Value, _NgNamedAnnotation6);
+      ValueAnnotation = (function (_NgNamedAnnotation6) {
+        babelHelpers.inherits(ValueAnnotation, _NgNamedAnnotation6);
 
-        function Value() {
-          babelHelpers.classCallCheck(this, _Value);
-          babelHelpers.get(Object.getPrototypeOf(_Value.prototype), 'constructor', this).apply(this, arguments);
+        function ValueAnnotation() {
+          babelHelpers.classCallCheck(this, ValueAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(ValueAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Value = Value;
-        Value = ToAnnotation(Value) || Value;
-        return Value;
+        return ValueAnnotation;
       })(NgNamedAnnotation);
+
+      Value = ToAnnotation(ValueAnnotation);
 
       _export('Value', Value);
 
-      Constant = (function (_NgNamedAnnotation7) {
-        babelHelpers.inherits(Constant, _NgNamedAnnotation7);
+      ConstantAnnotation = (function (_NgNamedAnnotation7) {
+        babelHelpers.inherits(ConstantAnnotation, _NgNamedAnnotation7);
 
-        function Constant() {
-          babelHelpers.classCallCheck(this, _Constant);
-          babelHelpers.get(Object.getPrototypeOf(_Constant.prototype), 'constructor', this).apply(this, arguments);
+        function ConstantAnnotation() {
+          babelHelpers.classCallCheck(this, ConstantAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(ConstantAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Constant = Constant;
-        Constant = ToAnnotation(Constant) || Constant;
-        return Constant;
+        return ConstantAnnotation;
       })(NgNamedAnnotation);
+
+      Constant = ToAnnotation(ConstantAnnotation);
 
       _export('Constant', Constant);
 
-      Filter = (function (_NgNamedAnnotation8) {
-        babelHelpers.inherits(Filter, _NgNamedAnnotation8);
+      FilterAnnotation = (function (_NgNamedAnnotation8) {
+        babelHelpers.inherits(FilterAnnotation, _NgNamedAnnotation8);
 
-        function Filter() {
-          babelHelpers.classCallCheck(this, _Filter);
-          babelHelpers.get(Object.getPrototypeOf(_Filter.prototype), 'constructor', this).apply(this, arguments);
+        function FilterAnnotation() {
+          babelHelpers.classCallCheck(this, FilterAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(FilterAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Filter = Filter;
-        Filter = ToAnnotation(Filter) || Filter;
-        return Filter;
+        return FilterAnnotation;
       })(NgNamedAnnotation);
+
+      Filter = ToAnnotation(FilterAnnotation);
 
       _export('Filter', Filter);
 
-      Animation = (function (_NgNamedAnnotation9) {
-        babelHelpers.inherits(Animation, _NgNamedAnnotation9);
+      AnimationAnnotation = (function (_NgNamedAnnotation9) {
+        babelHelpers.inherits(AnimationAnnotation, _NgNamedAnnotation9);
 
-        function Animation() {
-          babelHelpers.classCallCheck(this, _Animation);
-          babelHelpers.get(Object.getPrototypeOf(_Animation.prototype), 'constructor', this).apply(this, arguments);
+        function AnimationAnnotation() {
+          babelHelpers.classCallCheck(this, AnimationAnnotation);
+          babelHelpers.get(Object.getPrototypeOf(AnimationAnnotation.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        var _Animation = Animation;
-        Animation = ToAnnotation(Animation) || Animation;
-        return Animation;
+        return AnimationAnnotation;
       })(NgNamedAnnotation);
+
+      Animation = ToAnnotation(AnimationAnnotation);
 
       _export('Animation', Animation);
 
@@ -1283,18 +1279,7 @@ System.register('a1atscript/annotations.js', ['a1atscript/ToAnnotation.js'], fun
 
       _export('Module', Module);
 
-      AsModule = (function (_Module) {
-        babelHelpers.inherits(AsModule, _Module);
-
-        function AsModule() {
-          babelHelpers.classCallCheck(this, _AsModule);
-          babelHelpers.get(Object.getPrototypeOf(_AsModule.prototype), 'constructor', this).apply(this, arguments);
-        }
-
-        var _AsModule = AsModule;
-        AsModule = ToAnnotation(AsModule) || AsModule;
-        return AsModule;
-      })(Module);
+      AsModule = ToAnnotation(Module);
 
       _export('AsModule', AsModule);
     }
@@ -1325,7 +1310,7 @@ System.register("a1atscript/ng2Directives/Ng2Directive.js", [], function (_expor
 System.register('a1atscript/ng2Directives/Component.js', ['a1atscript/ng2Directives/Ng2Directive.js', 'a1atscript/ToAnnotation.js'], function (_export) {
   'use strict';
 
-  var Ng2Directive, ToAnnotation, Component, ViewBase, Template, View;
+  var Ng2Directive, ToAnnotation, ComponentAnnotation, Component, ViewBase, Template, View;
   return {
     setters: [function (_a1atscriptNg2DirectivesNg2DirectiveJs) {
       Ng2Directive = _a1atscriptNg2DirectivesNg2DirectiveJs['default'];
@@ -1333,20 +1318,20 @@ System.register('a1atscript/ng2Directives/Component.js', ['a1atscript/ng2Directi
       ToAnnotation = _a1atscriptToAnnotationJs.ToAnnotation;
     }],
     execute: function () {
-      Component = (function (_Ng2Directive) {
-        babelHelpers.inherits(Component, _Ng2Directive);
+      ComponentAnnotation = (function (_Ng2Directive) {
+        babelHelpers.inherits(ComponentAnnotation, _Ng2Directive);
 
-        function Component(descriptor) {
-          babelHelpers.classCallCheck(this, _Component);
+        function ComponentAnnotation(descriptor) {
+          babelHelpers.classCallCheck(this, ComponentAnnotation);
 
-          babelHelpers.get(Object.getPrototypeOf(_Component.prototype), 'constructor', this).call(this, descriptor);
+          babelHelpers.get(Object.getPrototypeOf(ComponentAnnotation.prototype), 'constructor', this).call(this, descriptor);
           this.appInjector = descriptor.appInjector || descriptor.injectables || descriptor.services;
         }
 
-        var _Component = Component;
-        Component = ToAnnotation(Component) || Component;
-        return Component;
+        return ComponentAnnotation;
       })(Ng2Directive);
+
+      Component = ToAnnotation(ComponentAnnotation);
 
       _export('Component', Component);
 
@@ -1359,33 +1344,11 @@ System.register('a1atscript/ng2Directives/Component.js', ['a1atscript/ng2Directi
 
       _export('ViewBase', ViewBase);
 
-      Template = (function (_ViewBase) {
-        babelHelpers.inherits(Template, _ViewBase);
-
-        function Template() {
-          babelHelpers.classCallCheck(this, _Template);
-          babelHelpers.get(Object.getPrototypeOf(_Template.prototype), 'constructor', this).apply(this, arguments);
-        }
-
-        var _Template = Template;
-        Template = ToAnnotation(Template) || Template;
-        return Template;
-      })(ViewBase);
+      Template = ToAnnotation(ViewBase);
 
       _export('Template', Template);
 
-      View = (function (_ViewBase2) {
-        babelHelpers.inherits(View, _ViewBase2);
-
-        function View() {
-          babelHelpers.classCallCheck(this, _View);
-          babelHelpers.get(Object.getPrototypeOf(_View.prototype), 'constructor', this).apply(this, arguments);
-        }
-
-        var _View = View;
-        View = ToAnnotation(View) || View;
-        return View;
-      })(ViewBase);
+      View = ToAnnotation(ViewBase);
 
       _export('View', View);
     }
@@ -1947,19 +1910,23 @@ System.register('a1atscript/ToAnnotation.js', [], function (_export) {
         callParams[_key] = arguments[_key];
       }
 
-      callParams.unshift(null);
-      return function (targetClass) {
-        for (var _len2 = arguments.length, otherParams = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-          otherParams[_key2 - 1] = arguments[_key2];
-        }
+      if (this instanceof decorator) {
+        return new (babelHelpers.bind.apply(AnnotationClass, [null].concat(callParams)))();
+      } else {
+        callParams.unshift(null);
+        return function (targetClass) {
+          for (var _len2 = arguments.length, otherParams = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+            otherParams[_key2 - 1] = arguments[_key2];
+          }
 
-        if (otherParams.length >= 2) {
-          return handleProperty(otherParams[1], AnnotationClass, callParams);
-        } else {
-          defineAnnotation(targetClass, AnnotationClass, callParams);
-          return targetClass;
-        }
-      };
+          if (otherParams.length >= 2) {
+            return handleProperty(otherParams[1], AnnotationClass, callParams);
+          } else {
+            defineAnnotation(targetClass, AnnotationClass, callParams);
+            return targetClass;
+          }
+        };
+      }
     };
     decorator.originalClass = AnnotationClass;
     return decorator;
@@ -1973,23 +1940,19 @@ System.register('a1atscript/ToAnnotation.js', [], function (_export) {
 System.register('a1atscript/router/RouteConfig.js', ['a1atscript/ToAnnotation.js'], function (_export) {
   'use strict';
 
-  var ToAnnotation, RouteConfig;
+  var ToAnnotation, RouteConfigAnnotation, RouteConfig;
   return {
     setters: [function (_a1atscriptToAnnotationJs) {
       ToAnnotation = _a1atscriptToAnnotationJs.ToAnnotation;
     }],
     execute: function () {
-      RouteConfig = (function () {
-        function RouteConfig(routeDescription) {
-          babelHelpers.classCallCheck(this, _RouteConfig);
+      RouteConfigAnnotation = function RouteConfigAnnotation(routeDescription) {
+        babelHelpers.classCallCheck(this, RouteConfigAnnotation);
 
-          this.routeDescription = routeDescription;
-        }
+        this.routeDescription = routeDescription;
+      };
 
-        var _RouteConfig = RouteConfig;
-        RouteConfig = ToAnnotation(RouteConfig) || RouteConfig;
-        return RouteConfig;
-      })();
+      RouteConfig = ToAnnotation(RouteConfigAnnotation);
 
       _export('RouteConfig', RouteConfig);
     }

@@ -35,15 +35,19 @@ function handleProperty(descriptor, AnnotationClass, callParams) {
 
 export function ToAnnotation(AnnotationClass) {
   var decorator = function(...callParams) {
-    callParams.unshift(null);
-    return function(targetClass, ...otherParams) {
-      if (otherParams.length >= 2) {
-        return handleProperty(otherParams[1], AnnotationClass, callParams);
-      } else {
-        defineAnnotation(targetClass, AnnotationClass, callParams)
-        return targetClass;
-      }
-    };
+    if (this instanceof decorator) {
+      return new AnnotationClass(...callParams)
+    } else {
+      callParams.unshift(null);
+      return function(targetClass, ...otherParams) {
+        if (otherParams.length >= 2) {
+          return handleProperty(otherParams[1], AnnotationClass, callParams);
+        } else {
+          defineAnnotation(targetClass, AnnotationClass, callParams)
+          return targetClass;
+        }
+      };
+    }
   };
   decorator.originalClass = AnnotationClass;
   return decorator;

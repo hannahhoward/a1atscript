@@ -2,13 +2,14 @@ import {ListInjector} from './injectorTypes.js';
 import {registerInjector} from './Injector.js';
 import {ToAnnotation} from './ToAnnotation.js';
 
-@ToAnnotation
-export class DirectiveObject {
+class DirectiveObjectAnnotation {
   constructor(token, dependencies = []) {
     this.dependencies = dependencies;
     this.token = token;
   }
 }
+
+export const DirectiveObject = ToAnnotation(DirectiveObjectAnnotation);
 
 class DirectiveObjectInjector extends ListInjector {
   get annotationClass() {

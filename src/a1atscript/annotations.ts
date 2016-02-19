@@ -1,12 +1,18 @@
-import {ToAnnotation} from './ToAnnotation.js';
+import {ToAnnotation} from './ToAnnotation';
 
 class NgAnnotation {
+  dependencies: Array<string>;
+  token: string;
+
   constructor(...dependencies) {
     this.dependencies = dependencies;
   }
 }
 
 class NgNamedAnnotation {
+  dependencies: Array<string>;
+  token: string;
+
   constructor(token, dependencies = []) {
     this.dependencies = dependencies;
     this.token = token;
