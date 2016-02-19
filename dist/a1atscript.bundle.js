@@ -589,179 +589,179 @@
 	  this.token = token;
 	};
 	
-	var Config = (function (_NgAnnotation) {
-	  _inherits(Config, _NgAnnotation);
+	var ConfigAnnotation = (function (_NgAnnotation) {
+	  _inherits(ConfigAnnotation, _NgAnnotation);
 	
-	  function Config() {
-	    _classCallCheck(this, _Config);
+	  function ConfigAnnotation() {
+	    _classCallCheck(this, ConfigAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Config.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(ConfigAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Config = Config;
-	  Config = (0, _ToAnnotationJs.ToAnnotation)(Config) || Config;
-	  return Config;
+	  return ConfigAnnotation;
 	})(NgAnnotation);
+	
+	var Config = (0, _ToAnnotationJs.ToAnnotation)(ConfigAnnotation);
 	
 	exports.Config = Config;
 	
-	var Run = (function (_NgAnnotation2) {
-	  _inherits(Run, _NgAnnotation2);
+	var RunAnnotation = (function (_NgAnnotation2) {
+	  _inherits(RunAnnotation, _NgAnnotation2);
 	
-	  function Run() {
-	    _classCallCheck(this, _Run);
+	  function RunAnnotation() {
+	    _classCallCheck(this, RunAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Run.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(RunAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Run = Run;
-	  Run = (0, _ToAnnotationJs.ToAnnotation)(Run) || Run;
-	  return Run;
+	  return RunAnnotation;
 	})(NgAnnotation);
+	
+	var Run = (0, _ToAnnotationJs.ToAnnotation)(RunAnnotation);
 	
 	exports.Run = Run;
 	
-	var Controller = (function (_NgNamedAnnotation) {
-	  _inherits(Controller, _NgNamedAnnotation);
+	var ControllerAnnotation = (function (_NgNamedAnnotation) {
+	  _inherits(ControllerAnnotation, _NgNamedAnnotation);
 	
-	  function Controller() {
-	    _classCallCheck(this, _Controller);
+	  function ControllerAnnotation() {
+	    _classCallCheck(this, ControllerAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Controller.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(ControllerAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Controller = Controller;
-	  Controller = (0, _ToAnnotationJs.ToAnnotation)(Controller) || Controller;
-	  return Controller;
+	  return ControllerAnnotation;
 	})(NgNamedAnnotation);
+	
+	var Controller = (0, _ToAnnotationJs.ToAnnotation)(ControllerAnnotation);
 	
 	exports.Controller = Controller;
 	
-	var Directive = (function (_NgNamedAnnotation2) {
-	  _inherits(Directive, _NgNamedAnnotation2);
+	var DirectiveAnnotation = (function (_NgNamedAnnotation2) {
+	  _inherits(DirectiveAnnotation, _NgNamedAnnotation2);
 	
-	  function Directive() {
-	    _classCallCheck(this, _Directive);
+	  function DirectiveAnnotation() {
+	    _classCallCheck(this, DirectiveAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Directive.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(DirectiveAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Directive = Directive;
-	  Directive = (0, _ToAnnotationJs.ToAnnotation)(Directive) || Directive;
-	  return Directive;
+	  return DirectiveAnnotation;
 	})(NgNamedAnnotation);
+	
+	var Directive = (0, _ToAnnotationJs.ToAnnotation)(DirectiveAnnotation);
 	
 	exports.Directive = Directive;
 	
-	var Service = (function (_NgNamedAnnotation3) {
-	  _inherits(Service, _NgNamedAnnotation3);
+	var ServiceAnnotation = (function (_NgNamedAnnotation3) {
+	  _inherits(ServiceAnnotation, _NgNamedAnnotation3);
 	
-	  function Service() {
-	    _classCallCheck(this, _Service);
+	  function ServiceAnnotation() {
+	    _classCallCheck(this, ServiceAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Service.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(ServiceAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Service = Service;
-	  Service = (0, _ToAnnotationJs.ToAnnotation)(Service) || Service;
-	  return Service;
+	  return ServiceAnnotation;
 	})(NgNamedAnnotation);
+	
+	var Service = (0, _ToAnnotationJs.ToAnnotation)(ServiceAnnotation);
 	
 	exports.Service = Service;
 	
-	var Factory = (function (_NgNamedAnnotation4) {
-	  _inherits(Factory, _NgNamedAnnotation4);
+	var FactoryAnnotation = (function (_NgNamedAnnotation4) {
+	  _inherits(FactoryAnnotation, _NgNamedAnnotation4);
 	
-	  function Factory() {
-	    _classCallCheck(this, _Factory);
+	  function FactoryAnnotation() {
+	    _classCallCheck(this, FactoryAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Factory.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(FactoryAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Factory = Factory;
-	  Factory = (0, _ToAnnotationJs.ToAnnotation)(Factory) || Factory;
-	  return Factory;
+	  return FactoryAnnotation;
 	})(NgNamedAnnotation);
+	
+	var Factory = (0, _ToAnnotationJs.ToAnnotation)(FactoryAnnotation);
 	
 	exports.Factory = Factory;
 	
-	var Provider = (function (_NgNamedAnnotation5) {
-	  _inherits(Provider, _NgNamedAnnotation5);
+	var ProviderAnnotation = (function (_NgNamedAnnotation5) {
+	  _inherits(ProviderAnnotation, _NgNamedAnnotation5);
 	
-	  function Provider() {
-	    _classCallCheck(this, _Provider);
+	  function ProviderAnnotation() {
+	    _classCallCheck(this, ProviderAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Provider.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(ProviderAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Provider = Provider;
-	  Provider = (0, _ToAnnotationJs.ToAnnotation)(Provider) || Provider;
-	  return Provider;
+	  return ProviderAnnotation;
 	})(NgNamedAnnotation);
+	
+	var Provider = (0, _ToAnnotationJs.ToAnnotation)(ProviderAnnotation);
 	
 	exports.Provider = Provider;
 	
-	var Value = (function (_NgNamedAnnotation6) {
-	  _inherits(Value, _NgNamedAnnotation6);
+	var ValueAnnotation = (function (_NgNamedAnnotation6) {
+	  _inherits(ValueAnnotation, _NgNamedAnnotation6);
 	
-	  function Value() {
-	    _classCallCheck(this, _Value);
+	  function ValueAnnotation() {
+	    _classCallCheck(this, ValueAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Value.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(ValueAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Value = Value;
-	  Value = (0, _ToAnnotationJs.ToAnnotation)(Value) || Value;
-	  return Value;
+	  return ValueAnnotation;
 	})(NgNamedAnnotation);
+	
+	var Value = (0, _ToAnnotationJs.ToAnnotation)(ValueAnnotation);
 	
 	exports.Value = Value;
 	
-	var Constant = (function (_NgNamedAnnotation7) {
-	  _inherits(Constant, _NgNamedAnnotation7);
+	var ConstantAnnotation = (function (_NgNamedAnnotation7) {
+	  _inherits(ConstantAnnotation, _NgNamedAnnotation7);
 	
-	  function Constant() {
-	    _classCallCheck(this, _Constant);
+	  function ConstantAnnotation() {
+	    _classCallCheck(this, ConstantAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Constant.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(ConstantAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Constant = Constant;
-	  Constant = (0, _ToAnnotationJs.ToAnnotation)(Constant) || Constant;
-	  return Constant;
+	  return ConstantAnnotation;
 	})(NgNamedAnnotation);
+	
+	var Constant = (0, _ToAnnotationJs.ToAnnotation)(ConstantAnnotation);
 	
 	exports.Constant = Constant;
 	
-	var Filter = (function (_NgNamedAnnotation8) {
-	  _inherits(Filter, _NgNamedAnnotation8);
+	var FilterAnnotation = (function (_NgNamedAnnotation8) {
+	  _inherits(FilterAnnotation, _NgNamedAnnotation8);
 	
-	  function Filter() {
-	    _classCallCheck(this, _Filter);
+	  function FilterAnnotation() {
+	    _classCallCheck(this, FilterAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Filter.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(FilterAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Filter = Filter;
-	  Filter = (0, _ToAnnotationJs.ToAnnotation)(Filter) || Filter;
-	  return Filter;
+	  return FilterAnnotation;
 	})(NgNamedAnnotation);
+	
+	var Filter = (0, _ToAnnotationJs.ToAnnotation)(FilterAnnotation);
 	
 	exports.Filter = Filter;
 	
-	var Animation = (function (_NgNamedAnnotation9) {
-	  _inherits(Animation, _NgNamedAnnotation9);
+	var AnimationAnnotation = (function (_NgNamedAnnotation9) {
+	  _inherits(AnimationAnnotation, _NgNamedAnnotation9);
 	
-	  function Animation() {
-	    _classCallCheck(this, _Animation);
+	  function AnimationAnnotation() {
+	    _classCallCheck(this, AnimationAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Animation.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(AnimationAnnotation.prototype), 'constructor', this).apply(this, arguments);
 	  }
 	
-	  var _Animation = Animation;
-	  Animation = (0, _ToAnnotationJs.ToAnnotation)(Animation) || Animation;
-	  return Animation;
+	  return AnimationAnnotation;
 	})(NgNamedAnnotation);
+	
+	var Animation = (0, _ToAnnotationJs.ToAnnotation)(AnimationAnnotation);
 	
 	exports.Animation = Animation;
 	
@@ -778,21 +778,7 @@
 	})(NgNamedAnnotation);
 	
 	exports.Module = Module;
-	
-	var AsModule = (function (_Module) {
-	  _inherits(AsModule, _Module);
-	
-	  function AsModule() {
-	    _classCallCheck(this, _AsModule);
-	
-	    _get(Object.getPrototypeOf(_AsModule.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  var _AsModule = AsModule;
-	  AsModule = (0, _ToAnnotationJs.ToAnnotation)(AsModule) || AsModule;
-	  return AsModule;
-	})(Module);
-	
+	var AsModule = (0, _ToAnnotationJs.ToAnnotation)(Module);
 	exports.AsModule = AsModule;
 
 /***/ },
@@ -804,6 +790,7 @@
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
+	var _bind = Function.prototype.bind;
 	exports.ToAnnotation = ToAnnotation;
 	function defineAnnotation(target, AnnotationClass, callParams) {
 	  var oldAnnotation = Object.getOwnPropertyDescriptor(target, 'annotations');
@@ -848,19 +835,23 @@
 	      callParams[_key] = arguments[_key];
 	    }
 	
-	    callParams.unshift(null);
-	    return function (targetClass) {
-	      for (var _len2 = arguments.length, otherParams = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-	        otherParams[_key2 - 1] = arguments[_key2];
-	      }
+	    if (this instanceof decorator) {
+	      return new (_bind.apply(AnnotationClass, [null].concat(callParams)))();
+	    } else {
+	      callParams.unshift(null);
+	      return function (targetClass) {
+	        for (var _len2 = arguments.length, otherParams = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+	          otherParams[_key2 - 1] = arguments[_key2];
+	        }
 	
-	      if (otherParams.length >= 2) {
-	        return handleProperty(otherParams[1], AnnotationClass, callParams);
-	      } else {
-	        defineAnnotation(targetClass, AnnotationClass, callParams);
-	        return targetClass;
-	      }
-	    };
+	        if (otherParams.length >= 2) {
+	          return handleProperty(otherParams[1], AnnotationClass, callParams);
+	        } else {
+	          defineAnnotation(targetClass, AnnotationClass, callParams);
+	          return targetClass;
+	        }
+	      };
+	    }
 	  };
 	  decorator.originalClass = AnnotationClass;
 	  return decorator;
@@ -1555,20 +1546,20 @@
 	
 	var _ToAnnotationJs = __webpack_require__(4);
 	
-	var Component = (function (_Ng2Directive) {
-	  _inherits(Component, _Ng2Directive);
+	var ComponentAnnotation = (function (_Ng2Directive) {
+	  _inherits(ComponentAnnotation, _Ng2Directive);
 	
-	  function Component(descriptor) {
-	    _classCallCheck(this, _Component);
+	  function ComponentAnnotation(descriptor) {
+	    _classCallCheck(this, ComponentAnnotation);
 	
-	    _get(Object.getPrototypeOf(_Component.prototype), 'constructor', this).call(this, descriptor);
+	    _get(Object.getPrototypeOf(ComponentAnnotation.prototype), 'constructor', this).call(this, descriptor);
 	    this.appInjector = descriptor.appInjector || descriptor.injectables || descriptor.services;
 	  }
 	
-	  var _Component = Component;
-	  Component = (0, _ToAnnotationJs.ToAnnotation)(Component) || Component;
-	  return Component;
+	  return ComponentAnnotation;
 	})(_Ng2DirectiveJs2['default']);
+	
+	var Component = (0, _ToAnnotationJs.ToAnnotation)(ComponentAnnotation);
 	
 	exports.Component = Component;
 	
@@ -1580,37 +1571,10 @@
 	};
 	
 	exports.ViewBase = ViewBase;
-	
-	var Template = (function (_ViewBase) {
-	  _inherits(Template, _ViewBase);
-	
-	  function Template() {
-	    _classCallCheck(this, _Template);
-	
-	    _get(Object.getPrototypeOf(_Template.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  var _Template = Template;
-	  Template = (0, _ToAnnotationJs.ToAnnotation)(Template) || Template;
-	  return Template;
-	})(ViewBase);
+	var Template = (0, _ToAnnotationJs.ToAnnotation)(ViewBase);
 	
 	exports.Template = Template;
-	
-	var View = (function (_ViewBase2) {
-	  _inherits(View, _ViewBase2);
-	
-	  function View() {
-	    _classCallCheck(this, _View);
-	
-	    _get(Object.getPrototypeOf(_View.prototype), 'constructor', this).apply(this, arguments);
-	  }
-	
-	  var _View = View;
-	  View = (0, _ToAnnotationJs.ToAnnotation)(View) || View;
-	  return View;
-	})(ViewBase);
-	
+	var View = (0, _ToAnnotationJs.ToAnnotation)(ViewBase);
 	exports.View = View;
 
 /***/ },
@@ -1800,18 +1764,13 @@
 	
 	var _ToAnnotationJs = __webpack_require__(4);
 	
-	var RouteConfig = (function () {
-	  function RouteConfig(routeDescription) {
-	    _classCallCheck(this, _RouteConfig);
+	var RouteConfigAnnotation = function RouteConfigAnnotation(routeDescription) {
+	  _classCallCheck(this, RouteConfigAnnotation);
 	
-	    this.routeDescription = routeDescription;
-	  }
+	  this.routeDescription = routeDescription;
+	};
 	
-	  var _RouteConfig = RouteConfig;
-	  RouteConfig = (0, _ToAnnotationJs.ToAnnotation)(RouteConfig) || RouteConfig;
-	  return RouteConfig;
-	})();
-	
+	var RouteConfig = (0, _ToAnnotationJs.ToAnnotation)(RouteConfigAnnotation);
 	exports.RouteConfig = RouteConfig;
 
 /***/ },
@@ -2277,20 +2236,16 @@
 	
 	var _ToAnnotationJs = __webpack_require__(4);
 	
-	var DirectiveObject = (function () {
-	  function DirectiveObject(token) {
-	    var dependencies = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+	var DirectiveObjectAnnotation = function DirectiveObjectAnnotation(token) {
+	  var dependencies = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
 	
-	    _classCallCheck(this, _DirectiveObject);
+	  _classCallCheck(this, DirectiveObjectAnnotation);
 	
-	    this.dependencies = dependencies;
-	    this.token = token;
-	  }
+	  this.dependencies = dependencies;
+	  this.token = token;
+	};
 	
-	  var _DirectiveObject = DirectiveObject;
-	  DirectiveObject = (0, _ToAnnotationJs.ToAnnotation)(DirectiveObject) || DirectiveObject;
-	  return DirectiveObject;
-	})();
+	var DirectiveObject = (0, _ToAnnotationJs.ToAnnotation)(DirectiveObjectAnnotation);
 	
 	exports.DirectiveObject = DirectiveObject;
 	

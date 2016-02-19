@@ -1,8 +1,9 @@
 import {ToAnnotation} from '../ToAnnotation.js';
 
-@ToAnnotation
-export class RouteConfig {
+class RouteConfigAnnotation {
   constructor(routeDescription) {
     this.routeDescription = routeDescription;
   }
 }
+
+export const RouteConfig = ToAnnotation(RouteConfigAnnotation);

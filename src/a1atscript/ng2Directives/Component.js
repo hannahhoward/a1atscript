@@ -1,13 +1,14 @@
 import Ng2Directive from './Ng2Directive.js';
 import {ToAnnotation} from '../ToAnnotation.js';
 
-@ToAnnotation
-export class Component extends Ng2Directive {
+class ComponentAnnotation extends Ng2Directive {
   constructor(descriptor) {
     super(descriptor)
     this.appInjector = descriptor.appInjector || descriptor.injectables || descriptor.services;
   }
 }
+
+export const Component = ToAnnotation(ComponentAnnotation);
 
 export class ViewBase {
   constructor(descriptor) {
@@ -16,10 +17,6 @@ export class ViewBase {
   }
 }
 
-@ToAnnotation
-export class Template extends ViewBase {
-}
+export const Template = ToAnnotation(ViewBase);
 
-@ToAnnotation
-export class View extends ViewBase {
-}
+export const View = ToAnnotation(ViewBase);

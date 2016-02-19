@@ -1,17 +1,19 @@
 import {ToAnnotation} from '../src/a1atscript/ToAnnotation.js';
 
-@ToAnnotation
-class AnnoClass {
+class AnnoClassAnnotation {
 
 }
 
-@ToAnnotation
-class Anno2Class {
+const AnnoClass = ToAnnotation(AnnoClassAnnotation);
+
+class Anno2ClassAnnotation {
   constructor(awesome, awesomeness) {
     this.awesome = awesome;
     this.awesomeness = awesomeness;
   }
 }
+
+const Anno2Class = ToAnnotation(Anno2ClassAnnotation);
 
 @AnnoClass()
 @Anno2Class("cheese", "grater")

@@ -13,66 +13,74 @@ class NgNamedAnnotation {
   }
 }
 
-@ToAnnotation
-export class Config extends NgAnnotation {
+class ConfigAnnotation extends NgAnnotation {
+}
+
+export const Config = ToAnnotation(ConfigAnnotation);
+
+class RunAnnotation extends NgAnnotation {
 
 }
 
-@ToAnnotation
-export class Run extends NgAnnotation {
+export const Run = ToAnnotation(RunAnnotation);
+
+class ControllerAnnotation extends NgNamedAnnotation {
 
 }
 
-@ToAnnotation
-export class Controller extends NgNamedAnnotation {
+export const Controller = ToAnnotation(ControllerAnnotation);
+
+class DirectiveAnnotation extends NgNamedAnnotation {
 
 }
 
-@ToAnnotation
-export class Directive extends NgNamedAnnotation {
+export const Directive = ToAnnotation(DirectiveAnnotation);
+
+class ServiceAnnotation extends NgNamedAnnotation {
 
 }
 
-@ToAnnotation
-export class Service extends NgNamedAnnotation {
+export const Service = ToAnnotation(ServiceAnnotation);
+
+
+class FactoryAnnotation extends NgNamedAnnotation {
 
 }
 
-@ToAnnotation
-export class Factory extends NgNamedAnnotation {
+export const Factory = ToAnnotation(FactoryAnnotation);
+
+class ProviderAnnotation extends NgNamedAnnotation {
 
 }
 
-@ToAnnotation
-export class Provider extends NgNamedAnnotation {
+export const Provider = ToAnnotation(ProviderAnnotation);
+
+class ValueAnnotation extends NgNamedAnnotation {
 
 }
 
-@ToAnnotation
-export class Value extends NgNamedAnnotation {
+export const Value = ToAnnotation(ValueAnnotation);
+
+class ConstantAnnotation extends NgNamedAnnotation {
 
 }
 
-@ToAnnotation
-export class Constant extends NgNamedAnnotation {
+export const Constant = ToAnnotation(ConstantAnnotation);
+
+class FilterAnnotation extends NgNamedAnnotation {
 
 }
 
-@ToAnnotation
-export class Filter extends NgNamedAnnotation {
+export const Filter = ToAnnotation(FilterAnnotation);
+
+class AnimationAnnotation extends NgNamedAnnotation {
 
 }
 
-@ToAnnotation
-export class Animation extends NgNamedAnnotation {
-
-}
+export const Animation = ToAnnotation(AnimationAnnotation);
 
 export class Module extends NgNamedAnnotation {
 
 }
 
-@ToAnnotation
-export class AsModule extends Module {
-
-}
+export const AsModule = ToAnnotation(Module);

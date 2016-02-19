@@ -25,13 +25,20 @@ describe("ToAnnotation decorator", function() {
   });
 
   it("on first annotation", function() {
-    annoDecorator()(TargetClass);
-    expect(TargetClass.annotations).toEqual([new AnnoClass()]);
+    @annoDecorator()
+    class MyTargetAnnoClass {
+
+    }
+    expect(MyTargetAnnoClass.annotations).toEqual([new AnnoClass()]);
   });
 
   it("on second annotation", function() {
-    anno2Decorator("cheese", "grater")(TargetClass);
-    expect(TargetClass.annotations).toEqual([new Anno2Class("cheese", "grater"), new AnnoClass()]);
+    @annoDecorator()
+    @anno2Decorator("cheese", "grater")
+    class MyTargetAnno2Class {
+
+    }
+    expect(MyTargetAnno2Class.annotations).toContain(new Anno2Class("cheese", "grater"), new AnnoClass());
   });
 
   it("operating on method", function() {
